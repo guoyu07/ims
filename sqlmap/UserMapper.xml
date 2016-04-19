@@ -1,0 +1,874 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sqlmap.UserMapper">
+  <resultMap id="BaseResultMap" type="com.xuexibao.ops.model.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="agendar" jdbcType="CHAR" property="agendar" />
+    <result column="nationality" jdbcType="CHAR" property="nationality" />
+    <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
+    <result column="identity_id" jdbcType="VARCHAR" property="identityId" />
+    <result column="birth_place" jdbcType="VARCHAR" property="birthPlace" />
+    <result column="work_time" jdbcType="TIMESTAMP" property="workTime" />
+    <result column="party_time" jdbcType="TIMESTAMP" property="partyTime" />
+    <result column="education_background" jdbcType="VARCHAR" property="educationBackground" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="personal_identity" jdbcType="VARCHAR" property="personalIdentity" />
+    <result column="party_branch" jdbcType="VARCHAR" property="partyBranch" />
+    <result column="party_status" jdbcType="VARCHAR" property="partyStatus" />
+    <result column="apply_time" jdbcType="TIMESTAMP" property="applyTime" />
+    <result column="tel" jdbcType="INTEGER" property="tel" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
+    <result column="group_name" jdbcType="VARCHAR" property="groupName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="team_id" jdbcType="INTEGER" property="teamId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, agendar, nationality, birthday, identity_id, birth_place, work_time, party_time, 
+    education_background, title, personal_identity, party_branch, party_status, apply_time, 
+    tel, role, group_name, create_time, update_time, password, team_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xuexibao.ops.model.User">
+    insert into user_info (id, name, agendar, 
+      nationality, birthday, identity_id, 
+      birth_place, work_time, party_time, 
+      education_background, title, personal_identity, 
+      party_branch, party_status, apply_time, 
+      tel, role, group_name, 
+      create_time, update_time, password, 
+      team_id)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{agendar,jdbcType=CHAR}, 
+      #{nationality,jdbcType=CHAR}, #{birthday,jdbcType=TIMESTAMP}, #{identityId,jdbcType=VARCHAR}, 
+      #{birthPlace,jdbcType=VARCHAR}, #{workTime,jdbcType=TIMESTAMP}, #{partyTime,jdbcType=TIMESTAMP}, 
+      #{educationBackground,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{personalIdentity,jdbcType=VARCHAR}, 
+      #{partyBranch,jdbcType=VARCHAR}, #{partyStatus,jdbcType=VARCHAR}, #{applyTime,jdbcType=TIMESTAMP}, 
+      #{tel,jdbcType=INTEGER}, #{role,jdbcType=VARCHAR}, #{groupName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{password,jdbcType=VARCHAR}, 
+      #{teamId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xuexibao.ops.model.User">
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="agendar != null">
+        agendar,
+      </if>
+      <if test="nationality != null">
+        nationality,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="identityId != null">
+        identity_id,
+      </if>
+      <if test="birthPlace != null">
+        birth_place,
+      </if>
+      <if test="workTime != null">
+        work_time,
+      </if>
+      <if test="partyTime != null">
+        party_time,
+      </if>
+      <if test="educationBackground != null">
+        education_background,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="personalIdentity != null">
+        personal_identity,
+      </if>
+      <if test="partyBranch != null">
+        party_branch,
+      </if>
+      <if test="partyStatus != null">
+        party_status,
+      </if>
+      <if test="applyTime != null">
+        apply_time,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="role != null">
+        role,
+      </if>
+      <if test="groupName != null">
+        group_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="teamId != null">
+        team_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="agendar != null">
+        #{agendar,jdbcType=CHAR},
+      </if>
+      <if test="nationality != null">
+        #{nationality,jdbcType=CHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="identityId != null">
+        #{identityId,jdbcType=VARCHAR},
+      </if>
+      <if test="birthPlace != null">
+        #{birthPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="workTime != null">
+        #{workTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="partyTime != null">
+        #{partyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="educationBackground != null">
+        #{educationBackground,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="personalIdentity != null">
+        #{personalIdentity,jdbcType=VARCHAR},
+      </if>
+      <if test="partyBranch != null">
+        #{partyBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="partyStatus != null">
+        #{partyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null">
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=INTEGER},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="groupName != null">
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="teamId != null">
+        #{teamId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xuexibao.ops.model.User">
+    update user_info
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="agendar != null">
+        agendar = #{agendar,jdbcType=CHAR},
+      </if>
+      <if test="nationality != null">
+        nationality = #{nationality,jdbcType=CHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="identityId != null">
+        identity_id = #{identityId,jdbcType=VARCHAR},
+      </if>
+      <if test="birthPlace != null">
+        birth_place = #{birthPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="workTime != null">
+        work_time = #{workTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="partyTime != null">
+        party_time = #{partyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="educationBackground != null">
+        education_background = #{educationBackground,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="personalIdentity != null">
+        personal_identity = #{personalIdentity,jdbcType=VARCHAR},
+      </if>
+      <if test="partyBranch != null">
+        party_branch = #{partyBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="partyStatus != null">
+        party_status = #{partyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null">
+        apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=INTEGER},
+      </if>
+      <if test="role != null">
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="groupName != null">
+        group_name = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="teamId != null">
+        team_id = #{teamId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexibao.ops.model.User">
+    update user_info
+    set name = #{name,jdbcType=VARCHAR},
+      agendar = #{agendar,jdbcType=CHAR},
+      nationality = #{nationality,jdbcType=CHAR},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      identity_id = #{identityId,jdbcType=VARCHAR},
+      birth_place = #{birthPlace,jdbcType=VARCHAR},
+      work_time = #{workTime,jdbcType=TIMESTAMP},
+      party_time = #{partyTime,jdbcType=TIMESTAMP},
+      education_background = #{educationBackground,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      personal_identity = #{personalIdentity,jdbcType=VARCHAR},
+      party_branch = #{partyBranch,jdbcType=VARCHAR},
+      party_status = #{partyStatus,jdbcType=VARCHAR},
+      apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      tel = #{tel,jdbcType=INTEGER},
+      role = #{role,jdbcType=VARCHAR},
+      group_name = #{groupName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      password = #{password,jdbcType=VARCHAR},
+      team_id = #{teamId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.xuexibao.ops.model.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="agendar" jdbcType="CHAR" property="agendar" />
+    <result column="nationality" jdbcType="CHAR" property="nationality" />
+    <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
+    <result column="identity_id" jdbcType="VARCHAR" property="identityId" />
+    <result column="birth_place" jdbcType="VARCHAR" property="birthPlace" />
+    <result column="work_time" jdbcType="TIMESTAMP" property="workTime" />
+    <result column="party_time" jdbcType="TIMESTAMP" property="partyTime" />
+    <result column="education_background" jdbcType="VARCHAR" property="educationBackground" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="personal_identity" jdbcType="VARCHAR" property="personalIdentity" />
+    <result column="party_branch" jdbcType="VARCHAR" property="partyBranch" />
+    <result column="party_status" jdbcType="VARCHAR" property="partyStatus" />
+    <result column="apply_time" jdbcType="TIMESTAMP" property="applyTime" />
+    <result column="tel" jdbcType="INTEGER" property="tel" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
+    <result column="group_name" jdbcType="VARCHAR" property="groupName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="team_id" jdbcType="INTEGER" property="teamId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, agendar, nationality, birthday, identity_id, birth_place, work_time, party_time, 
+    education_background, title, personal_identity, party_branch, party_status, apply_time, 
+    tel, role, group_name, create_time, update_time, password, team_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xuexibao.ops.model.User">
+    insert into user_info (id, name, agendar, 
+      nationality, birthday, identity_id, 
+      birth_place, work_time, party_time, 
+      education_background, title, personal_identity, 
+      party_branch, party_status, apply_time, 
+      tel, role, group_name, 
+      create_time, update_time, password, 
+      team_id)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{agendar,jdbcType=CHAR}, 
+      #{nationality,jdbcType=CHAR}, #{birthday,jdbcType=TIMESTAMP}, #{identityId,jdbcType=VARCHAR}, 
+      #{birthPlace,jdbcType=VARCHAR}, #{workTime,jdbcType=TIMESTAMP}, #{partyTime,jdbcType=TIMESTAMP}, 
+      #{educationBackground,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{personalIdentity,jdbcType=VARCHAR}, 
+      #{partyBranch,jdbcType=VARCHAR}, #{partyStatus,jdbcType=VARCHAR}, #{applyTime,jdbcType=TIMESTAMP}, 
+      #{tel,jdbcType=INTEGER}, #{role,jdbcType=VARCHAR}, #{groupName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{password,jdbcType=VARCHAR}, 
+      #{teamId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xuexibao.ops.model.User">
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="agendar != null">
+        agendar,
+      </if>
+      <if test="nationality != null">
+        nationality,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="identityId != null">
+        identity_id,
+      </if>
+      <if test="birthPlace != null">
+        birth_place,
+      </if>
+      <if test="workTime != null">
+        work_time,
+      </if>
+      <if test="partyTime != null">
+        party_time,
+      </if>
+      <if test="educationBackground != null">
+        education_background,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="personalIdentity != null">
+        personal_identity,
+      </if>
+      <if test="partyBranch != null">
+        party_branch,
+      </if>
+      <if test="partyStatus != null">
+        party_status,
+      </if>
+      <if test="applyTime != null">
+        apply_time,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="role != null">
+        role,
+      </if>
+      <if test="groupName != null">
+        group_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="teamId != null">
+        team_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="agendar != null">
+        #{agendar,jdbcType=CHAR},
+      </if>
+      <if test="nationality != null">
+        #{nationality,jdbcType=CHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="identityId != null">
+        #{identityId,jdbcType=VARCHAR},
+      </if>
+      <if test="birthPlace != null">
+        #{birthPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="workTime != null">
+        #{workTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="partyTime != null">
+        #{partyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="educationBackground != null">
+        #{educationBackground,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="personalIdentity != null">
+        #{personalIdentity,jdbcType=VARCHAR},
+      </if>
+      <if test="partyBranch != null">
+        #{partyBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="partyStatus != null">
+        #{partyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null">
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=INTEGER},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="groupName != null">
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="teamId != null">
+        #{teamId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xuexibao.ops.model.User">
+    update user_info
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="agendar != null">
+        agendar = #{agendar,jdbcType=CHAR},
+      </if>
+      <if test="nationality != null">
+        nationality = #{nationality,jdbcType=CHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="identityId != null">
+        identity_id = #{identityId,jdbcType=VARCHAR},
+      </if>
+      <if test="birthPlace != null">
+        birth_place = #{birthPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="workTime != null">
+        work_time = #{workTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="partyTime != null">
+        party_time = #{partyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="educationBackground != null">
+        education_background = #{educationBackground,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="personalIdentity != null">
+        personal_identity = #{personalIdentity,jdbcType=VARCHAR},
+      </if>
+      <if test="partyBranch != null">
+        party_branch = #{partyBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="partyStatus != null">
+        party_status = #{partyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null">
+        apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=INTEGER},
+      </if>
+      <if test="role != null">
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="groupName != null">
+        group_name = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="teamId != null">
+        team_id = #{teamId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexibao.ops.model.User">
+    update user_info
+    set name = #{name,jdbcType=VARCHAR},
+      agendar = #{agendar,jdbcType=CHAR},
+      nationality = #{nationality,jdbcType=CHAR},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      identity_id = #{identityId,jdbcType=VARCHAR},
+      birth_place = #{birthPlace,jdbcType=VARCHAR},
+      work_time = #{workTime,jdbcType=TIMESTAMP},
+      party_time = #{partyTime,jdbcType=TIMESTAMP},
+      education_background = #{educationBackground,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      personal_identity = #{personalIdentity,jdbcType=VARCHAR},
+      party_branch = #{partyBranch,jdbcType=VARCHAR},
+      party_status = #{partyStatus,jdbcType=VARCHAR},
+      apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      tel = #{tel,jdbcType=INTEGER},
+      role = #{role,jdbcType=VARCHAR},
+      group_name = #{groupName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      password = #{password,jdbcType=VARCHAR},
+      team_id = #{teamId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.xuexibao.ops.model.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="agendar" jdbcType="CHAR" property="agendar" />
+    <result column="nationality" jdbcType="CHAR" property="nationality" />
+    <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
+    <result column="identity_id" jdbcType="VARCHAR" property="identityId" />
+    <result column="birth_place" jdbcType="VARCHAR" property="birthPlace" />
+    <result column="work_time" jdbcType="TIMESTAMP" property="workTime" />
+    <result column="party_time" jdbcType="TIMESTAMP" property="partyTime" />
+    <result column="education_background" jdbcType="VARCHAR" property="educationBackground" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="personal_identity" jdbcType="VARCHAR" property="personalIdentity" />
+    <result column="party_branch" jdbcType="VARCHAR" property="partyBranch" />
+    <result column="party_status" jdbcType="VARCHAR" property="partyStatus" />
+    <result column="apply_time" jdbcType="TIMESTAMP" property="applyTime" />
+    <result column="tel" jdbcType="INTEGER" property="tel" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
+    <result column="group_name" jdbcType="VARCHAR" property="groupName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="team_id" jdbcType="INTEGER" property="teamId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, agendar, nationality, birthday, identity_id, birth_place, work_time, party_time, 
+    education_background, title, personal_identity, party_branch, party_status, apply_time, 
+    tel, role, group_name, create_time, update_time, password, team_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xuexibao.ops.model.User">
+    insert into user_info (id, name, agendar, 
+      nationality, birthday, identity_id, 
+      birth_place, work_time, party_time, 
+      education_background, title, personal_identity, 
+      party_branch, party_status, apply_time, 
+      tel, role, group_name, 
+      create_time, update_time, password, 
+      team_id)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{agendar,jdbcType=CHAR}, 
+      #{nationality,jdbcType=CHAR}, #{birthday,jdbcType=TIMESTAMP}, #{identityId,jdbcType=VARCHAR}, 
+      #{birthPlace,jdbcType=VARCHAR}, #{workTime,jdbcType=TIMESTAMP}, #{partyTime,jdbcType=TIMESTAMP}, 
+      #{educationBackground,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{personalIdentity,jdbcType=VARCHAR}, 
+      #{partyBranch,jdbcType=VARCHAR}, #{partyStatus,jdbcType=VARCHAR}, #{applyTime,jdbcType=TIMESTAMP}, 
+      #{tel,jdbcType=INTEGER}, #{role,jdbcType=VARCHAR}, #{groupName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{password,jdbcType=VARCHAR}, 
+      #{teamId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xuexibao.ops.model.User">
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="agendar != null">
+        agendar,
+      </if>
+      <if test="nationality != null">
+        nationality,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="identityId != null">
+        identity_id,
+      </if>
+      <if test="birthPlace != null">
+        birth_place,
+      </if>
+      <if test="workTime != null">
+        work_time,
+      </if>
+      <if test="partyTime != null">
+        party_time,
+      </if>
+      <if test="educationBackground != null">
+        education_background,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="personalIdentity != null">
+        personal_identity,
+      </if>
+      <if test="partyBranch != null">
+        party_branch,
+      </if>
+      <if test="partyStatus != null">
+        party_status,
+      </if>
+      <if test="applyTime != null">
+        apply_time,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="role != null">
+        role,
+      </if>
+      <if test="groupName != null">
+        group_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="teamId != null">
+        team_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="agendar != null">
+        #{agendar,jdbcType=CHAR},
+      </if>
+      <if test="nationality != null">
+        #{nationality,jdbcType=CHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="identityId != null">
+        #{identityId,jdbcType=VARCHAR},
+      </if>
+      <if test="birthPlace != null">
+        #{birthPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="workTime != null">
+        #{workTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="partyTime != null">
+        #{partyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="educationBackground != null">
+        #{educationBackground,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="personalIdentity != null">
+        #{personalIdentity,jdbcType=VARCHAR},
+      </if>
+      <if test="partyBranch != null">
+        #{partyBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="partyStatus != null">
+        #{partyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null">
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=INTEGER},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="groupName != null">
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="teamId != null">
+        #{teamId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xuexibao.ops.model.User">
+    update user_info
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="agendar != null">
+        agendar = #{agendar,jdbcType=CHAR},
+      </if>
+      <if test="nationality != null">
+        nationality = #{nationality,jdbcType=CHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="identityId != null">
+        identity_id = #{identityId,jdbcType=VARCHAR},
+      </if>
+      <if test="birthPlace != null">
+        birth_place = #{birthPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="workTime != null">
+        work_time = #{workTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="partyTime != null">
+        party_time = #{partyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="educationBackground != null">
+        education_background = #{educationBackground,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="personalIdentity != null">
+        personal_identity = #{personalIdentity,jdbcType=VARCHAR},
+      </if>
+      <if test="partyBranch != null">
+        party_branch = #{partyBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="partyStatus != null">
+        party_status = #{partyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null">
+        apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=INTEGER},
+      </if>
+      <if test="role != null">
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="groupName != null">
+        group_name = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="teamId != null">
+        team_id = #{teamId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexibao.ops.model.User">
+    update user_info
+    set name = #{name,jdbcType=VARCHAR},
+      agendar = #{agendar,jdbcType=CHAR},
+      nationality = #{nationality,jdbcType=CHAR},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      identity_id = #{identityId,jdbcType=VARCHAR},
+      birth_place = #{birthPlace,jdbcType=VARCHAR},
+      work_time = #{workTime,jdbcType=TIMESTAMP},
+      party_time = #{partyTime,jdbcType=TIMESTAMP},
+      education_background = #{educationBackground,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      personal_identity = #{personalIdentity,jdbcType=VARCHAR},
+      party_branch = #{partyBranch,jdbcType=VARCHAR},
+      party_status = #{partyStatus,jdbcType=VARCHAR},
+      apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      tel = #{tel,jdbcType=INTEGER},
+      role = #{role,jdbcType=VARCHAR},
+      group_name = #{groupName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      password = #{password,jdbcType=VARCHAR},
+      team_id = #{teamId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

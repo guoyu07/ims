@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.ops.model.DedupBaseExam" >
+  <resultMap id="BaseResultMap" type="com.xuexibao.ops.model.DedupBaseExam" >
+    <result column="group_id" 		property="groupId" 		jdbcType="INTEGER" />
+    <result column="question_id" 	property="questionId" 	jdbcType="BIGINT" />
+    <result column="status" 		property="status" 		jdbcType="TINYINT" />
+    <result column="user_key" 		property="userKey" 		jdbcType="VARCHAR" />
+    <result column="group_count" 	property="groupCount" 	jdbcType="TINYINT" />
+    <result column="phase" 			property="phase" 		jdbcType="TINYINT" />
+    <result column="round" 			property="round" 		jdbcType="TINYINT" />
+    <result column="tiny_phase" 	property="tinyPhase" 	jdbcType="TINYINT" />
+    <result column="create_time" 	property="createTime" 	jdbcType="TIMESTAMP" />
+    <result column="update_time" 	property="updateTime" 	jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    group_id, question_id, status, user_key, group_count, create_time, update_time,phase,round,tiny_phase
+  </sql>
+
+  <select id="searchList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from dedup_base_exam
+		<where>
+			<choose>
+				<when test="status == 0">
+					and  status = 0
+				</when>
+				<when test="status == 1">
+			 		and  status = 1
+				</when>
+				<when test="status == 2">
+			      	DATE_ADD(update_time,INTERVAL 120 MINUTE) &lt; NOW()
+			 		and status = 2
+				</when>
+			</choose>
+			<choose>
+				<when test="phase == 0">
+					and ( phase = 0  or phase is null) 
+				</when>
+				<when test="phase == 1">
+			 		and  phase = 1
+				</when>
+			</choose>					
+		</where> 
+		order by group_id
+		<if test="limit != null">
+		  limit #{limit};
+		</if>	
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dedup_base_exam
+    where group_id = #{groupId,jdbcType=INTEGER}
+  </select>
+
+  <update id="updateByGroupId" parameterType="com.xuexibao.ops.model.DedupBaseExam" >
+    update dedup_base_exam
+    <set >
+    	update_time = now(),
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="userKey != null" >
+        user_key = #{userKey,jdbcType=VARCHAR},
+      </if>
+      <if test="phase != null" >
+        phase = #{phase,jdbcType=TINYINT},
+      </if>
+      <if test="round != null" >
+        round = #{round,jdbcType=TINYINT},
+      </if>
+      <if test="tinyPhase != null" >
+        tiny_phase = #{tinyPhase,jdbcType=TINYINT},
+      </if>      
+    </set>
+    where group_id = #{groupId,jdbcType=INTEGER}
+  </update>
+  
+  
+  <update id="updateByProblemData" parameterType="com.xuexibao.ops.model.DedupBaseExam" >
+    update dedup_base_exam
+    <set>
+    	update_time = now(),
+    	user_key = null,
+        status = 0
+    </set>
+    <where> 
+    	status = 1
+		<choose>
+			<when test="phase == 0">
+				and ( phase = 0  or phase is null) 
+			</when>
+			<when test="phase == 1">
+		 		and  phase = 1
+			</when>
+		</choose>
+	</where>			    
+  </update>  
+</mapper>

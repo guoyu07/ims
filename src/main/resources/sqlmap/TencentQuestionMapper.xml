@@ -1,0 +1,632 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.ops.model.TencentQuestion" >
+  <resultMap id="BaseResultMap" type="com.xuexibao.ops.model.TencentQuestion" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="learnPhase" property="learnphase" jdbcType="VARCHAR" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="diff" property="diff" jdbcType="VARCHAR" />
+    <result column="knowledge" property="knowledge" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="tranid" property="tranid" jdbcType="BIGINT" />
+    <result column="real_subject" property="realSubject" jdbcType="INTEGER" />
+    <result column="ops" property="ops" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="orc_picture_id" property="orcPictureId" jdbcType="BIGINT" />
+    <result column="real_type" property="realType" jdbcType="INTEGER" />
+    <result column="real_learnPhase" property="realLearnPhase" jdbcType="INTEGER" />
+    <result column="real_knowledge" property="realKnowledge" jdbcType="VARCHAR" />
+    <result column="real_diff" property="realDiff" jdbcType="TINYINT" />
+    <result column="question_category" property="questionCategory" jdbcType="VARCHAR" />
+    <result column="teacher" property="teacher" jdbcType="VARCHAR" />
+    <result column="teacher_team" property="teacherTeam" jdbcType="INTEGER" />
+    <result column="teacher_time" property="teacherTime" jdbcType="TIMESTAMP" />
+    <result column="audit_reason" property="auditReason" jdbcType="VARCHAR" />
+    <result column="teacher_audit_time" property="teacherAuditTime" jdbcType="TIMESTAMP" />
+    <result column="approver" property="approver" jdbcType="VARCHAR" />
+    <result column="teacher_status" property="teacherStatus" jdbcType="TINYINT" />
+    <result column="process_status" property="processStatus" jdbcType="TINYINT" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="answer" property="answer" jdbcType="LONGVARCHAR" />
+    <result column="solution" property="solution" jdbcType="LONGVARCHAR" />
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+    <result column="latex" property="latex" jdbcType="LONGVARCHAR" />
+    <result column="answerLatex" property="answerlatex" jdbcType="LONGVARCHAR" />
+    <result column="select_content" property="selectContent" jdbcType="LONGVARCHAR" />
+    <result column="select_option" property="selectOption" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, type, learnPhase, subject, diff, knowledge, source, url, status, tranid, real_subject, 
+    ops, create_time, update_time, orc_picture_id, real_type, real_learnPhase, real_knowledge, 
+    real_diff, question_category, teacher, teacher_team, teacher_time, audit_reason, 
+    teacher_audit_time, approver, teacher_status, process_status, content, answer, solution, remark, latex, answerLatex,
+    select_content, select_option
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tencent_question
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tencent_question
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xuexibao.ops.model.TencentQuestion" >
+    insert into tencent_question (id, type, learnPhase, 
+      subject, diff, knowledge, 
+      source, url, status, tranid,
+      real_subject, ops, create_time, 
+      update_time, orc_picture_id, real_type, 
+      real_learnPhase, real_knowledge, real_diff, 
+      question_category, teacher, teacher_team, 
+      teacher_time, audit_reason, teacher_audit_time, 
+      approver, teacher_status, process_status, 
+      content, answer, solution, 
+      remark, latex, answerLatex
+      , select_content, select_option)
+    values (#{id,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, #{learnphase,jdbcType=VARCHAR}, 
+      #{subject,jdbcType=VARCHAR}, #{diff,jdbcType=VARCHAR}, #{knowledge,jdbcType=VARCHAR}, 
+      #{source,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{tranid,jdbcType=BIGINT}, 
+      #{realSubject,jdbcType=INTEGER}, #{ops,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{orcPictureId,jdbcType=BIGINT}, #{realType,jdbcType=INTEGER}, 
+      #{realLearnPhase,jdbcType=INTEGER}, #{realKnowledge,jdbcType=VARCHAR}, #{realDiff,jdbcType=TINYINT}, 
+      #{questionCategory,jdbcType=VARCHAR}, #{teacher,jdbcType=VARCHAR}, #{teacherTeam,jdbcType=INTEGER}, 
+      #{teacherTime,jdbcType=TIMESTAMP}, #{auditReason,jdbcType=VARCHAR}, #{teacherAuditTime,jdbcType=TIMESTAMP}, 
+      #{approver,jdbcType=VARCHAR}, #{teacherStatus,jdbcType=TINYINT}, #{processStatus,jdbcType=TINYINT}, 
+      #{content,jdbcType=LONGVARCHAR}, #{answer,jdbcType=LONGVARCHAR}, #{solution,jdbcType=LONGVARCHAR}, 
+      #{remark,jdbcType=LONGVARCHAR}, #{latex,jdbcType=LONGVARCHAR}, #{answerlatex,jdbcType=LONGVARCHAR}
+      ,#{selectContent,jdbcType=LONGVARCHAR}
+      ,#{selectOption,jdbcType=LONGVARCHAR})
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xuexibao.ops.model.TencentQuestion" >
+    insert into tencent_question
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="learnphase != null" >
+        learnPhase,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="diff != null" >
+        diff,
+      </if>
+      <if test="knowledge != null" >
+        knowledge,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="tranid != null" >
+        tranid,
+      </if>
+      <if test="realSubject != null" >
+        real_subject,
+      </if>
+      <if test="ops != null" >
+        ops,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="orcPictureId != null" >
+        orc_picture_id,
+      </if>
+      <if test="realType != null" >
+        real_type,
+      </if>
+      <if test="realLearnPhase != null" >
+        real_learnPhase,
+      </if>
+      <if test="realKnowledge != null" >
+        real_knowledge,
+      </if>
+      <if test="realDiff != null" >
+        real_diff,
+      </if>
+      <if test="questionCategory != null" >
+        question_category,
+      </if>
+      <if test="teacher != null" >
+        teacher,
+      </if>
+      <if test="teacherTeam != null" >
+        teacher_team,
+      </if>
+      <if test="teacherTime != null" >
+        teacher_time,
+      </if>
+      <if test="auditReason != null" >
+        audit_reason,
+      </if>
+      <if test="teacherAuditTime != null" >
+        teacher_audit_time,
+      </if>
+      <if test="approver != null" >
+        approver,
+      </if>
+      <if test="teacherStatus != null" >
+        teacher_status,
+      </if>
+      <if test="processStatus != null" >
+        process_status,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="answer != null" >
+        answer,
+      </if>
+      <if test="solution != null" >
+        solution,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="latex != null" >
+        latex,
+      </if>
+      <if test="answerlatex != null" >
+        answerLatex,
+      </if>
+      <if test="selectContent != null" >
+        select_content,
+      </if>
+      <if test="selectOption != null" >
+        select_option,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="learnphase != null" >
+        #{learnphase,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="diff != null" >
+        #{diff,jdbcType=VARCHAR},
+      </if>
+      <if test="knowledge != null" >
+        #{knowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="tranid != null" >
+        #{tranid,jdbcType=BIGINT},
+      </if>
+      <if test="realSubject != null" >
+        #{realSubject,jdbcType=INTEGER},
+      </if>
+      <if test="ops != null" >
+        #{ops,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orcPictureId != null" >
+        #{orcPictureId,jdbcType=BIGINT},
+      </if>
+      <if test="realType != null" >
+        #{realType,jdbcType=INTEGER},
+      </if>
+      <if test="realLearnPhase != null" >
+        #{realLearnPhase,jdbcType=INTEGER},
+      </if>
+      <if test="realKnowledge != null" >
+        #{realKnowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="realDiff != null" >
+        #{realDiff,jdbcType=TINYINT},
+      </if>
+      <if test="questionCategory != null" >
+        #{questionCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="teacher != null" >
+        #{teacher,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherTeam != null" >
+        #{teacherTeam,jdbcType=INTEGER},
+      </if>
+      <if test="teacherTime != null" >
+        #{teacherTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditReason != null" >
+        #{auditReason,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherAuditTime != null" >
+        #{teacherAuditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approver != null" >
+        #{approver,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherStatus != null" >
+        #{teacherStatus,jdbcType=TINYINT},
+      </if>
+      <if test="processStatus != null" >
+        #{processStatus,jdbcType=TINYINT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answer != null" >
+        #{answer,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="solution != null" >
+        #{solution,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="latex != null" >
+        #{latex,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answerlatex != null" >
+        #{answerlatex,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="selectContent != null" >
+        #{selectContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="selectOption != null" >
+        #{selectOption,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateIfNecessary" parameterType="com.xuexibao.ops.model.TencentQuestion" >
+    update tencent_question
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="learnphase != null" >
+        learnPhase = #{learnphase,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="diff != null" >
+        diff = #{diff,jdbcType=VARCHAR},
+      </if>
+      <if test="knowledge != null" >
+        knowledge = #{knowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="tranid != null" >
+        tranid = #{tranid,jdbcType=BIGINT},
+      </if>
+      <if test="realSubject != null" >
+        real_subject = #{realSubject,jdbcType=INTEGER},
+      </if>
+      <if test="ops != null" >
+        ops = #{ops,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orcPictureId != null" >
+        orc_picture_id = #{orcPictureId,jdbcType=BIGINT},
+      </if>
+      <if test="realType != null" >
+        real_type = #{realType,jdbcType=INTEGER},
+      </if>
+      <if test="realLearnPhase != null" >
+        real_learnPhase = #{realLearnPhase,jdbcType=INTEGER},
+      </if>
+      <if test="realKnowledge != null" >
+        real_knowledge = #{realKnowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="realDiff != null" >
+        real_diff = #{realDiff,jdbcType=TINYINT},
+      </if>
+      <if test="questionCategory != null" >
+        question_category = #{questionCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="teacher != null" >
+        teacher = #{teacher,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherTeam != null" >
+        teacher_team = #{teacherTeam,jdbcType=INTEGER},
+      </if>
+      <if test="teacherTime != null" >
+        teacher_time = #{teacherTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditReason != null" >
+        audit_reason = #{auditReason,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherAuditTime != null" >
+        teacher_audit_time = #{teacherAuditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approver != null" >
+        approver = #{approver,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherStatus != null" >
+        teacher_status = #{teacherStatus,jdbcType=TINYINT},
+      </if>
+      <if test="processStatus != null" >
+        process_status = #{processStatus,jdbcType=TINYINT},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answer != null" >
+        answer = #{answer,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="solution != null" >
+        solution = #{solution,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="latex != null" >
+        latex = #{latex,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answerlatex != null" >
+        answerLatex = #{answerlatex,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="selectContent != null" >
+        select_content = #{selectContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="selectOption != null" >
+        select_option = #{selectOption,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexibao.ops.model.TencentQuestion" >
+    update tencent_question
+    set type = #{type,jdbcType=VARCHAR},
+      learnPhase = #{learnphase,jdbcType=VARCHAR},
+      subject = #{subject,jdbcType=VARCHAR},
+      diff = #{diff,jdbcType=VARCHAR},
+      knowledge = #{knowledge,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      tranid = #{tranid,jdbcType=BIGINT},
+      real_subject = #{realSubject,jdbcType=INTEGER},
+      ops = #{ops,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      orc_picture_id = #{orcPictureId,jdbcType=BIGINT},
+      real_type = #{realType,jdbcType=INTEGER},
+      real_learnPhase = #{realLearnPhase,jdbcType=INTEGER},
+      real_knowledge = #{realKnowledge,jdbcType=VARCHAR},
+      real_diff = #{realDiff,jdbcType=TINYINT},
+      question_category = #{questionCategory,jdbcType=VARCHAR},
+      teacher = #{teacher,jdbcType=VARCHAR},
+      teacher_team = #{teacherTeam,jdbcType=INTEGER},
+      teacher_time = #{teacherTime,jdbcType=TIMESTAMP},
+      audit_reason = #{auditReason,jdbcType=VARCHAR},
+      teacher_audit_time = #{teacherAuditTime,jdbcType=TIMESTAMP},
+      approver = #{approver,jdbcType=VARCHAR},
+      teacher_status = #{teacherStatus,jdbcType=TINYINT},
+      process_status = #{processStatus,jdbcType=TINYINT},
+      content = #{content,jdbcType=LONGVARCHAR},
+      answer = #{answer,jdbcType=LONGVARCHAR},
+      solution = #{solution,jdbcType=LONGVARCHAR},
+      remark = #{remark,jdbcType=LONGVARCHAR},
+      latex = #{latex,jdbcType=LONGVARCHAR},
+      answerLatex = #{answerlatex,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getSignMarkList" resultType="com.xuexibao.ops.model.TencentQuestion">
+    select 
+    id, process_status
+    from tencent_question
+    <where>
+		teacher_status = 0
+	<choose>
+		<when test="processStatus == 0">
+			and  ( process_status = 0 or process_status is null)
+		</when>
+		<when test="processStatus == 1">
+	 		and  process_status = 1
+		</when>
+		<when test="processStatus == 2">
+	      	and DATE_ADD(update_time,INTERVAL 120 MINUTE) &lt; NOW()
+	 		and process_status = 2
+		</when>
+	</choose>
+	</where> 
+		order by id
+		<if test="limit != null">
+		  limit #{limit};
+		</if>    
+  </select>
+  <update id="recallDisableData" parameterType="com.xuexibao.ops.model.TencentQuestion" >
+    update tencent_question
+    <set>
+        process_status = 0
+    </set>
+    <where> 
+    	process_status = 1
+    or	process_status = 2
+	</where>			    
+  </update>
+  <update id="updateProcessStatusById" parameterType="com.xuexibao.ops.model.TencentQuestion" >
+    update tencent_question
+    <set>
+        process_status = #{processStatus,jdbcType=INTEGER}
+    </set>
+    <where>
+    	id = #{id,jdbcType=BIGINT}
+	</where>		    
+  </update>
+	<select id="auditNext" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tencent_question
+		<where>
+			teacher_team = #{teacherTeam,jdbcType=INTEGER}
+			and teacher_status = 1
+		</where>
+		limit 1;
+	</select>
+	<select id="searchTeacherCount" resultType="long">
+		select
+		count(1)
+		from tencent_question
+		<where>
+			<if test="questionId != null">
+				id = #{questionId,jdbcType=BIGINT}
+			</if>
+			<if test="subject != null">
+				AND real_subject = #{subject,jdbcType=INTEGER}
+			</if>
+			<if test="teacherStatus != null">
+				AND teacher_status = #{teacherStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="teacherStatus == null">
+				AND teacher_status != 0
+			</if>
+			<if test="teacher != null and teacher != ''">
+				AND teacher = #{teacher,jdbcType=VARCHAR}
+			</if>
+			<if test="teacherTeam != null">
+				AND teacher_team = #{teacherTeam,jdbcType=INTEGER}
+			</if>
+			<if test="startEditDate != null">
+				AND teacher_time &gt;= #{startEditDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endEditDate != null">
+				AND teacher_time &lt;= #{endEditDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="startAuditDate != null">
+				AND teacher_audit_time &gt;= #{startAuditDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endAuditDate != null">
+				AND teacher_audit_time &lt;= #{endAuditDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+	</select>
+	<select id="searchTeacherList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tencent_question
+		<where>
+			<if test="questionId != null">
+				id = #{questionId,jdbcType=BIGINT}
+			</if>
+			<if test="subject != null">
+				AND real_subject = #{subject,jdbcType=INTEGER}
+			</if>
+			<if test="teacherStatus != null">
+				AND teacher_status = #{teacherStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="teacherStatus == null">
+				AND teacher_status != 0
+			</if>
+			<if test="teacher != null and teacher != ''">
+				AND teacher = #{teacher,jdbcType=VARCHAR}
+			</if>
+			<if test="teacherTeam != null">
+				AND teacher_team = #{teacherTeam,jdbcType=INTEGER}
+			</if>
+			<if test="startEditDate != null">
+				AND teacher_time &gt;= #{startEditDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endEditDate != null">
+				AND teacher_time &lt;= #{endEditDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="startAuditDate != null">
+				AND teacher_audit_time &gt;= #{startAuditDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endAuditDate != null">
+				AND teacher_audit_time &lt;= #{endAuditDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+		order by teacher_status 
+		<if test="audit != null and audit == false">
+			desc
+		</if>
+		<if test="offset != null and limit != null">
+		limit #{offset},#{limit};
+		</if>
+	</select>
+	<select id="getByIdWithoutJoin" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from tencent_question
+		where tencent_question.id = #{id,jdbcType=BIGINT}
+	</select>
+	<update id="auditTeacherTranOps" parameterType="java.util.List">
+		update tencent_question
+		<set>
+	      <if test="approver != null and approver != ''" >
+	        approver = #{approver,jdbcType=VARCHAR},
+	      </if>
+	      <if test="auditReason != null" >
+	        audit_reason = #{auditReason,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="teacherStatus != null" >
+	        teacher_status = #{teacherStatus,jdbcType=INTEGER},
+	      </if>
+	      <if test="auditDate != null" >
+	        teacher_audit_time = #{auditDate,jdbcType=TIMESTAMP},
+	      </if>
+		</set>
+    	where id in (
+		<foreach collection="questionId" item="item" index="index" separator=",">
+			#{item}
+		</foreach>
+		)
+	</update>
+	<select id="getByTranId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from tencent_question
+		where tranid = #{tranid,jdbcType=BIGINT}
+	</select>
+	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from tencent_question
+		where tencent_question.id = #{id,jdbcType=BIGINT}
+	</select>
+</mapper>

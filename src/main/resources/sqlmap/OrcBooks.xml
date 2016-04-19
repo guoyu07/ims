@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.ops.model.OrcBooks" >
+  <resultMap id="BaseResultMap" type="com.xuexibao.ops.model.OrcBooks" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="bookid" property="bookid" jdbcType="BIGINT" />
+    <result column="operator_name" property="operatorName" jdbcType="VARCHAR" />
+    <result column="operator_startime" property="operatorStartime" jdbcType="TIMESTAMP" />
+    <result column="operator_endtime" property="operatorEndtime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <association property="books" column="{bookid=id}" javaType="com.xuexibao.ops.model.Books">
+		<id column="id" property="id" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="subject" property="subject" jdbcType="VARCHAR" />
+        <result column="grade" property="grade" jdbcType="VARCHAR" />
+        <result column="isbn" property="isbn" jdbcType="VARCHAR" />
+        <result column="source_id" property="sourceId" jdbcType="VARCHAR" />
+        <result column="publishing_house" property="publishingHouse" jdbcType="VARCHAR" />
+	</association>
+    <association property="userinfo" column="{operator_name=userKey}" javaType="com.xuexibao.ops.model.UserInfo">
+		<result column="user_key" property="userKey" jdbcType="VARCHAR" />
+         <result column="user_name" property="userName" jdbcType="VARCHAR" />
+         <result column="team_id" property="teamId" jdbcType="INTEGER" />
+	</association>
+	<association property="tikuTeam" column="{team_id=id}" javaType="com.xuexibao.ops.model.TikuTeam">
+		<id column="id" property="id" jdbcType="INTEGER" />
+        <result column="teamName" property="name" jdbcType="VARCHAR" />
+	</association>
+  </resultMap>
+    
+  <sql id="Base_Column_List" >
+    orc_books.id, bookid, operator_name, operator_startime, operator_endtime, orc_books.status, orc_books.operator, 
+    orc_books.create_time, orc_books.update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from orc_books
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from orc_books
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xuexibao.ops.model.OrcBooks" >
+    insert into orc_books (id, bookid, operator_name, 
+      operator_startime, operator_endtime, 
+      status, operator, create_time, 
+      update_time)
+    values (#{id,jdbcType=BIGINT}, #{bookid,jdbcType=BIGINT}, #{operatorName,jdbcType=VARCHAR}, 
+      #{operatorStartime,jdbcType=TIMESTAMP}, #{operatorEndtime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{operator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xuexibao.ops.model.OrcBooks" >
+    insert into orc_books
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="bookid != null" >
+        bookid,
+      </if>
+      <if test="operatorName != null" >
+        operator_name,
+      </if>
+      <if test="operatorStartime != null" >
+        operator_startime,
+      </if>
+      <if test="operatorEndtime != null" >
+        operator_endtime,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="bookid != null" >
+        #{bookid,jdbcType=BIGINT},
+      </if>
+      <if test="operatorName != null" >
+        #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorStartime != null" >
+        #{operatorStartime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operatorEndtime != null" >
+        #{operatorEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+    <update id="updateStatus" parameterType="com.xuexibao.ops.model.OrcBooks" >
+    update orc_books
+    <set >
+      <if test="operator != null and operator != ''" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operatorEndtime != null" >
+        operator_endtime = #{operatorEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+       status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateIfNecessary" parameterType="com.xuexibao.ops.model.OrcBooks" >
+    update orc_books
+    <set >
+      <if test="bookid != null" >
+        bookid = #{bookid,jdbcType=BIGINT},
+      </if>
+      <if test="operatorName != null" >
+        operator_name = #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorStartime != null" >
+        operator_startime = #{operatorStartime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operatorEndtime != null" >
+        operator_endtime = #{operatorEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexibao.ops.model.OrcBooks" >
+    update orc_books
+    set bookid = #{bookid,jdbcType=BIGINT},
+      operator_name = #{operatorName,jdbcType=VARCHAR},
+      operator_startime = #{operatorStartime,jdbcType=TIMESTAMP},
+      operator_endtime = #{operatorEndtime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      operator = #{operator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from orc_books
+		<where>
+			<if test="Id != null">
+				id = #{Id,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+	  <select id="getByBookId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from orc_books
+		<where>
+			<if test="bookId != null">
+				bookid = #{bookId,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+  <select id="searchList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		 ,books.name,books.isbn,books.publishing_house,books.source_id,user_info.team_id,tiku_team.name teamName from orc_books 
+		left join books on orc_books.bookid=books.id
+		left join user_info on orc_books.operator_name=user_info.user_key
+		left join tiku_team on user_info.team_id=tiku_team.id
+		<where>
+			<if test="name != null and name != ''">
+				books.name = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="isbn != null and isbn != ''">
+				AND books.isbn = #{isbn,jdbcType=VARCHAR}
+			</if>
+			<if test="operatorName != null and operatorName != ''">
+				AND operator_name = #{operatorName,jdbcType=VARCHAR}
+			</if>
+			<if test="teamName != null and teamName != ''">
+				AND tiku_team.name = #{teamName,jdbcType=VARCHAR}
+			</if>
+			<if test="teamId != null ">
+				AND tiku_team.id = #{teamId,jdbcType=VARCHAR}
+			</if>
+			<if test="status != null ">
+				AND orc_books.status = #{status,jdbcType=VARCHAR}
+			</if>
+			<if test="startDate != null">
+				AND orc_books.operator_endtime &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND orc_books.operator_endtime &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+		order by orc_books.create_time desc
+		<if test="offset != null and limit != null">
+		limit #{offset},#{limit};
+		</if>
+	</select>
+	<select id="searchCount" resultType="long">
+		select
+		count(1)
+		from orc_books 
+		left join books on orc_books.bookid=books.id
+		left join user_info on orc_books.operator_name=user_info.user_key
+		left join tiku_team on user_info.team_id=tiku_team.id
+		<where>
+			<if test="name != null and name != ''">
+				books.name = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="isbn != null and isbn != ''">
+				AND books.isbn = #{isbn,jdbcType=VARCHAR}
+			</if>
+			<if test="operatorName != null and operatorName != ''">
+				AND operator_name = #{operatorName,jdbcType=VARCHAR}
+			</if>
+			<if test="teamName != null and teamName != ''">
+				AND tiku_team.name = #{teamName,jdbcType=VARCHAR}
+			</if>
+			<if test="teamId != null ">
+				AND tiku_team.id = #{teamId,jdbcType=VARCHAR}
+			</if>
+			<if test="status != null ">
+				AND orc_books.status = #{status,jdbcType=VARCHAR}
+			</if>
+			<if test="startDate != null">
+				AND orc_books.operator_endtime &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND orc_books.operator_endtime &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+	</select>
+</mapper>

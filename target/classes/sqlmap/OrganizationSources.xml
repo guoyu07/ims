@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.ops.model.OrganizationSources" >
+  <resultMap id="BaseResultMap" type="com.xuexibao.ops.model.OrganizationSources" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="organization_name" property="organizationName" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, organization_name, status, operator, create_time, update_time
+  </sql>
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from organization_sources
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="getOrganizationSourcesById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from organization_sources
+		<where>
+			<if test="Id != null">
+				id = #{Id,jdbcType=INTEGER}
+			</if>
+		</where>
+   </select>
+   <select id="getOrganizationSourcesByName" resultMap="BaseResultMap" >
+		select
+		<include refid="Base_Column_List" />
+		from organization_sources
+		<where>
+			<if test="name != null and name != ''">
+				 organization_name = #{name,jdbcType=VARCHAR}
+			</if>
+		</where>
+   </select>
+   <select id="getIdByName" resultType="java.lang.Long">
+		select
+		id
+		from organization_sources
+		<where>
+			<if test="name != null and name != ''">
+				 organization_name = #{name,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from organization_sources
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xuexibao.ops.model.OrganizationSources" >
+    insert into organization_sources (id, organization_name, status, 
+      operator, create_time, update_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{organizationName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{operator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xuexibao.ops.model.OrganizationSources" >
+    insert into organization_sources
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="organizationName != null" >
+        organization_name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="organizationName != null" >
+        #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xuexibao.ops.model.OrganizationSources" >
+    update organization_sources
+    <set >
+      <if test="organizationName != null" >
+        organization_name = #{organizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexibao.ops.model.OrganizationSources" >
+    update organization_sources
+    set organization_name = #{organizationName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      operator = #{operator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getListbyName" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		 from organization_sources
+			<where>
+			<if test="name != null and name != ''">
+				AND organization_name = #{name,jdbcType=VARCHAR} 
+			</if>
+			<if test="status != null and status != ''">
+				AND status = #{status,jdbcType=VARCHAR}
+			</if>
+		</where>
+		order by create_time desc	   
+	</select>
+     <select id="searchList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		 from organization_sources
+			<where>
+			<if test="name != null and name != ''">
+				organization_name = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="status != null and status != ''">
+				AND status = #{status,jdbcType=VARCHAR}
+			</if>
+			<if test="startDate != null">
+				AND create_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND create_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+		order by create_time desc
+		<if test="offset != null and limit != null">
+		limit #{offset},#{limit};
+		</if>
+	</select>
+	<select id="searchCount" resultType="long">
+		select
+		count(1)
+		from organization_sources
+		<where>
+			<if test="name != null and name != ''">
+				organization_name = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="status != null and status != ''">
+				AND status = #{status,jdbcType=VARCHAR}
+			</if>
+			<if test="startDate != null">
+				AND create_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND create_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+	</select>
+</mapper>

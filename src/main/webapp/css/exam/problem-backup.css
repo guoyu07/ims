@@ -1,0 +1,121 @@
+
+/*防止图片或者表格或者其他块元素超出*/
+.qy-ti_jiexinr div{width: 100%;}
+.qy-ti_jiexinr img{max-width:100%;}
+.qy-ti_jiexinr table{max-width:100%;}
+
+/*for spider contents---*/
+/*1.菁优网样式表---*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote{margin:0;padding:0}
+fieldset,img{border: 0 none}
+br{letter-spacing:normal}
+address,caption,cite,code,dfn,em,strong,var,optgroup{font-style:normal;font-weight:normal}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}h3{font-size:14px}
+abbr,acronym{border:0;font-variant:normal}
+input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit}
+code,kbd,samp,tt{font-size:100%}
+input,button,textarea,select{*font-size:100%}
+dl,ul,ol,ul{list-style:none;padding:0;margin:0;font-family:"Arial",sans-serif}
+table{font-size:12px}table td{line-height:20px}
+sup,sub{font-family:"Arial","Helvetica",sans-serif;font-size:11px}
+:link,:visited,ins{text-decoration: none}
+blockquote,q{quotes:none}
+blockquote:before,blockquote:after,q:before,q:after{content:none}
+html{}
+body{font-size:14px;font-family:"Arial","Microsoft YaHei","Microsoft JhengHei","Wingdings 3",sans-serif;color:#000 !important}
+tt{font-style:italic;font-size:16px}
+hr{clear:both}
+.clear{clear:both;width:100%;height:0;overflow:hidden}.clear2{clear:both;width:100%;height:10px;overflow:hidden}
+.fleft{float:left}.fright{float:right}
+.fromsys li{padding:3px 12px;font-size:12px}
+.docharts{margin:0 10px}
+.odd{background:#f0f0f0}
+table.composition{border-collapse:collapse;text-align:left;margin:2px;width:98%}
+table.composition th,table.composition td{line-height:30px;white-space:normal;word-break:break-all;border-width:0px;vertical-align:middle}
+table.questable{border-collapse:collapse;color:#333;margin:3px;font-size:12px}
+table.questable th,table.questable td{line-height:30px;padding:0 5px;white-space:normal;word-break:break-all;border:1px solid #000;vertical-align:middle}
+/*mathtag="math" 从颜色值看不可能有意义*/
+.math02{border:2px solid #BFD1EB;overflow:hidden}
+.math02 dl{width:100%;float:left;height:auto;zoom:1}
+.math02 dl dt{font-size:14px;font-weight:700;color:#233394;background:#E8F5FE;height:24px;line-height:24px;text-indent:10px}
+.math02 dl dt.f1{color:#f00}
+.math02 dl dt a{padding:0 5px;float:left;font-weight:normal}
+.math02 dl dt a:hover{background:#fc0;zoom:1;overflow:hidden}
+.math02 dl dd{padding:5px;border:1px solid #BFD1EB;border-width:1px 0}
+.math02 dl dd a{display:inline-block;border:1px solid #ccc;overflow:hidden;text-align:center}
+.math02 dl dd a:hover{border:1px solid #f60;text-decoration:none}
+dl.odds{background:#ffd;overflow:hidden;border-bottom:1px solid #BFD1EB}
+dl.odds dd{padding:0 0 2px 0}
+dl.odds dd a{width:28px;height:28px;margin:2px 0 0 2px}
+/*确定保留*/
+div.quizPutTag{display:inline;padding:3px 10px 1px 10px;margin:0 3px;font-size:14px;min-width:30px;min-height:16px;line-height:18px;height:auto;border-bottom:1px solid #0033FF;text-decoration:none;zoom:1;background:#fff;color:#127176}
+div.quizPutTag:hover{color:#f60}
+.border{border:1px solid #ccc;padding:5px}.borderfff{border:1px solid #fff}a.duplicate{border:1px solid #f00;background-color:#fc0}
+div.qanwser{border-top:1px dotted #ccc;text-align:left;margin:0px;padding:0px;clear:both}
+ul.qanwser{border:1px dotted #ccc;text-align:left;min-height:30px;margin:0px;padding:0px}
+ul.qanwser li{float:left;line-height:22px;overflow:hidden;margin:2px;padding:1px;font-size:14px;width:24%}
+ul.qanwser1{border-top:1px dotted #ccc;text-align:left;min-height:30px;margin:0px;padding:2px;margin-bottom:4px}
+ul.qanwser1 li{line-height:22px;overflow:hidden;margin:2px;padding:2px;font-size:14px;border-bottom:1px dotted #ccc}
+table.qanwser{border-top:1px dotted #ccc;text-align:left;min-height:30px;margin:0px;padding:0px;width:100%}
+table.qanwser td{height:30px;line-height:30px;border-bottom:1px dotted #ccc;width:24%;vertical-align:middle;padding:0;margin:0}
+div.MATH_SELECTOR{line-height:18px}
+/*确定保留，问题描述部分填空或者选择的答案*/
+.sanwser{padding:4px 10px;margin:0px;border:1px solid #ADCD3C;background-color:#F2FDDB;color:#000;display:none}
+ul.oanwser{padding:0px;margin:0px;border:1px solid #ADCD3C;background-color:#F2FDDB;color:#000;display:none;z-index:6001}
+ul.oanwser li{background-color:;margin:1px;padding:2px 4px}
+ul.oanwser li:hover{background-color:#fc0}
+ul.oanwser a{display:block;min-width:30px}
+ol.remarks{overflow:visible;font-size:12px}
+ol.remarks li{float:left;border:1px solid #ccc;margin:2px;padding:4px;display:inline;overflow:visible;white-space:nowrap}
+ol.remarks li:hover{border:1px solid #fc0;cursor:pointer}
+.shortcontent{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;zoom:1}
+.btn{width:100px;height:28px;-moz-border-radius:8px;-webkit-border-radius:8px;background:#5A5655;color:#FFFFFF;margin:3px 10px 0px 10px;padding:2px;text-align:center;border:1px solid #5A5655;cursor:pointer}
+.btn:hover{background:#EA8511;color:#FFFFFF;border:1px solid #EA8511;text-decoration:none}
+/*选项表，确定保留*/
+.selectoption{vertical-align:middle}
+.selectoption:hover{color:#EA8511}
+/*解答部分分块文本*/
+.pt0{padding:2px 0 5px 0;font-size:14px;font-family:"黑体",sans-serif;font-weight:700}
+.pt2{margin:0;padding:0 5px 0 0}
+.pt3,.pt4,.pt5,.pt6,.pt7{clear:both;overflow:hidden;zoom:1;position:relative}
+.pt3{margin-top:10px}
+.pt8 a:link,.pt8 a:visited{margin-right:10px;padding:2px 5px}
+.pt8 a:hover{background:#fc0}
+.pt9{text-align:right;border:0 none}
+.pt1{overflow:hidden;zoom:1;clear:both;line-height:25px}
+.pt1 img{position:relative}/*解决IE6下面题干中含有公式导致图片被覆盖的问题*/
+.pt6 span,.ac td span.fleft{white-space:pre}
+.ac td span em{font-style:normal;color:#f60}
+.tdotted{padding:5px;border-top:1px dotted #ccc}
+.bdotted{padding:5px;border-bottom:1px dotted #ccc}
+li.tdotted{overflow:hidden}
+ul.check{padding:0;margin:0;border:0;font-weight:normal;font-size:14px;width:100%;display:block}
+ul.check li{width:99%;border-bottom:1px dotted #aaa;padding:2px}
+ul.check li em{float:left}
+ul.check li ul{float:left}
+ul.check li ul li{padding:2px;display:inline}
+div.msg{border:0;margin:0;width:360px}div.msg em{float:right}div.msg textarea{width:350px;height:130px}
+ul.msg{padding:0;margin:0;border:0;font-weight:normal;font-size:14px;width:100%}
+ul.msg li{width:99%;border-bottom:1px dotted #aaa;padding:4px}
+ul.msg li span{margin:0}
+ul.msg li small{font-size:12px}
+ul.msg li em{margin:0 4px}
+ul.msg li a{margin:0 4px}
+/*---ques*/
+/* ---Report */
+div.lcontent{margin:28px 39px 0px 24px}
+div.rcontent{margin:28px 22px 0px 42px}
+div.lcontent,div.rcontent{text-align:left;height:411px;overflow:hidden;overflow-y:auto;display:none;position:relative}
+.book em{color:#00f;position:absolute;top:3px;left:0;padding:0 2px;background:#F2FDDB;border:1px solid #ADCD3C}
+/* Report--- */
+.celln{float:right;padding:0 2px}
+.cellc{clear:both;text-align:left;overflow:hidden}
+.cellc a{margin:1px;font-size:10px;display:inline-block}
+.view-switcher{position:absolute;top:-1px;left:-1px;z-index:71;padding:4px;font-weight:normal}
+.location{font-size:13px;font-weight:bold;text-align:left;line-height:30px;height:30px}
+/*使用自定义标签结构后的数学公式样式覆盖*/
+.MathXxb{border: 0 none;direction: ltr;line-height: normal;display:inline-block;float: none;font-family:'Times New Roman','宋体';font-size:15px;font-style: normal;font-weight: normal;letter-spacing:1px;line-height: normal;margin: 0;padding: 0;text-align: left;text-indent: 0;text-transform: none;white-space: nowrap;word-spacing: normal;word-wrap: normal;-webkit-text-size-adjust:none;}
+.MathXxb div,.MathXxb span{border: 0 none;margin: 0;padding: 0;line-height: normal;text-align: left;height:auto;_height:auto;white-space:normal}
+.MathXxb table{border-collapse:collapse;margin: 0;padding: 0;text-align: center;vertical-align: middle;line-height: normal;font-size: inherit;*font-size: 100%;_font-size: 100%;font-style: normal;font-weight: normal;border: 0;float: none;display: inline-block;*display: inline;zoom: 0;}
+.MathXxb table td{padding:0;font-size:inherit;line-height:normal;white-space: nowrap; border:0 none;width:auto;_height:auto;}
+.MathXxb_mi{font-style:italic}

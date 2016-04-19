@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.ops.model.RecognitionAnalysisBydate">
+	<resultMap id="BaseResultMap" type="com.xuexibao.ops.model.RecognitionAnalysisBydate">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<id column="operator" property="operator" jdbcType="VARCHAR" />
+		<result column="recognition_count" property="recognitionCount" jdbcType="INTEGER" />
+		<result column="recognition_correct_count" property="recognitionCorrectCount" jdbcType="INTEGER" />
+		<result column="recognition_unrecognition_count" property="recognitionUnrecognitionCount" jdbcType="INTEGER" />
+		<result column="recognition_disunity_count" property="recognitionDisunityCount" jdbcType="INTEGER" />
+		<result column="recognition_time" property="recognitionTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, operator, recognition_count, recognition_correct_count, recognition_unrecognition_count,
+		recognition_disunity_count, recognition_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.xuexibao.ops.model.RecognitionAnalysisBydate">
+		select
+		<include refid="Base_Column_List" />
+		from recognition_analysis_bydate
+		where id = #{id,jdbcType=BIGINT}
+		and operator = #{operator,jdbcType=VARCHAR}
+	</select>
+	<select id="searchCountList" resultMap="BaseResultMap" parameterType="com.xuexibao.ops.model.RecognitionAnalysisBydate">
+		SELECT
+		operator,
+		sum(
+		recognition_count
+		) AS recognition_count,
+		sum(
+		recognition_correct_count
+		) AS
+		recognition_correct_count,
+		sum(
+		recognition_unrecognition_count
+		) AS recognition_unrecognition_count,
+		sum(
+		recognition_disunity_count
+		) AS recognition_disunity_count
+		FROM
+		recognition_analysis_bydate
+		<where>
+			<if test="operator != null and operator != ''">
+				AND operator = #{operator,jdbcType=VARCHAR}
+			</if>
+			<if test="startDate != null">
+				AND recognition_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND recognition_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+		GROUP BY operator
+		<if test="offset != null and limit != null">
+			limit #{offset},#{limit};
+		</if>
+	</select>
+	<select id="searchRecognitionUserCount" resultType="long">
+		select
+		count(distinct operator)
+		from
+		recognition_analysis_bydate
+		<where>
+			<if test="operator != null and operator !=''">
+				AND operator = #{operator,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="com.xuexibao.ops.model.RecognitionAnalysisBydate">
+		delete from recognition_analysis_bydate
+		where id =
+		#{id,jdbcType=BIGINT}
+		and operator = #{operator,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.xuexibao.ops.model.RecognitionAnalysisBydate">
+		insert into recognition_analysis_bydate (id, operator, recognition_count,
+		recognition_correct_count, recognition_unrecognition_count,
+		recognition_disunity_count, recognition_time
+		)
+		values
+		(#{id,jdbcType=BIGINT}, #{operator,jdbcType=VARCHAR}, #{recognitionCount,jdbcType=INTEGER},
+		#{recognitionCorrectCount,jdbcType=INTEGER}, #{recognitionUnrecognitionCount,jdbcType=INTEGER},
+		#{recognitionDisunityCount,jdbcType=INTEGER}, #{recognitionTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<!-- <selectKey resultType="long" keyProperty="id" order="AFTER"> SELECT LAST_INSERT_ID() </selectKey> -->
+		insert into recognition_analysis_bydate (operator,
+		recognition_count,recognition_correct_count,recognition_unrecognition_count,
+		recognition_disunity_count,
+		recognition_time)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.operator},#{item.recognitionCount},#{item.recognitionCorrectCount},#{item.recognitionUnrecognitionCount}
+			,#{item.recognitionDisunityCount},#{item.recognitionTime})
+		</foreach>
+	</insert>
+	<insert id="insertSelective" parameterType="com.xuexibao.ops.model.RecognitionAnalysisBydate">
+		insert into recognition_analysis_bydate
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="operator != null">
+				operator,
+			</if>
+			<if test="recognitionCount != null">
+				recognition_count,
+			</if>
+			<if test="recognitionCorrectCount != null">
+				recognition_correct_count,
+			</if>
+			<if test="recognitionUnrecognitionCount != null">
+				recognition_unrecognition_count,
+			</if>
+			<if test="recognitionDisunityCount != null">
+				recognition_disunity_count,
+			</if>
+			<if test="recognitionTime != null">
+				recognition_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="operator != null">
+				#{operator,jdbcType=VARCHAR},
+			</if>
+			<if test="recognitionCount != null">
+				#{recognitionCount,jdbcType=INTEGER},
+			</if>
+			<if test="recognitionCorrectCount != null">
+				#{recognitionCorrectCount,jdbcType=INTEGER},
+			</if>
+			<if test="recognitionUnrecognitionCount != null">
+				#{recognitionUnrecognitionCount,jdbcType=INTEGER},
+			</if>
+			<if test="recognitionDisunityCount != null">
+				#{recognitionDisunityCount,jdbcType=INTEGER},
+			</if>
+			<if test="recognitionTime != null">
+				#{recognitionTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.xuexibao.ops.model.RecognitionAnalysisBydate">
+		update recognition_analysis_bydate
+		<set>
+			<if test="recognitionCount != null">
+				recognition_count = #{recognitionCount,jdbcType=INTEGER},
+			</if>
+			<if test="recognitionCorrectCount != null">
+				recognition_correct_count = #{recognitionCorrectCount,jdbcType=INTEGER},
+			</if>
+			<if test="recognitionUnrecognitionCount != null">
+				recognition_unrecognition_count = #{recognitionUnrecognitionCount,jdbcType=INTEGER},
+			</if>
+			<if test="recognitionDisunityCount != null">
+				recognition_disunity_count = #{recognitionDisunityCount,jdbcType=INTEGER},
+			</if>
+			<if test="recognitionTime != null">
+				recognition_time = #{recognitionTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+		and operator = #{operator,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.xuexibao.ops.model.RecognitionAnalysisBydate">
+		update recognition_analysis_bydate
+		set recognition_count =
+		#{recognitionCount,jdbcType=INTEGER},
+		recognition_correct_count = #{recognitionCorrectCount,jdbcType=INTEGER},
+		recognition_unrecognition_count = #{recognitionUnrecognitionCount,jdbcType=INTEGER},
+		recognition_disunity_count =
+		#{recognitionDisunityCount,jdbcType=INTEGER},
+		recognition_time = #{recognitionTime,jdbcType=TIMESTAMP}
+		where id =
+		#{id,jdbcType=BIGINT}
+		and operator = #{operator,jdbcType=VARCHAR}
+	</update>
+</mapper>

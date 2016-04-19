@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.ops.model.CheckRecord" >
+  <resultMap id="BaseResultMap" type="com.xuexibao.ops.model.CheckRecord" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="team_ids" property="teamIds" jdbcType="VARCHAR" />
+    <result column="team_count" property="teamCount" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, start_time, end_time, num, team_ids, team_count, status, create_time, update_time, 
+    operator
+  </sql>
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from check_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from check_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xuexibao.ops.model.CheckRecord" useGeneratedKeys="true" keyProperty="id" >
+    insert into check_record (id, start_time, end_time, 
+      num, team_ids, team_count, 
+      status, create_time, update_time, 
+      operator)
+    values (#{id,jdbcType=BIGINT}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{num,jdbcType=INTEGER}, #{teamIds,jdbcType=VARCHAR}, #{teamCount,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{operator,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xuexibao.ops.model.CheckRecord" useGeneratedKeys="true" keyProperty="id" >
+    insert into check_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="teamIds != null" >
+        team_ids,
+      </if>
+      <if test="teamCount != null" >
+        team_count,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="teamIds != null" >
+        #{teamIds,jdbcType=VARCHAR},
+      </if>
+      <if test="teamCount != null" >
+        #{teamCount,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateIfNecessary" parameterType="com.xuexibao.ops.model.CheckRecord" >
+    update check_record
+    <set >
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="teamIds != null" >
+        team_ids = #{teamIds,jdbcType=VARCHAR},
+      </if>
+      <if test="teamCount != null" >
+        team_count = #{teamCount,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexibao.ops.model.CheckRecord" >
+    update check_record
+    set start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      num = #{num,jdbcType=INTEGER},
+      team_ids = #{teamIds,jdbcType=VARCHAR},
+      team_count = #{teamCount,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      operator = #{operator,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  
+  <select id="searchCount" resultType="long">
+		select 
+		count(1) 
+		from check_record
+		<where>
+			<if test="month != null and month != ''">
+				EXTRACT(YEAR_MONTH FROM create_time) 
+				= CONCAT(FROM_UNIXTIME( UNIX_TIMESTAMP(), '%Y' ), #{month,jdbcType=VARCHAR})
+			</if>
+		</where>
+  </select>
+  
+  <select id="searchList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from check_record
+		<where>
+			<if test="month != null and month != ''">
+				EXTRACT(YEAR_MONTH FROM create_time) 
+				= CONCAT(FROM_UNIXTIME( UNIX_TIMESTAMP(), '%Y' ), #{month,jdbcType=VARCHAR})
+			</if>
+		</where>
+		order by create_time desc
+		<if test="offset != null and limit != null">
+		limit #{offset},#{limit};
+		</if>
+  </select>
+</mapper>

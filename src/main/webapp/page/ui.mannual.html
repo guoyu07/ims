@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>录题后台UI规范</title>
+	<link rel="stylesheet" href="../css/ui.reset.css">
+	<link rel="stylesheet" href="../css/bootstrap/bootstrap.3.3.5.min.css">
+	<style type="text/css">
+		.ui-page-header {
+			padding: 0 10px;
+			background: #eee;
+			margin-bottom: 8px;
+		}
+		.mini-title {
+			height: 25px;
+			line-height: 25px;
+		}
+		.mutil-title {
+			padding: 8px 10px;
+		}
+		.main-title {
+			padding: 2px 0;
+			font-size: 26px;
+			color: #333;
+		}
+		.sub-title {
+			margin-top: 10px;
+			font-size: 12px;
+			color: #aaa;
+			border-top: 1px solid #ddd;
+			padding-top: 10px;
+		}
+		article.container-fluid {
+			padding: 0 10px;
+		}
+		.search-form {
+			margin-bottom: 8px;
+		}
+		.search-form .form-group {
+			margin-bottom: 5px;
+		}
+		.min-w40 {
+			min-width: 40px;
+		}
+		.min-w50 {
+			min-width: 50;
+		}
+		.min-w80 {
+			min-width: 80px;
+		}
+		.min-w90 {
+			min-width: 90px;
+		}
+		.min-w100 {
+			min-width: 100px;
+		}
+		.ui-page-footer {
+			margin: 10px 0;
+		}
+		.ui-page-footer .pagination {
+			margin: 0;
+		}
+		.mb6 {
+			margin-bottom: 6px;
+		}
+		.mb20 {
+			margin-bottom: 20px;
+		}
+		.mr0 {
+			margin-right: 0;
+		}
+		.mr15 {
+			margin-right: 15px;
+		}
+		.ml20 {
+			margin-left: 20px;
+		}
+		.ui-flex-container {
+			display: flex;
+			display: -webkit-flex;
+		}
+		.flex1 {
+			flex: 1;
+			-webkit-flex: 1;
+		}
+		.flex2 {
+			flex: 2;
+			-webkit-flex: 2;
+		}
+		header.content-header {
+			padding: 8px 15px;
+			background: #f8f8f8;
+			border: 1px solid #c9c9c9;
+			border-bottom: none;
+		}
+		article.content-container {
+			padding: 13px 15px;
+			border: 1px solid #c9c9c9;
+		}
+		li.content {
+			border-bottom: 1px solid #eee;
+			margin-bottom: 8px;
+			padding-bottom: 8px;
+		}
+		.btn-square {
+			padding: 3px;
+			background: #fff;
+			border: 1px solid #ccc;
+			cursor: pointer;
+		}
+		.ui-list>* {
+			margin-left: 1%;
+		}
+		.ui-list>*:first-child {
+			margin-left: 0;
+		}
+		.full-width {
+			width: 100%;
+		}
+		.modal-lable {
+			width: 110px;
+			display: inline-block;
+			text-align: right;
+		}
+	</style>
+</head>
+<body>
+	<header class="ui-page-header">
+		<div class="mutil-title">
+			<div class="main-title">公告</div>
+			<div class="sub-title">公告</div>
+		</div>
+	</header>
+	<header class="ui-page-header">
+		<div class="mini-title">当前位置：录题列表</div>
+	</header>
+	<article class="container-fluid">
+		<form class="form-inline search-form">
+			<div class="form-group">
+				<lable>题目ID</lable>
+				<input type="text" class="form-control">
+			</div>
+			<div class="form-group">
+				<lable>学科</lable>
+				<select name="" id="" class="form-control">
+					<option value="">全部</option>
+					<option value=""></option>
+					<option value=""></option>
+				</select>
+			</div>
+			<div class="form-group">
+				<lable>年级</lable>
+				<select name="" id="" class="form-control">
+					<option value="">全部</option>
+					<option value=""></option>
+					<option value=""></option>
+				</select>
+			</div>
+			<div class="form-group">
+				<lable>审核状态</lable>
+				<select name="" id="" class="form-control">
+					<option value="">全部</option>
+					<option value=""></option>
+					<option value="">题干通过但答案不通过</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<lable>完整程度</lable>
+				<select name="" id="" class="form-control">
+					<option value="">全部</option>
+					<option value=""></option>
+					<option value="">仅有问题描述</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<lable>录制日期</lable>
+				<input type="text" class="form-control form-date" value="2015-07-14 00:00:00" data-date-format="yyyy-mm-dd 00:00:00" size="18">~<input type="text" class="form-control form-date" value="2015-07-14 23:59:59" data-date-format="yyyy-mm-dd 23:59:59" size="18">
+			</div>
+			<button class="btn btn-primary" type="submit">搜索</button>
+		</form>
+		<table class="table table-hover table-bordered table-condensed">
+			<thead>
+				<tr class="info">
+					<th class="min-w50">题目ID</th>
+					<th class="min-w40">完整成都</th>
+					<th class="min-w40">学科</th>
+					<th class="min-w40">题型</th>
+					<th class="min-w40">年级</th>
+					<th class="min-w100">题干</th>
+					<th class="min-w90">录制时间</th>
+					<th class="min-w80">审核结果</th>
+					<th class="min-w90">审核未通过原因</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>20167</td>
+					<td>完整</td>
+					<td>语文</td>
+					<td>单选</td>
+					<td>初中</td>
+					<td>dddd</td>
+					<td>2015-07-09 14:16:53</td>
+					<td>待审核</td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</article>
+	<article class="container-fluid mb6">
+		<header class="content-header">
+			<a href="" class="btn btn-primary btn-xs pull-right">新增</a>
+			<div class="clearfix"></div>
+		</header>
+		<article class="content-container">
+			<ul>
+				<li class="content">
+					<header class="mb6">
+						<span class="text-muted">2015-07-09 11:26:03 by zhaochaoqun</span>
+						<button class="btn btn-danger btn-xs pull-right">删除</button>
+						<div class="clearfix"></div>
+					</header>
+					<div>
+						<img src="http://124.207.37.218:8088/1,0482b02f9436df" class="inmg">
+					</div>
+				</li>
+				<li class="content">
+					<header class="mb6">
+						<span class="text-muted">2015-07-09 11:26:03 by zhaochaoqun</span>
+						<button class="btn btn-danger btn-xs pull-right">删除</button>
+						<div class="clearfix"></div>
+					</header>
+					<div>
+						<img src="http://124.207.37.218:8088/4,04828fe709cd09" class="inmg">
+					</div>
+				</li>
+			</ul>
+		</article>
+	</article>
+	<div class="container-fluid">
+		<article class="mb20">
+			<header class="content-header text-muted">
+				<span>个人信息</span>
+				<span class="pull-right">账号：zhaochaoqun&nbsp;&nbsp;手机号：18510060488</span>
+				<div class="clearfix"></div>
+			</header>
+			<article class="content-container ui-flex-container">
+				<div class="form-group flex1">
+					<label for="">姓名</label>
+					<input type="text" class="form-control" placeholder="姓名">
+				</div>
+				<div class="form-group flex2" style="margin-left:2%">
+					<label for="">身份证号</label>
+					<input type="text" class="form-control" placeholder="身份证号">
+				</div>
+			</article>
+		</article>
+		<div class="ui-flex-container mb20">
+			<article class="flex1">
+				<header class="content-header text-muted">收款信息</header>
+				<article class="content-container">
+					<div class="form-group">
+						<label for="">开户行</label>
+						<input type="text" class="form-control" placeholder="开户行">
+					</div>
+					<div class="form-group">
+						<label for="">支行名称</label>
+						<input type="text" class="form-control" placeholder="支行名称">
+					</div>
+					<div class="form-group">
+						<label for="">银行账号</label>
+						<input type="text" class="form-control" placeholder="银行账号">
+					</div>
+					<div class="form-group">
+						<label for="">开户地</label>
+						<div class="form-inline ui-flex-container ui-list">
+							<input type="text" class="form-control flex1" placeholder="省">
+							<input type="text" class="form-control flex1" placeholder="区">
+							<input type="text" class="form-control flex1" placeholder="县">
+						</div>
+					</div>
+				</article>
+			</article>
+			<article class="flex1" style="margin-left:2%">
+				<header class="content-header text-muted">
+					<span>修改密码</span>
+					<button class="glyphicon glyphicon-wrench pull-right btn-square"></button>
+					<div class="clearfix"></div>
+				</header>
+				<article class="content-container">
+					<div class="form-group">
+						<label for="">原密码</label>
+						<input type="text" class="form-control" placeholder="原密码">
+					</div>
+					<div class="form-group">
+						<label for="">新密码</label>
+						<input type="text" class="form-control" placeholder="新密码">
+					</div>
+					<div class="form-group">
+						<label for="">确认新密码</label>
+						<input type="text" class="form-control" placeholder="确认新密码">
+					</div>
+				</article>
+			</article>
+		</div>
+	</div>
+	<footer class="text-center ui-page-footer">
+		<button class="btn btn-primary full-width">提交</button>
+	</footer>
+	<footer class="text-center ui-page-footer">
+		<ul class="pagination">
+			<li class="disabled">
+				<a href="" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+				</a>
+			</li>
+			<li class="active">
+				<a href="#">1 <span class="sr-only">(current)</span></a>
+			</li>
+			<li>
+				<a href="#">2</a>
+			</li>
+			<li>
+				<a href="#">3</a>
+			</li>
+			<li>
+				<a href="" aria-label="Next">
+					<span aria-hidden="true">&laquo;</span>
+				</a>
+			</li>
+		</ul>
+		<span class="ml20">1135条记录</span>
+	</footer>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.ops.model.DedupGroupSelected" >
+  <resultMap id="BaseResultMap" type="com.xuexibao.ops.model.DedupGroupSelected" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="group_id" 		property="groupId" 		jdbcType="INTEGER" />
+    <result column="round" 			property="round" 		jdbcType="TINYINT" />
+    <result column="tiny_phase" 	property="tinyPhase" 	jdbcType="TINYINT" />
+    <result column="user_key" 		property="userKey" 		jdbcType="VARCHAR" />
+    <result column="questionIds" 	property="questionIds" 	jdbcType="VARCHAR" />
+    <result column="analyze_count" 	property="analyzeCount" jdbcType="TINYINT" />
+    <result column="create_time" 	property="createTime" 	jdbcType="TIMESTAMP" />
+    <result column="questionIds_len" 	property="questionIdsLen" 	jdbcType="TINYINT" />
+    <result column="date_str" 			property="dateStr" 			jdbcType="VARCHAR" />
+    <result column="valid_qstn_len" 	property="validQstnLen" 	jdbcType="TINYINT" />
+    <result column="finish_date_str" 	property="finishDateStr" 	jdbcType="VARCHAR" />    
+  </resultMap>
+	<resultMap type="com.xuexibao.ops.model.DedupStatisticsInfo" id="dedupStatistics" >  
+	    <constructor>  
+	    <arg column="user_key" javaType="java.lang.String" />
+    	<arg column="operat_cnt" javaType="java.lang.Integer" />
+    	<arg column="click_cnt" javaType="java.lang.Integer" />
+    	<arg column="analyze_cnt" javaType="java.lang.Integer" />
+	    </constructor>  
+	</resultMap> 
+	<resultMap type="com.xuexibao.ops.dto.NodupClickCntDto" id="nodupClickCntDto" >  
+	    <constructor>  
+	    <arg column="user_key" javaType="java.lang.String" />
+    	<arg column="nodup_click_cnt" javaType="java.lang.Integer" />
+	    </constructor>  
+	</resultMap> 
+	<resultMap type="com.xuexibao.ops.dto.ValidQstnLenDto" id="validQstnLenDto" >  
+	    <constructor>  
+	    <arg column="user_key" javaType="java.lang.String" />
+    	<arg column="valid_cnt" javaType="java.lang.Integer" />
+	    </constructor>  
+	</resultMap> 
+  <sql id="Base_Column_List" >
+    id, group_id, round, tiny_phase, user_key, questionIds, analyze_count, create_time, questionIds_len, date_str
+  </sql>
+  <insert id="insert" parameterType="com.xuexibao.ops.model.DedupGroupSelected" >
+    insert into dedup_group_selected (group_id, round, tiny_phase, user_key, questionIds, analyze_count, create_time, questionIds_len, date_str )
+      values (
+      #{groupId,jdbcType=INTEGER}, 
+      #{round,jdbcType=TINYINT}, 
+      #{tinyPhase,jdbcType=TINYINT},
+      #{userKey,jdbcType=VARCHAR}, 
+      #{questionIds,jdbcType=VARCHAR},
+      #{analyzeCount,jdbcType=TINYINT}, 
+      now(),
+      #{questionIdsLen,jdbcType=TINYINT},
+      #{dateStr,jdbcType=VARCHAR})
+  </insert>  
+  <select id="searchByNecessary" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from dedup_group_selected
+		<where>
+			<if test="questionIds != null">
+				AND questionIds = #{questionIds,jdbcType=VARCHAR}
+			</if>
+			<if test="groupId != null">
+				AND group_id = #{groupId,jdbcType=INTEGER}
+			</if>
+			<if test="round != null">
+				AND round = #{round,jdbcType=INTEGER}
+			</if>
+			<if test="tinyPhase != null">
+				AND tiny_phase = #{tinyPhase,jdbcType=INTEGER}
+			</if>
+			<if test="userKey != null">
+				AND user_key = #{userKey,jdbcType=VARCHAR}
+			</if>
+			<if test="dateStr != null">
+				AND date_str = #{dateStr,jdbcType=VARCHAR}
+			</if>			
+		</where>
+  </select>
+  <update id="updatePerRound" parameterType="com.xuexibao.ops.model.DedupGroupSelected" >
+    update dedup_group_selected
+    <set >
+    	valid_qstn_len = #{validQstnLen,jdbcType=INTEGER},
+        finish_date_str = #{finishDateStr,jdbcType=VARCHAR}   
+    </set>
+    where group_id = #{groupId,jdbcType=BIGINT}
+    and   round = #{round,jdbcType=INTEGER}
+  </update>    
+  <select id="getDedupStatistics" resultMap="dedupStatistics">
+		SELECT
+		 user_key user_key,
+		 count(1) operat_cnt,
+		 SUM(analyze_count) analyze_cnt,
+		 SUM(questionIds_len) click_cnt
+		FROM
+		 dedup_group_selected
+		WHERE
+		 date_str = #{dateStr,jdbcType=VARCHAR}
+		GROUP BY
+		 user_key;
+  </select>
+  <select id="getValidQstnLen" resultMap="validQstnLenDto">
+		SELECT
+		 user_key user_key,
+		 SUM(valid_qstn_len) valid_cnt
+		FROM
+		 dedup_group_selected
+		WHERE
+		 finish_date_str = #{dateStr,jdbcType=VARCHAR}
+		GROUP BY
+		 user_key;
+  </select>
+  <select id="getNodupClickCnt" resultMap="nodupClickCntDto">
+		SELECT
+			user_key,
+			count(1) nodup_click_cnt
+		FROM
+			dedup_group_selected
+		WHERE
+			(questionIds = ''
+		OR questionIds IS NULL)
+		AND date_str = #{dateStr,jdbcType=VARCHAR}
+		GROUP BY
+			user_key;
+  </select>
+</mapper>

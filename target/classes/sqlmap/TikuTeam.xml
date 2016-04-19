@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.ops.model.TikuTeam" >
+  <resultMap id="BaseResultMap" type="com.xuexibao.ops.model.TikuTeam" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="captain" property="captain" jdbcType="VARCHAR" />
+    <result column="captainName" property="captainName" jdbcType="VARCHAR" />
+    <association property="userInfo" javaType="com.xuexibao.ops.model.UserInfo">
+        <result column="user_name" property="userName" jdbcType="VARCHAR" />
+        <result column="role" property="role" jdbcType="VARCHAR" />
+	</association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tiku_team.id, name, captain, captainName
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tiku_team
+    where tiku_team.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tiku_team
+    where tiku_team.id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xuexibao.ops.model.TikuTeam" >
+    insert into tiku_team (tiku_team.id, name, captain, captainName
+      )
+    values (#{tiku_team.id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{captain,jdbcType=VARCHAR}, #{captainName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xuexibao.ops.model.TikuTeam" >
+    insert into tiku_team
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        tiku_team.id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="captain != null" >
+        captain,
+      </if>
+      <if test="captainName != null" >
+        captainName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="captain != null" >
+        #{captain,jdbcType=VARCHAR},
+      </if>
+      <if test="captainName != null" >
+        #{captainName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateIfNecessary" parameterType="com.xuexibao.ops.model.TikuTeam" >
+    update tiku_team
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="captain != null" >
+        captain = #{captain,jdbcType=VARCHAR},
+      </if>
+      <if test="captainName != null" >
+         captainName = #{captainName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexibao.ops.model.TikuTeam" >
+    update tiku_team
+    set name = #{name,jdbcType=VARCHAR},
+      captain = #{captain,jdbcType=VARCHAR},
+      captainName = #{captainName,jdbcType=VARCHAR}
+    where tiku_team.id = #{id,jdbcType=INTEGER}
+  </update>
+	<select id="getAllList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tiku_team left join user_info on tiku_team.captain=user_info.user_key
+		<where>
+		<if test="role != null and role != ''">
+			user_info.role = #{role,jdbcType=VARCHAR}
+		</if>
+		</where>
+	</select>
+	<select id="searchCount" resultType="long">
+		select
+		count(1)
+		from tiku_team left join user_info on tiku_team.captain=user_info.user_key
+		<where>
+			<if test="teamId != null and teamId != ''">
+				tiku_team.id = #{teamId,jdbcType=INTEGER}
+			</if>
+			<if test="captain != null and captain != ''">
+				AND captain = #{captain,jdbcType=VARCHAR}
+			</if>
+			<if test="captainName != null and captainName != ''">
+				AND captainName = #{captainName,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	<select id="searchCounts" resultType="long">
+		select
+		count(1)
+		from tiku_team left join user_info on tiku_team.captain=user_info.user_key
+		<where>
+			<if test="teamId != null and teamId != ''">
+				tiku_team.id = #{teamId,jdbcType=INTEGER}
+			</if>
+			<if test="captain != null and captain != ''">
+				AND captain = #{captain,jdbcType=VARCHAR} or captainName= #{captain,jdbcType=VARCHAR}
+			</if>
+			<if test="captainName != null and captainName != ''">
+				AND captainName = #{captainName,jdbcType=VARCHAR}
+			</if>
+			<if test="role != null and role != ''">
+				AND user_info.role = #{role,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	<select id="searchList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		,user_info.user_name 
+		from tiku_team left join user_info on tiku_team.captain=user_info.user_key
+		<where>
+			<if test="teamId != null">
+				tiku_team.id = #{teamId,jdbcType=INTEGER}
+			</if>
+			<if test="captain != null and captain != ''">
+				AND captain = #{captain,jdbcType=VARCHAR}
+			</if>
+			<if test="captainName != null and captainName != ''">
+				AND captainName = #{captainName,jdbcType=VARCHAR}
+			</if>
+		</where>
+		order by tiku_team.id
+		<if test="offset != null and limit != null">
+		limit #{offset},#{limit};
+		</if>
+	</select>
+	
+	<select id="searchLists" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		,user_info.user_name ,user_info.role
+		from tiku_team left join user_info on tiku_team.captain=user_info.user_key
+		<where>
+			<if test="teamId != null">
+				tiku_team.id = #{teamId,jdbcType=INTEGER}
+			</if>
+			<if test="captain != null and captain != ''">
+				AND captain = #{captain,jdbcType=VARCHAR} or captainName= #{captain,jdbcType=VARCHAR}
+			</if>
+			<if test="captainName != null and captainName != ''">
+				AND captainName = #{captainName,jdbcType=VARCHAR}
+			</if>
+			<if test="role != null and role != ''">
+				AND user_info.role = #{role,jdbcType=VARCHAR}
+			</if>
+		</where>
+		order by tiku_team.id
+		<if test="offset != null and limit != null">
+		limit #{offset},#{limit};
+		</if>
+	</select>
+	
+	<select id="getIdByCaptain" resultType="java.lang.Integer">
+		select
+		id
+		from tiku_team
+		<where>
+			<if test="captain != null and captain != ''">
+				AND captain = #{captain,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getTeamById" resultType="com.xuexibao.ops.model.TikuTeam">
+		select
+		<include refid="Base_Column_List" />
+		from tiku_team
+		<where>
+			<if test="teamId != null">
+				tiku_team.id = #{teamId,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getIdByTeamName" resultType="int">
+		select
+	    tiku_team.id
+        from tiku_team
+		<where>
+			<if test="teamName != null and teamName != ''">
+				name = #{teamName,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	
+
+</mapper>

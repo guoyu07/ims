@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.ops.model.CheckDetailRecord" >
+  <resultMap id="BaseResultMap" type="com.xuexibao.ops.model.CheckDetailRecord" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="pass_num" property="passNum" jdbcType="INTEGER" />
+    <result column="unpass_num" property="unpassNum" jdbcType="INTEGER" />
+    <result column="team_id" property="teamId" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, start_time, end_time, num, pass_num, unpass_num, team_id, status, create_time, 
+    update_time, parent_id
+  </sql>
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from check_detail_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from check_detail_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xuexibao.ops.model.CheckDetailRecord" useGeneratedKeys="true" keyProperty="id" >
+    insert into check_detail_record (id, start_time, end_time, 
+      num, pass_num, unpass_num, 
+      team_id, status, create_time, 
+      update_time, parent_id)
+    values (#{id,jdbcType=BIGINT}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{num,jdbcType=INTEGER}, #{passNum,jdbcType=INTEGER}, #{unpassNum,jdbcType=INTEGER}, 
+      #{teamId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{parentId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xuexibao.ops.model.CheckDetailRecord" useGeneratedKeys="true" keyProperty="id" >
+    insert into check_detail_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="passNum != null" >
+        pass_num,
+      </if>
+      <if test="unpassNum != null" >
+        unpass_num,
+      </if>
+      <if test="teamId != null" >
+        team_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="passNum != null" >
+        #{passNum,jdbcType=INTEGER},
+      </if>
+      <if test="unpassNum != null" >
+        #{unpassNum,jdbcType=INTEGER},
+      </if>
+      <if test="teamId != null" >
+        #{teamId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateIfNecessary" parameterType="com.xuexibao.ops.model.CheckDetailRecord" >
+    update check_detail_record
+    <set >
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="passNum != null" >
+        pass_num = #{passNum,jdbcType=INTEGER},
+      </if>
+      <if test="unpassNum != null" >
+        unpass_num = #{unpassNum,jdbcType=INTEGER},
+      </if>
+      <if test="teamId != null" >
+        team_id = #{teamId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexibao.ops.model.CheckDetailRecord" >
+    update check_detail_record
+    set start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      num = #{num,jdbcType=INTEGER},
+      pass_num = #{passNum,jdbcType=INTEGER},
+      unpass_num = #{unpassNum,jdbcType=INTEGER},
+      team_id = #{teamId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      parent_id = #{parentId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+    <select id="searchCount" resultType="long">
+		select 
+		count(1) 
+		from check_detail_record
+		<where>
+			<if test="month != null and month != ''">
+				EXTRACT(YEAR_MONTH FROM create_time) 
+				= CONCAT(FROM_UNIXTIME( UNIX_TIMESTAMP(), '%Y' ), #{month,jdbcType=VARCHAR})
+			</if>
+			<if test="teamid != null and teamid != ''">
+				AND team_id = #{teamid,jdbcType=INTEGER}
+			</if>
+		</where>
+  </select>
+  <select id="getUncheckCount" resultType="long">
+		select
+		count(1)
+		from check_detail_record
+		<where>
+			<if test="parentId != null">
+				parent_id = #{parentId,jdbcType=BIGINT}
+			</if>
+			AND status = 0
+		</where>
+	</select>
+  <select id="searchList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from check_detail_record
+		<where>
+			<if test="month != null and month != ''">
+				EXTRACT(YEAR_MONTH FROM create_time) 
+				= CONCAT(FROM_UNIXTIME( UNIX_TIMESTAMP(), '%Y' ), #{month,jdbcType=VARCHAR})
+			</if>
+			<if test="teamid != null and teamid != ''">
+				AND team_id = #{teamid,jdbcType=INTEGER}
+			</if>
+			<if test="parentId != null">
+				AND parent_id = #{parentId,jdbcType=BIGINT}
+			</if>
+		</where>
+		order by create_time desc
+		<if test="offset != null and limit != null">
+		limit #{offset},#{limit};
+		</if>
+  </select>
+</mapper>

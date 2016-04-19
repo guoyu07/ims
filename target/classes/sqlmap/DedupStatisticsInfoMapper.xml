@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.ops.model.DedupStatisticsInfo" >
+  <resultMap id="BaseResultMap" type="com.xuexibao.ops.model.DedupStatisticsInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="date_str" property="dateStr" jdbcType="VARCHAR" />
+    <result column="user_key" property="userKey" jdbcType="VARCHAR" />
+    <result column="operat_cnt" property="operatCnt" jdbcType="INTEGER" />
+    <result column="click_cnt" property="clickCnt" jdbcType="INTEGER" />
+    <result column="analyze_cnt" property="analyzeCnt" jdbcType="INTEGER" />
+    <result column="nodup_click_cnt" property="nodupClickCnt" jdbcType="INTEGER" />
+    <result column="valid_cnt" property="validCnt" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, date_str, user_key, operat_cnt, click_cnt, analyze_cnt, nodup_click_cnt, valid_cnt, 
+    update_time, creat_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from dedup_statistics_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from dedup_statistics_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xuexibao.ops.model.DedupStatisticsInfo" >
+    insert into dedup_statistics_info (id, date_str, user_key, 
+      operat_cnt, click_cnt, analyze_cnt, 
+      nodup_click_cnt, valid_cnt, update_time, 
+      creat_time)
+    values (#{id,jdbcType=BIGINT}, #{dateStr,jdbcType=VARCHAR}, #{userKey,jdbcType=VARCHAR}, 
+      #{operatCnt,jdbcType=INTEGER}, #{clickCnt,jdbcType=INTEGER}, #{analyzeCnt,jdbcType=INTEGER}, 
+      #{nodupClickCnt,jdbcType=INTEGER}, #{validCnt,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{creatTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xuexibao.ops.model.DedupStatisticsInfo" >
+    insert into dedup_statistics_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="dateStr != null" >
+        date_str,
+      </if>
+      <if test="userKey != null" >
+        user_key,
+      </if>
+      <if test="operatCnt != null" >
+        operat_cnt,
+      </if>
+      <if test="clickCnt != null" >
+        click_cnt,
+      </if>
+      <if test="analyzeCnt != null" >
+        analyze_cnt,
+      </if>
+      <if test="nodupClickCnt != null" >
+        nodup_click_cnt,
+      </if>
+      <if test="validCnt != null" >
+        valid_cnt,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="dateStr != null" >
+        #{dateStr,jdbcType=VARCHAR},
+      </if>
+      <if test="userKey != null" >
+        #{userKey,jdbcType=VARCHAR},
+      </if>
+      <if test="operatCnt != null" >
+        #{operatCnt,jdbcType=INTEGER},
+      </if>
+      <if test="clickCnt != null" >
+        #{clickCnt,jdbcType=INTEGER},
+      </if>
+      <if test="analyzeCnt != null" >
+        #{analyzeCnt,jdbcType=INTEGER},
+      </if>
+      <if test="nodupClickCnt != null" >
+        #{nodupClickCnt,jdbcType=INTEGER},
+      </if>
+      <if test="validCnt != null" >
+        #{validCnt,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xuexibao.ops.model.DedupStatisticsInfo" >
+    update dedup_statistics_info
+    <set >
+      <if test="dateStr != null" >
+        date_str = #{dateStr,jdbcType=VARCHAR},
+      </if>
+      <if test="userKey != null" >
+        user_key = #{userKey,jdbcType=VARCHAR},
+      </if>
+      <if test="operatCnt != null" >
+        operat_cnt = #{operatCnt,jdbcType=INTEGER},
+      </if>
+      <if test="clickCnt != null" >
+        click_cnt = #{clickCnt,jdbcType=INTEGER},
+      </if>
+      <if test="analyzeCnt != null" >
+        analyze_cnt = #{analyzeCnt,jdbcType=INTEGER},
+      </if>
+      <if test="nodupClickCnt != null" >
+        nodup_click_cnt = #{nodupClickCnt,jdbcType=INTEGER},
+      </if>
+      <if test="validCnt != null" >
+        valid_cnt = #{validCnt,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexibao.ops.model.DedupStatisticsInfo" >
+    update dedup_statistics_info
+    set date_str = #{dateStr,jdbcType=VARCHAR},
+      user_key = #{userKey,jdbcType=VARCHAR},
+      operat_cnt = #{operatCnt,jdbcType=INTEGER},
+      click_cnt = #{clickCnt,jdbcType=INTEGER},
+      analyze_cnt = #{analyzeCnt,jdbcType=INTEGER},
+      nodup_click_cnt = #{nodupClickCnt,jdbcType=INTEGER},
+      valid_cnt = #{validCnt,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		insert into dedup_statistics_info (date_str, user_key, operat_cnt, click_cnt, analyze_cnt, nodup_click_cnt, valid_cnt, creat_time)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.dateStr}, #{item.userKey}, #{item.operatCnt},#{item.clickCnt},#{item.analyzeCnt},#{item.nodupClickCnt},#{item.validCnt},#{item.creatTime})
+		</foreach>
+	</insert>
+	<select id="searchByDate" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from dedup_statistics_info
+		<where>
+			<if test="startDate != null">
+				AND date_str &gt;= #{startDate,jdbcType=VARCHAR}
+			</if>			
+			<if test="endDate != null">
+				AND date_str &lt;= #{endDate,jdbcType=VARCHAR}
+			</if>			
+		</where>
+		order by date_str, user_key
+		<if test="offset != null and limit != null">
+		limit #{offset},#{limit};
+		</if>
+  </select> 
+	<select id="countByDate" resultType="java.lang.Long">
+		select
+		count(1)
+		from dedup_statistics_info
+		<where>
+			<if test="startDate != null">
+				AND date_str &gt;= #{startDate,jdbcType=VARCHAR}
+			</if>			
+			<if test="endDate != null">
+				AND date_str &lt;= #{endDate,jdbcType=VARCHAR}
+			</if>			
+		</where>
+  </select> 
+</mapper>

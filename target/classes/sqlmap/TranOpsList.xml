@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.ops.model.TranOpsList" >
+  <resultMap id="BaseResultMap" type="com.xuexibao.ops.model.TranOpsList" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="learnPhase" property="learnphase" jdbcType="VARCHAR" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="diff" property="diff" jdbcType="VARCHAR" />
+    <result column="knowledge" property="knowledge" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="real_subject" property="realSubject" jdbcType="INTEGER" />
+    <result column="ops" property="ops" jdbcType="VARCHAR" />
+    <result column="audit_status" property="auditStatus" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    
+    <result column="operator_name" property="operatorName" jdbcType="VARCHAR" />
+    <result column="content_operator_name" property="contentOperatorName" jdbcType="VARCHAR" />
+    <result column="operator_team_id" property="operatorTeamId" jdbcType="INTEGER" />
+    <result column="content_operator_team_id" property="contentOperatorTeamId" jdbcType="INTEGER" />
+    
+    <result column="approve_time" property="approveTime" jdbcType="TIMESTAMP" />
+    <result column="complete" property="complete" jdbcType="TINYINT" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="answer" property="answer" jdbcType="LONGVARCHAR" />
+    <result column="solution" property="solution" jdbcType="LONGVARCHAR" />
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+    <result column="latex" property="latex" jdbcType="LONGVARCHAR" />
+    <result column="answerLatex" property="answerlatex" jdbcType="LONGVARCHAR" />
+    
+    <result column="orc_picture_id" property="orcPictureId" jdbcType="BIGINT" />
+    <result column="picture_url" property="pictureUrl" jdbcType="VARCHAR" />
+    <result column="orc_type" property="orcType" jdbcType="INTEGER" />
+    <result column="orcpushstatus" property="orcpushstatus" jdbcType="INTEGER" /> 
+    <result column="target" property="target" jdbcType="INTEGER" /> 
+    <result column="real_type" property="realType" jdbcType="INTEGER" /> 
+    <result column="real_learnPhase" property="realLearnPhase" jdbcType="INTEGER" /> 
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tran_ops_list.id, type, learnPhase, subject, diff, knowledge, source, url, tran_ops_list.status, real_subject, 
+    ops, audit_status, create_time, update_time, operator_name, content_operator_name, operator_team_id, content_operator_team_id,
+    tran_ops_list.approve_time, tran_ops_list.complete,
+    content, answer, solution, remark, latex, answerLatex , orc_picture_id, picture_url, orc_type , orcpushstatus , target, real_type, real_learnPhase
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tran_ops_list
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tran_ops_list
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xuexibao.ops.model.TranOps" >
+    insert into tran_ops_list (id, type, learnPhase, 
+      subject, diff, knowledge, 
+      source, url, status, 
+      real_subject, ops, 
+      audit_status, create_time, update_time, 
+      operator_name, content_operator_name, operator_team_id, content_operator_team_id, approve_time, complete, 
+      content, answer, 
+      solution, remark, latex, 
+      answerLatex , orc_picture_id, picture_url, orc_type , orcpushstatus , target, real_type, real_learnPhase)
+    values (#{id,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, #{learnphase,jdbcType=VARCHAR}, 
+      #{subject,jdbcType=VARCHAR}, #{diff,jdbcType=VARCHAR}, #{knowledge,jdbcType=VARCHAR}, 
+      #{source,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{realSubject,jdbcType=INTEGER}, #{ops,jdbcType=VARCHAR}, 
+      #{auditStatus,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{operatorName,jdbcType=VARCHAR}, #{contentOperatorName,jdbcType=VARCHAR}, #{operatorTeamId,jdbcType=BIGINT}, #{contentOperatorTeamId,jdbcType=BIGINT}, #{approveTime,jdbcType=TIMESTAMP}, #{complete,jdbcType=TINYINT}, 
+      #{content,jdbcType=LONGVARCHAR}, #{answer,jdbcType=LONGVARCHAR}, 
+      #{solution,jdbcType=LONGVARCHAR}, #{remark,jdbcType=LONGVARCHAR}, #{latex,jdbcType=LONGVARCHAR}, 
+      #{answerlatex,jdbcType=LONGVARCHAR},
+      #{orcPictureId,jdbcType=BIGINT},#{pictureUrl,jdbcType=VARCHAR},#{orcType,jdbcType=INTEGER}
+      ,#{orcpushstatus,jdbcType=INTEGER}
+      ,#{target,jdbcType=INTEGER}
+      ,#{realType,jdbcType=INTEGER}
+      ,#{realLearnPhase,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xuexibao.ops.model.TranOpsList" >
+    insert into tran_ops_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="learnphase != null" >
+        learnPhase,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="diff != null" >
+        diff,
+      </if>
+      <if test="knowledge != null" >
+        knowledge,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="realSubject != null" >
+        real_subject,
+      </if>
+      <if test="ops != null" >
+        ops,
+      </if>
+      <if test="auditStatus != null" >
+        audit_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="operatorName != null" >
+        operator_name,
+      </if>
+      <if test="contentOperatorName != null" >
+        content_operator_name,
+      </if>
+      <if test="operatorTeamId != null" >
+        operator_team_id,
+      </if>
+      <if test="contentOperatorTeamId != null" >
+        content_operator_team_id,
+      </if>
+      <if test="approveTime != null" >
+        approve_time,
+      </if>
+      <if test="complete != null" >
+        complete,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="answer != null" >
+        answer,
+      </if>
+      <if test="solution != null" >
+        solution,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="latex != null" >
+        latex,
+      </if>
+      <if test="answerlatex != null" >
+        answerLatex,
+      </if>
+      <if test="orcPictureId != null" >
+        orc_picture_id,
+      </if>
+      <if test="pictureUrl != null" >
+        picture_url,
+      </if>
+      <if test="orcType != null" >
+        orc_type,
+      </if>
+      <if test="orcpushstatus != null" >
+        orcpushstatus,
+      </if>
+      <if test="target != null" >
+        target,
+      </if>
+      <if test="realType != null" >
+        real_type,
+      </if>
+      <if test="realLearnPhase != null" >
+        real_learnPhase,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="learnphase != null" >
+        #{learnphase,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="diff != null" >
+        #{diff,jdbcType=VARCHAR},
+      </if>
+      <if test="knowledge != null" >
+        #{knowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="realSubject != null" >
+        #{realSubject,jdbcType=INTEGER},
+      </if>
+      <if test="ops != null" >
+        #{ops,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null" >
+        #{auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operatorName != null" >
+        #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="contentOperatorName != null" >
+        #{contentOperatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorTeamId != null" >
+        #{operatorTeamId,jdbcType=BIGINT},
+      </if>
+      <if test="contentOperatorTeamId != null" >
+        #{contentOperatorTeamId,jdbcType=BIGINT},
+      </if>
+      <if test="approveTime != null" >
+        #{approveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="complete != null" >
+        #{complete,jdbcType=TINYINT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answer != null" >
+        #{answer,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="solution != null" >
+        #{solution,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="latex != null" >
+        #{latex,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answerlatex != null" >
+        #{answerlatex,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="orcPictureId != null" >
+        #{orcPictureId,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pictureUrl != null" >
+        #{pictureUrl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="orcType != null" >
+        #{orcType,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="orcpushstatus != null" >
+        #{orcpushstatus,jdbcType=TINYINT},
+      </if>
+      <if test="target != null" >
+        #{target,jdbcType=TINYINT},
+      </if>
+      <if test="realType != null" >
+        #{realType,jdbcType=TINYINT},
+      </if>
+      <if test="realLearnPhase != null" >
+        #{realLearnPhase,jdbcType=TINYINT},
+      </if>
+
+    </trim>
+  </insert>
+  <update id="updateIfNecessary" parameterType="com.xuexibao.ops.model.TranOpsList" >
+    update tran_ops_list
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="learnphase != null" >
+        learnPhase = #{learnphase,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="diff != null" >
+        diff = #{diff,jdbcType=VARCHAR},
+      </if>
+      <if test="knowledge != null" >
+        knowledge = #{knowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="realSubject != null" >
+        real_subject = #{realSubject,jdbcType=INTEGER},
+      </if>
+      <if test="ops != null" >
+        ops = #{ops,jdbcType=VARCHAR},
+      </if>
+      <if test="auditStatus != null" >
+        audit_status = #{auditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operatorName != null" >
+        operator_name = #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="contentOperatorName != null" >
+        content_operator_name = #{contentOperatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorTeamId != null" >
+        operator_team_id = #{operatorTeamId,jdbcType=INTEGER},
+      </if>
+      <if test="contentOperatorTeamId != null" >
+        content_operator_team_id = #{contentOperatorTeamId,jdbcType=INTEGER},
+      </if>
+      <if test="approveTime != null" >
+        approve_time = #{approveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="complete != null" >
+        complete = #{complete,jdbcType=TINYINT},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answer != null" >
+        answer = #{answer,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="solution != null" >
+        solution = #{solution,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="latex != null" >
+        latex = #{latex,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answerlatex != null" >
+        answerLatex = #{answerlatex,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="orcpushstatus != null" >
+        orcpushstatus = #{orcpushstatus,jdbcType=INTEGER},
+      </if>  
+      <if test="target != null" >
+        target = #{target,jdbcType=INTEGER},
+      </if>  
+      <if test="realType != null" >
+        real_type = #{realType,jdbcType=INTEGER},
+      </if>  
+      <if test="realLearnPhase != null" >
+        real_learnPhase = #{realLearnPhase,jdbcType=INTEGER},
+      </if>  
+
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateTranOpsOperatorByUserKey" parameterType="com.xuexibao.ops.model.TranOpsList" >
+    update tran_ops_list
+    <set >
+        operator_team_id = #{operatorTeamId,jdbcType=INTEGER},
+    </set>
+        where operator_name = #{operatorName,jdbcType=VARCHAR}  
+  </update>
+    <update id="updateTranOpsContentOperatorByUserKey" parameterType="com.xuexibao.ops.model.TranOpsList" >
+    update tran_ops_list
+    <set>
+        content_operator_team_id = #{contentOperatorTeamId,jdbcType=INTEGER},
+    </set>
+       where content_operator_name = #{contentOperatorName,jdbcType=VARCHAR}      
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.xuexibao.ops.model.TranOpsList" >
+    update tran_ops_list
+    set type = #{type,jdbcType=VARCHAR},
+      learnPhase = #{learnphase,jdbcType=VARCHAR},
+      subject = #{subject,jdbcType=VARCHAR},
+      diff = #{diff,jdbcType=VARCHAR},
+      knowledge = #{knowledge,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      real_subject = #{realSubject,jdbcType=INTEGER},
+      ops = #{ops,jdbcType=VARCHAR},
+      audit_status = #{auditStatus,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      operator_name = #{operatorName,jdbcType=VARCHAR},
+      content_operator_name = #{contentOperatorName,jdbcType=VARCHAR},
+      operator_team_id = #{operatorTeamId,jdbcType=INTEGER},
+      content_operator_team_id = #{contentOperatorTeamId,jdbcType=INTEGER},
+      approve_time = #{approveTime,jdbcType=TIMESTAMP},
+      complete = #{complete,jdbcType=TINYINT},
+      content = #{content,jdbcType=LONGVARCHAR},
+      answer = #{answer,jdbcType=LONGVARCHAR},
+      solution = #{solution,jdbcType=LONGVARCHAR},
+      remark = #{remark,jdbcType=LONGVARCHAR},
+      latex = #{latex,jdbcType=LONGVARCHAR},
+      answerLatex = #{answerlatex,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="searchList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		, tran_ops_approve.reason, tran_ops_approve.approvor
+		from tran_ops_list
+		left join tran_ops_approve on tran_ops_list.id = tran_ops_approve.tran_id and tran_ops_list.approve_time = tran_ops_approve.approve_time
+		<where>
+			<if test="questionId != null">
+				tran_ops_list.id = #{questionId,jdbcType=BIGINT}
+			</if>
+			<if test="subject != null">
+				AND real_subject = #{subject,jdbcType=INTEGER}
+			</if>
+			<if test="realType != null">
+				AND real_type = #{realType,jdbcType=INTEGER}
+			</if>
+			<if test="realLearnPhase != null">
+				AND real_learnPhase = #{realLearnPhase,jdbcType=INTEGER}
+			</if>
+			<if test="teacher != null and teacher != ''">
+				AND content_operator_name = #{teacher,jdbcType=VARCHAR}
+			</if>
+			<if test="teamid != null">
+				AND content_operator_team_id = #{teamid,jdbcType=INTEGER}
+			</if>
+			<if test="status != null and status != ''">
+				AND audit_status = #{status,jdbcType=VARCHAR}
+			</if>
+			<if test="complete != null">
+				AND tran_ops_list.complete = #{complete,jdbcType=TINYINT}
+			</if>
+			<if test="startDate != null">
+				AND create_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND create_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="approveStartDate != null">
+				AND tran_ops_list.approve_time &gt;= #{approveStartDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="approveEndDate != null">
+				AND tran_ops_list.approve_time &lt;= #{approveEndDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="approvor != null and approvor != ''">
+				AND tran_ops_list_approve.approvor = #{approvor,jdbcType=VARCHAR}
+			</if>
+		</where>
+		order by create_time desc
+		<if test="offset != null and limit != null">
+		limit #{offset},#{limit};
+		</if>
+	</select>
+  <select id="searchIds" resultMap="BaseResultMap">
+		select id, approve_time
+		FROM
+		tran_ops_list
+		<where>
+			<if test="teamid != null">
+				AND content_operator_team_id = #{teamid,jdbcType=INTEGER}
+			</if>
+			<if test="startDate != null">
+				AND approve_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND approve_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+			AND audit_status = 2
+		</where>
+	</select>
+	<select id="searchCount" resultType="long">
+		select
+		count(1)
+		from tran_ops_list
+		<if test="approveStartDate != null or approveEndDate != null or (approvor != null and approvor != '')">
+		left join tran_ops_approve on tran_ops_list.id = tran_ops_approve.tran_id and tran_ops_list.approve_time = tran_ops_approve.approve_time
+		</if>
+		<where>
+			<if test="questionId != null">
+				id = #{questionId,jdbcType=BIGINT}
+			</if>
+			<if test="subject != null">
+				AND real_subject = #{subject,jdbcType=INTEGER}
+			</if>
+			<if test="realType != null">
+				AND real_type = #{realType,jdbcType=INTEGER}
+			</if>
+			<if test="realLearnPhase != null">
+				AND real_learnPhase = #{realLearnPhase,jdbcType=INTEGER}
+			</if>
+			<if test="teacher != null and teacher != ''">
+				AND content_operator_name = #{teacher,jdbcType=VARCHAR}
+			</if>
+			<if test="teamid != null">
+				AND content_operator_team_id = #{teamid,jdbcType=INTEGER}
+			</if>
+			<if test="status != null and status != ''">
+				AND audit_status = #{status,jdbcType=VARCHAR}
+			</if>
+			<if test="complete != null">
+				AND tran_ops_list.complete = #{complete,jdbcType=TINYINT}
+			</if>
+			<if test="startDate != null">
+				AND create_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND create_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="approveStartDate != null">
+				AND tran_ops_list.approve_time &gt;= #{approveStartDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="approveEndDate != null">
+				AND tran_ops_list.approve_time &lt;= #{approveEndDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="approvor != null and approvor != ''">
+				AND tran_ops_approve.approvor = #{approvor,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		, tran_ops_approve.reason, tran_ops_approve.approvor
+		from tran_ops_list
+		left join tran_ops_approve on tran_ops_list.id = tran_ops_approve.tran_id and tran_ops_list.approve_time = tran_ops_approve.approve_time
+		where tran_ops_list.id = #{id,jdbcType=BIGINT}
+	</select>
+    <select id="getByPictureId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from tran_ops_list
+		where tran_ops_list.orc_picture_id = #{orcPictureId,jdbcType=BIGINT}
+	</select>
+	<select id="searchTeamContentCount" resultType="long">
+		select
+		count(1) from (select user_key from user_info where team_id = #{teamId,jdbcType=TINYINT}) t
+		join tran_ops_list on t.user_key = tran_ops_list.content_operator_name
+		<where>
+			<if test="transStartDate != null and transStartDate != ''">
+				AND create_time &gt;= #{transStartDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="transEndDate != null and transEndDate != ''">
+				AND create_time &lt;= #{transEndDate,jdbcType=TIMESTAMP}
+			</if>
+			AND complete = 0
+		</where>
+	</select>
+	
+	<select id="searchTeamCompleteCount" resultType="long">
+		select
+		count(1) from (select user_key from user_info where team_id = #{teamId,jdbcType=TINYINT}) t
+		join tran_ops_list on t.user_key = tran_ops_list.content_operator_name and t.user_key = tran_ops_list.operator_name
+		<where>
+			<if test="transStartDate != null  and transStartDate != ''">
+				AND create_time &gt;= #{transStartDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="transEndDate != null and transEndDate != ''">
+				AND create_time &lt;= #{transEndDate,jdbcType=TIMESTAMP}
+			</if>
+				AND complete = 1
+		</where>
+	</select>
+	
+	<select id="searchTeamCheckCount" resultType="long">
+		select
+		count(1) from (select user_key from user_info where team_id = #{teamId,jdbcType=TINYINT}) t
+		join tran_ops_list on t.user_key = tran_ops_list.content_operator_name
+		<where>
+			<if test="status != null and status != ''">
+				AND audit_status = #{status,jdbcType=VARCHAR}
+			</if>
+			<if test="checkStartDate != null and checkStartDate != ''">
+				AND approve_time &gt;= #{checkStartDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="checkEndDate != null and checkEndDate != ''">
+				AND approve_time &lt;= #{checkEndDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+	</select>
+</mapper>

@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.ops.model.Question" >
+  <resultMap id="BaseResultMap" type="com.xuexibao.ops.model.Question" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="knowledge" property="knowledge" jdbcType="VARCHAR" />
+    <result column="learn_phase" property="learnPhase" jdbcType="VARCHAR" />
+    <result column="real_subject" property="realSubject" jdbcType="TINYINT" />
+    <result column="real_id" property="realId" jdbcType="BIGINT" />
+    <result column="error_number" property="errorNumber" jdbcType="INTEGER" />
+    <result column="record_number" property="recordNumber" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="emergency_status" property="emergencyStatus" jdbcType="TINYINT" />
+    <result column="emergency_count" property="emergencyCount" jdbcType="INTEGER" />
+    <result column="allot_count" property="allotCount" jdbcType="TINYINT" />
+    <result column="audio_upload_status" property="audioUploadStatus" jdbcType="TINYINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="latex" property="latex" jdbcType="LONGVARCHAR" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="answer" property="answer" jdbcType="LONGVARCHAR" />
+    <result column="solution" property="solution" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, subject, knowledge, learn_phase, real_subject, real_id, error_number, record_number, 
+    create_time, emergency_status, emergency_count, allot_count, audio_upload_status, 
+    update_time, source, latex, content, answer, solution
+  </sql>
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from question
+		<where>
+			<if test="Id != null">
+				id = #{Id,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+	<select id="getByRealId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from question
+		<where>
+			<if test="RealId != null">
+				real_id = #{RealId,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from question
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from question
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xuexibao.ops.model.Question" >
+    insert into question (id, subject, knowledge, 
+      learn_phase, real_subject, real_id, 
+      error_number, record_number, create_time, 
+      emergency_status, emergency_count, allot_count, 
+      audio_upload_status, update_time, source, 
+      latex, content, answer, 
+      solution)
+    values (#{id,jdbcType=BIGINT}, #{subject,jdbcType=VARCHAR}, #{knowledge,jdbcType=VARCHAR}, 
+      #{learnPhase,jdbcType=VARCHAR}, #{realSubject,jdbcType=TINYINT}, #{realId,jdbcType=BIGINT}, 
+      #{errorNumber,jdbcType=INTEGER}, #{recordNumber,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{emergencyStatus,jdbcType=TINYINT}, #{emergencyCount,jdbcType=INTEGER}, #{allotCount,jdbcType=TINYINT}, 
+      #{audioUploadStatus,jdbcType=TINYINT}, #{updateTime,jdbcType=TIMESTAMP}, #{source,jdbcType=VARCHAR}, 
+      #{latex,jdbcType=LONGVARCHAR}, #{content,jdbcType=LONGVARCHAR}, #{answer,jdbcType=LONGVARCHAR}, 
+      #{solution,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xuexibao.ops.model.Question" >
+    insert into question
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="knowledge != null" >
+        knowledge,
+      </if>
+      <if test="learnPhase != null" >
+        learn_phase,
+      </if>
+      <if test="realSubject != null" >
+        real_subject,
+      </if>
+      <if test="realId != null" >
+        real_id,
+      </if>
+      <if test="errorNumber != null" >
+        error_number,
+      </if>
+      <if test="recordNumber != null" >
+        record_number,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="emergencyStatus != null" >
+        emergency_status,
+      </if>
+      <if test="emergencyCount != null" >
+        emergency_count,
+      </if>
+      <if test="allotCount != null" >
+        allot_count,
+      </if>
+      <if test="audioUploadStatus != null" >
+        audio_upload_status,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="latex != null" >
+        latex,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="answer != null" >
+        answer,
+      </if>
+      <if test="solution != null" >
+        solution,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="subject != null" >
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="knowledge != null" >
+        #{knowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="learnPhase != null" >
+        #{learnPhase,jdbcType=VARCHAR},
+      </if>
+      <if test="realSubject != null" >
+        #{realSubject,jdbcType=TINYINT},
+      </if>
+      <if test="realId != null" >
+        #{realId,jdbcType=BIGINT},
+      </if>
+      <if test="errorNumber != null" >
+        #{errorNumber,jdbcType=INTEGER},
+      </if>
+      <if test="recordNumber != null" >
+        #{recordNumber,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="emergencyStatus != null" >
+        #{emergencyStatus,jdbcType=TINYINT},
+      </if>
+      <if test="emergencyCount != null" >
+        #{emergencyCount,jdbcType=INTEGER},
+      </if>
+      <if test="allotCount != null" >
+        #{allotCount,jdbcType=TINYINT},
+      </if>
+      <if test="audioUploadStatus != null" >
+        #{audioUploadStatus,jdbcType=TINYINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="latex != null" >
+        #{latex,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answer != null" >
+        #{answer,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="solution != null" >
+        #{solution,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xuexibao.ops.model.Question" >
+    update question
+    <set >
+      <if test="subject != null" >
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="knowledge != null" >
+        knowledge = #{knowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="learnPhase != null" >
+        learn_phase = #{learnPhase,jdbcType=VARCHAR},
+      </if>
+      <if test="realSubject != null" >
+        real_subject = #{realSubject,jdbcType=TINYINT},
+      </if>
+      <if test="realId != null" >
+        real_id = #{realId,jdbcType=BIGINT},
+      </if>
+      <if test="errorNumber != null" >
+        error_number = #{errorNumber,jdbcType=INTEGER},
+      </if>
+      <if test="recordNumber != null" >
+        record_number = #{recordNumber,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="emergencyStatus != null" >
+        emergency_status = #{emergencyStatus,jdbcType=TINYINT},
+      </if>
+      <if test="emergencyCount != null" >
+        emergency_count = #{emergencyCount,jdbcType=INTEGER},
+      </if>
+      <if test="allotCount != null" >
+        allot_count = #{allotCount,jdbcType=TINYINT},
+      </if>
+      <if test="audioUploadStatus != null" >
+        audio_upload_status = #{audioUploadStatus,jdbcType=TINYINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="latex != null" >
+        latex = #{latex,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answer != null" >
+        answer = #{answer,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="solution != null" >
+        solution = #{solution,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xuexibao.ops.model.Question" >
+    update question
+    set subject = #{subject,jdbcType=VARCHAR},
+      knowledge = #{knowledge,jdbcType=VARCHAR},
+      learn_phase = #{learnPhase,jdbcType=VARCHAR},
+      real_subject = #{realSubject,jdbcType=TINYINT},
+      real_id = #{realId,jdbcType=BIGINT},
+      error_number = #{errorNumber,jdbcType=INTEGER},
+      record_number = #{recordNumber,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      emergency_status = #{emergencyStatus,jdbcType=TINYINT},
+      emergency_count = #{emergencyCount,jdbcType=INTEGER},
+      allot_count = #{allotCount,jdbcType=TINYINT},
+      audio_upload_status = #{audioUploadStatus,jdbcType=TINYINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      source = #{source,jdbcType=VARCHAR},
+      latex = #{latex,jdbcType=LONGVARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR},
+      answer = #{answer,jdbcType=LONGVARCHAR},
+      solution = #{solution,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexibao.ops.model.Question" >
+    update question
+    set subject = #{subject,jdbcType=VARCHAR},
+      knowledge = #{knowledge,jdbcType=VARCHAR},
+      learn_phase = #{learnPhase,jdbcType=VARCHAR},
+      real_subject = #{realSubject,jdbcType=TINYINT},
+      real_id = #{realId,jdbcType=BIGINT},
+      error_number = #{errorNumber,jdbcType=INTEGER},
+      record_number = #{recordNumber,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      emergency_status = #{emergencyStatus,jdbcType=TINYINT},
+      emergency_count = #{emergencyCount,jdbcType=INTEGER},
+      allot_count = #{allotCount,jdbcType=TINYINT},
+      audio_upload_status = #{audioUploadStatus,jdbcType=TINYINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      source = #{source,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

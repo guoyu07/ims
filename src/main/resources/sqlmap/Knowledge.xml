@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.ops.model.Knowledge" >
+  <resultMap id="BaseResultMap" type="com.xuexibao.ops.model.Knowledge" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="learn_phase" property="learnPhase" jdbcType="TINYINT" />
+    <result column="subject" property="subject" jdbcType="TINYINT" />
+    <result column="knowledge_code" property="knowledgeCode" jdbcType="CHAR" />
+    <result column="knowledge_summary" property="knowledgeSummary" jdbcType="VARCHAR" />
+    <result column="knowledge" property="knowledge" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, learn_phase, subject, knowledge_code, knowledge_summary, knowledge, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from knowledge
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from knowledge
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xuexibao.ops.model.Knowledge" >
+    insert into knowledge (id, learn_phase, subject, 
+      knowledge_code, knowledge_summary, knowledge, 
+      create_time)
+    values (#{id,jdbcType=BIGINT}, #{learnPhase,jdbcType=TINYINT}, #{subject,jdbcType=TINYINT}, 
+      #{knowledgeCode,jdbcType=CHAR}, #{knowledgeSummary,jdbcType=VARCHAR}, #{knowledge,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xuexibao.ops.model.Knowledge" >
+    insert into knowledge
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="learnPhase != null" >
+        learn_phase,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="knowledgeCode != null" >
+        knowledge_code,
+      </if>
+      <if test="knowledgeSummary != null" >
+        knowledge_summary,
+      </if>
+      <if test="knowledge != null" >
+        knowledge,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="learnPhase != null" >
+        #{learnPhase,jdbcType=TINYINT},
+      </if>
+      <if test="subject != null" >
+        #{subject,jdbcType=TINYINT},
+      </if>
+      <if test="knowledgeCode != null" >
+        #{knowledgeCode,jdbcType=CHAR},
+      </if>
+      <if test="knowledgeSummary != null" >
+        #{knowledgeSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="knowledge != null" >
+        #{knowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xuexibao.ops.model.Knowledge" >
+    update knowledge
+    <set >
+      <if test="learnPhase != null" >
+        learn_phase = #{learnPhase,jdbcType=TINYINT},
+      </if>
+      <if test="subject != null" >
+        subject = #{subject,jdbcType=TINYINT},
+      </if>
+      <if test="knowledgeCode != null" >
+        knowledge_code = #{knowledgeCode,jdbcType=CHAR},
+      </if>
+      <if test="knowledgeSummary != null" >
+        knowledge_summary = #{knowledgeSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="knowledge != null" >
+        knowledge = #{knowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexibao.ops.model.Knowledge" >
+    update knowledge
+    set learn_phase = #{learnPhase,jdbcType=TINYINT},
+      subject = #{subject,jdbcType=TINYINT},
+      knowledge_code = #{knowledgeCode,jdbcType=CHAR},
+      knowledge_summary = #{knowledgeSummary,jdbcType=VARCHAR},
+      knowledge = #{knowledge,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getKnowledgeTree" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from knowledge
+		<where>
+			<if test="learnPhase != null">
+				learn_phase = #{learnPhase,jdbcType=INTEGER}
+			</if>
+			<if test="subject != null">
+				AND subject = #{subject,jdbcType=INTEGER}
+			</if>
+			<if test="keyWord != null and keyWord != ''">
+				AND knowledge like CONCAT('%',#{keyWord,jdbcType=VARCHAR},'%')
+			</if>
+		</where>
+		order by knowledge_code
+	</select>
+</mapper>

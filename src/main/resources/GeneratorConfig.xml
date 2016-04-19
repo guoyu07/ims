@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<!-- <classPathEntry location="c:\maven\Repositories\mysql\mysql-connector-java\5.1.34\mysql-connector-java-5.1.34.jar" /> -->
+	<classPathEntry location="C:\Users\User Soft\.m2\repository\org\mybatis\generator\mybatis-generator-core\1.3.2\mybatis-generator-core-1.3.2.jar" />
+	<context id="context_content" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/ims"
+			userId="root" password="123" />
+		<!--<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.1.246:4051/education_biz" userId="liveaa_education" 
+			password="auiDuU#H4ff" /> -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+		
+		<!-- <javaModelGenerator targetPackage="com.xuexibao.ops.model" targetProject="tiku_ops"> <property name="enableSubPackages" 
+			value="true" /> <property name="trimStrings" value="true" /> </javaModelGenerator> <sqlMapGenerator targetPackage="com.xuexibao.ops.sqlmap" 
+			targetProject="tiku_ops"> <property name="enableSubPackages" value="true" /> </sqlMapGenerator> <javaClientGenerator type="XMLMAPPER" 
+			targetPackage="com.xuexibao.ops" targetProject="tiku_ops"> <property name="enableSubPackages" value="true" /> </javaClientGenerator> 
+			<table tableName="tran_ops" domainObjectName="TranOps" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" 
+			enableSelectByExample="false" selectByExampleQueryId="false"></table> <table tableName="tran_ops_approve" domainObjectName="TranOpsApprove" 
+			enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table> -->
+		
+		<javaModelGenerator targetPackage="com.xuexibao.ops.model" targetProject="D:\CTdev\ims\src\main\java" />
+		<sqlMapGenerator targetPackage="sqlmap" targetProject="D:\CTdev\ims\src\main\resources" />
+		
+	<table tableName="user_info" domainObjectName="UserInfo" enableCountByExample="false" enableUpdateByExample="false"
+		enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+
+	</context>
+</generatorConfiguration>

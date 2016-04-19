@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.ops.model.PictureCheckDetail" >
+  <resultMap id="BaseResultMap" type="com.xuexibao.ops.model.PictureCheckDetail" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="tran_id" property="tranId" jdbcType="BIGINT" />
+    <result column="approve_time" property="approveTime" jdbcType="TIMESTAMP" />
+    <result column="cstatus" property="cstatus" jdbcType="INTEGER" />
+    <result column="checker" property="checker" jdbcType="VARCHAR" />
+    <result column="check_time" property="checkTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="grand_parent_id" property="grandParentId" jdbcType="BIGINT" />
+    <association property="orcPicture" column="{tran_id=id}" javaType="com.xuexibao.ops.model.OrcPicture" >
+	  	<id column="id" property="id" jdbcType="BIGINT" /> 
+	    <result column="user_key" property="userKey" jdbcType="VARCHAR" />
+	    <result column="status" property="status" jdbcType="INTEGER" /> 
+	    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	    <result column="seach_type" property="seachType" jdbcType="INTEGER" />
+	    <result column="operator_name" property="operatorName" jdbcType="VARCHAR" />
+	    <result column="approve_time" property="approveTime" jdbcType="TIMESTAMP" />
+	    <result column="operator_team_id" property="operatorTeamId" jdbcType="INTEGER" />  
+	    <result column="question_id" property="questionId" jdbcType="BIGINT" />
+	    <result column="knowledge" property="knowledge" jdbcType="VARCHAR" />
+	    <result column="real_subject" property="realSubject" jdbcType="INTEGER" />
+	    <result column="orc_picture_url" property="orcPictureUrl" jdbcType="VARCHAR" />
+	    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+	    <result column="latex" property="latex" jdbcType="LONGVARCHAR" />
+	    <result column="answer" property="answer" jdbcType="LONGVARCHAR" />
+	    <result column="answer_latex" property="answerLatex" jdbcType="LONGVARCHAR" />
+	    <result column="solution" property="solution" jdbcType="LONGVARCHAR" />
+	</association> 
+  </resultMap>
+  <sql id="Base_Column_List" >
+    picture_check_detail.id, picture_check_detail.tran_id, picture_check_detail.approve_time, cstatus, checker, check_time, picture_check_detail.update_time, parent_id, grand_parent_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from picture_picture_check_detail
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from picture_check_detail
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xuexibao.ops.model.CheckDetail" >
+    insert into picture_check_detail (id, tran_id, approve_time, 
+      cstatus, checker, 
+      check_time, update_time, parent_id, grand_parent_id
+      )
+    values (#{id,jdbcType=BIGINT}, #{tranId,jdbcType=BIGINT}, #{approveTime,jdbcType=TIMESTAMP}, 
+      #{cstatus,jdbcType=INTEGER}, #{checker,jdbcType=VARCHAR}, 
+      #{checkTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{parentId,jdbcType=BIGINT}, #{grandParentId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xuexibao.ops.model.CheckDetail" >
+    insert into picture_check_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="tranId != null" >
+        tran_id,
+      </if>
+      <if test="approveTime != null" >
+        approve_time,
+      </if>
+      <if test="cstatus != null" >
+        cstatus,
+      </if>
+      <if test="checker != null" >
+        checker,
+      </if>
+      <if test="checkTime != null" >
+        check_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="grandParentId != null" >
+        grand_parent_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="tranId != null" >
+        #{tranId,jdbcType=BIGINT},
+      </if>
+      <if test="approveTime != null" >
+        #{approveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cstatus != null" >
+        #{cstatus,jdbcType=INTEGER},
+      </if>
+      <if test="checker != null" >
+        #{checker,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null" >
+        #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="grandParentId != null" >
+        #{grandParentId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateIfNecessary" parameterType="com.xuexibao.ops.model.CheckDetail" >
+    update picture_check_detail
+    <set >
+      <if test="tranId != null" >
+        tran_id = #{tranId,jdbcType=BIGINT},
+      </if>
+      <if test="approveTime != null" >
+        approve_time = #{approveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cstatus != null" >
+        cstatus = #{cstatus,jdbcType=INTEGER},
+      </if>
+      <if test="checker != null" >
+        checker = #{checker,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null" >
+        check_time = #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="grandParentId != null" >
+        grand_parent_id = #{grandParentId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexibao.ops.model.CheckDetail" >
+    update picture_check_detail
+    set tran_id = #{tranId,jdbcType=BIGINT},
+      approve_time = #{approveTime,jdbcType=TIMESTAMP},
+      cstatus = #{cstatus,jdbcType=INTEGER},
+      checker = #{checker,jdbcType=VARCHAR},
+      check_time = #{checkTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      parent_id = #{parentId,jdbcType=BIGINT},
+      grand_parent_id = #{grandParentId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <select id="searchList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		,orc_picture.user_key, orc_picture.create_time,  
+		orc_picture.approve_time, 
+		orc_picture.operator_name,
+		orc_picture.operator_team_id
+		from picture_check_detail
+		left join orc_picture on picture_check_detail.tran_id = orc_picture.id  
+		<where>
+			<if test="questionId != null">
+				picture_check_detail.tran_id = #{questionId,jdbcType=BIGINT}
+			</if>
+			<if test="teacher != null and teacher != ''">
+				AND orc_picture.operator_name = #{teacher,jdbcType=VARCHAR}
+			</if>
+			<if test="status != null ">
+				AND cstatus = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="teamid != null">
+				AND orc_picture.operator_team_id = #{teamid,jdbcType=INTEGER}
+			</if>
+			<if test="parent_id != null">
+				AND picture_check_detail.parent_id = #{parent_id,jdbcType=BIGINT}
+			</if>
+			<if test="grand_parent_id != null">
+				AND picture_check_detail.grand_parent_id = #{grand_parent_id,jdbcType=BIGINT}
+			</if>
+		</where>
+		order by id desc
+		limit #{offset},#{limit};
+	</select>
+	<select id="searchCount" resultType="long">
+		select
+		count(1)
+		from picture_check_detail
+	    left join orc_picture on picture_check_detail.tran_id = orc_picture.id  
+		<where>
+			<if test="questionId != null">
+				picture_check_detail.tran_id = #{questionId,jdbcType=BIGINT}
+			</if>
+			<if test="teacher != null and teacher != ''">
+				AND orc_picture.operator_name = #{teacher,jdbcType=VARCHAR}
+			</if>
+			<if test="status != null">
+				AND cstatus = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="teamid != null">
+				AND orc_picture.operator_team_id = #{teamid,jdbcType=INTEGER}
+			</if>
+			<if test="parent_id != null">
+				AND picture_check_detail.parent_id = #{parent_id,jdbcType=BIGINT}
+			</if>
+			<if test="grand_parent_id != null">
+				AND picture_check_detail.grand_parent_id = #{grand_parent_id,jdbcType=BIGINT}
+			</if>
+		</where>
+	</select>
+	    <select id="searchCaptainList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		,orc_picture.create_time,  
+		orc_picture.approve_time, 
+		orc_picture.operator_name,
+		orc_picture.operator_team_id
+		from picture_check_detail
+		left join orc_picture on picture_check_detail.tran_id = orc_picture.id  
+		<where>
+			<if test="questionId != null">
+				picture_check_detail.tran_id = #{questionId,jdbcType=BIGINT}
+			</if>
+			<if test="teacher != null and teacher != ''">
+				AND orc_picture.operator_name = #{teacher,jdbcType=VARCHAR}
+			</if>
+			<if test="status == null">
+				AND (cstatus = 1 or cstatus = 2)
+			</if>
+			<if test="status != null">
+				AND cstatus = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="teamid != null">
+				AND orc_picture.operator_team_id = #{teamid,jdbcType=INTEGER}
+			</if>
+			<if test="parent_id != null">
+				AND picture_check_detail.parent_id = #{parent_id,jdbcType=BIGINT}
+			</if>
+			<if test="grand_parent_id != null">
+				AND picture_check_detail.grand_parent_id = #{grand_parent_id,jdbcType=BIGINT}
+			</if>
+		</where>
+		order by id desc
+		limit #{offset},#{limit};
+	</select>
+	<select id="getCheckDetailBygrandParentId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from picture_check_detail
+        where cstatus = 0 
+        <if test="grandParentId != null">
+				AND picture_check_detail.grand_parent_id = #{grandParentId,jdbcType=BIGINT}
+	    </if>
+	    order by id desc 
+        limit 1 
+    </select>
+	
+	<select id="searchCaptainCount" resultType="long">
+		select
+		count(1)
+		from picture_check_detail
+	    left join orc_picture on picture_check_detail.tran_id = orc_picture.id  
+		<where>
+			<if test="questionId != null">
+				picture_check_detail.tran_id = #{questionId,jdbcType=BIGINT}
+			</if>
+			<if test="teacher != null and teacher != ''">
+				AND orc_picture.operator_name = #{teacher,jdbcType=VARCHAR}
+			</if>
+			<if test="status == null">
+				AND (cstatus = 1 or cstatus = 2)
+			</if>
+			<if test="status != null">
+				AND cstatus = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="teamid != null">
+				AND orc_picture.operator_team_id = #{teamid,jdbcType=INTEGER}
+			</if>
+			<if test="parent_id != null">
+				AND picture_check_detail.parent_id = #{parent_id,jdbcType=BIGINT}
+			</if>
+			<if test="grand_parent_id != null">
+				AND picture_check_detail.grand_parent_id = #{grand_parent_id,jdbcType=BIGINT}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getUncheckCount" resultType="long">
+		select
+		count(1)
+		from picture_check_detail
+		<where>
+			<if test="parentId != null">
+				parent_id = #{parentId,jdbcType=BIGINT}
+			</if>
+			AND cstatus = 0
+		</where>
+	</select>
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select 
+		<include refid="Base_Column_List" />
+		, orc_picture.user_key, orc_picture.knowledge, 
+        orc_picture.real_subject,
+		orc_picture.content, orc_picture.answer, orc_picture.solution, orc_picture.latex, orc_picture.answer_latex,
+		orc_picture.create_time,
+		orc_picture.operator_name,
+		orc_picture.operator_team_id,
+		orc_picture.orc_picture_url
+		from picture_check_detail
+        left join orc_picture on picture_check_detail.tran_id = orc_picture.id  
+		where picture_check_detail.id = #{id,jdbcType=BIGINT}
+  </select>
+</mapper>

@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.ops.model.Books" >
+  <resultMap id="BaseResultMap" type="com.xuexibao.ops.model.Books" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="grade" property="grade" jdbcType="VARCHAR" />
+    <result column="isbn" property="isbn" jdbcType="VARCHAR" />
+    <result column="source_id" property="sourceId" jdbcType="VARCHAR" />
+    <result column="publishing_house" property="publishingHouse" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="best" property="best" jdbcType="INTEGER" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, subject, grade, isbn, source_id, publishing_house, status, best, operator, create_time, 
+    update_time
+  </sql>
+   <select id="getBookByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		 from books
+		<where>
+			<if test="name != null and name != ''">
+				 name = #{name,jdbcType=VARCHAR} 
+			</if>
+		</where>
+		order by create_time desc
+	    limit 1;
+	</select>
+  	<select id="getBookById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from books
+		<where>
+			<if test="Id != null">
+				id = #{Id,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+	 <select id="getIdByName" resultType="java.lang.Long">
+		select
+		id
+		from books
+		<where>
+			<if test="name != null and name != ''">
+				 name = #{name,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	 <select id="getBestByTranId" resultType="java.lang.Integer">
+		select books.best from tran_ops join orc_picture
+		on tran_ops.orc_picture_id = orc_picture.id
+		join books on orc_picture.bookid = books.id
+		where tran_ops.id = #{tranId,jdbcType=INTEGER}
+	</select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from books
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from books
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xuexibao.ops.model.Books" >
+    insert into books (id, name, subject, 
+      grade, isbn, source_id, 
+      publishing_house, status, best, operator, 
+      create_time, update_time)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{subject,jdbcType=VARCHAR}, 
+      #{grade,jdbcType=VARCHAR}, #{isbn,jdbcType=VARCHAR}, #{sourceId,jdbcType=VARCHAR}, 
+      #{publishingHouse,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{best,jdbcType=INTEGER}, #{operator,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xuexibao.ops.model.Books" >
+    insert into books
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="grade != null" >
+        grade,
+      </if>
+      <if test="isbn != null" >
+        isbn,
+      </if>
+      <if test="sourceId != null" >
+        source_id,
+      </if>
+      <if test="publishingHouse != null" >
+        publishing_house,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="best != null" >
+        best,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="isbn != null" >
+        #{isbn,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceId != null" >
+        #{sourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="publishingHouse != null" >
+        #{publishingHouse,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="best != null" >
+        #{best,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateIfNecessary" parameterType="com.xuexibao.ops.model.Books" >
+    update books
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        grade = #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="isbn != null" >
+        isbn = #{isbn,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceId != null" >
+        source_id = #{sourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="publishingHouse != null" >
+        publishing_house = #{publishingHouse,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="best != null" >
+        best = #{best,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateBookInfoById" parameterType="com.xuexibao.ops.model.Books" >
+    update books
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null" >
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        grade = #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="isbn != null" >
+        isbn = #{isbn,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceId != null" >
+        source_id = #{sourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="publishingHouse != null" >
+        publishing_house = #{publishingHouse,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="best != null" >
+        best = #{best,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexibao.ops.model.Books" >
+    update books
+    set name = #{name,jdbcType=VARCHAR},
+      subject = #{subject,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=VARCHAR},
+      isbn = #{isbn,jdbcType=VARCHAR},
+      source_id = #{sourceId,jdbcType=VARCHAR},
+      publishing_house = #{publishingHouse,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      best = #{best,jdbcType=INTEGER},
+      operator = #{operator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+   <select id="getListbyNameOrIsbn" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		 from books
+			<where>
+			<if test="nameisbn != null and nameisbn != ''">
+				AND ( name = #{nameisbn,jdbcType=VARCHAR} or isbn = #{nameisbn,jdbcType=VARCHAR} )
+			</if>
+			<if test="source_id != null and source_id != ''">
+				AND source_id like '%' #{source_id,jdbcType=VARCHAR} '%'
+			</if>
+			<if test="status != null">
+				AND status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="best != null">
+				AND best = #{best,jdbcType=INTEGER}
+			</if>
+		</where>
+		order by create_time desc
+	   
+	</select>
+   <select id="searchList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		 from books
+			<where>
+			<if test="name != null and name != ''">
+				AND name = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="isbn != null and isbn != ''">
+				AND isbn = #{isbn,jdbcType=VARCHAR}
+			</if>
+			<if test="source_id != null and source_id != ''">
+				AND source_id like '%' #{source_id,jdbcType=VARCHAR} '%'
+			</if>
+			<if test="status != null">
+				AND status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="best != null">
+				AND best = #{best,jdbcType=INTEGER}
+			</if>
+			<if test="startDate != null">
+				AND create_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND create_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+		order by create_time desc
+		<if test="offset != null and limit != null">
+		limit #{offset},#{limit};
+		</if>
+	</select>
+	<select id="searchCount" resultType="long">
+		select
+		count(1)
+		from books
+		<where>
+			<if test="name != null and name != ''">
+				AND name = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="isbn != null and isbn != ''">
+				AND isbn = #{isbn,jdbcType=VARCHAR}
+			</if>
+			<if test="source_id != null and source_id != ''">
+				AND source_id like '%' #{source_id,jdbcType=VARCHAR} '%' 
+			</if>
+			<if test="status != null">
+				AND status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="best != null">
+				AND best = #{best,jdbcType=INTEGER}
+			</if>
+			<if test="startDate != null">
+				AND create_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND create_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+	</select>
+  
+</mapper>

@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.ops.model.RecognitionPicture">
+	<resultMap id="BaseResultMap" type="com.xuexibao.ops.model.RecognitionPicture">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="file_name" property="fileName" jdbcType="VARCHAR" />
+		<result column="file_path" property="filePath" jdbcType="VARCHAR" />
+		<result column="operator1" property="operator1" jdbcType="VARCHAR" />
+		<result column="operator2" property="operator2" jdbcType="VARCHAR" />
+		<result column="recognition_time" property="recognitionTime" jdbcType="TIMESTAMP" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="request_time" property="request_time" jdbcType="TIMESTAMP" />
+		<result column="request_num" property="request_num" jdbcType="INTEGER" />
+		<association property="recognitionHistory" column="{id=id}"
+			javaType="com.xuexibao.ops.model.RecognitionHistory">
+			<id column="id" property="id" jdbcType="BIGINT" />
+			<result column="file_id" property="fileId" jdbcType="BIGINT" />
+			<result column="operator" property="operator" jdbcType="VARCHAR" />
+			<result column="recognition_time" property="recognitionTime" jdbcType="TIMESTAMP" />
+			<result column="result" property="result" jdbcType="CHAR" />
+			<result column="status" property="status" jdbcType="INTEGER" />
+		</association>
+	</resultMap>
+	<sql id="Base_Column_List">
+		recognition_picture.id, file_name, file_path, operator1, operator2,
+		recognition_picture.recognition_time, recognition_picture.status, request_num,
+		create_time,
+		update_time, request_time
+	</sql>
+	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		,recognition_history.result from recognition_picture
+		left join recognition_history on
+		recognition_picture.id=recognition_history.file_id
+		where
+		recognition_picture.id =
+		#{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from recognition_picture
+		where id =
+		#{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.xuexibao.ops.model.RecognitionPicture"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into recognition_picture (file_name,
+		file_path,create_time)
+		values
+		(#{fileName,jdbcType=VARCHAR},
+		#{filePath,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		<!-- <selectKey resultType="long" keyProperty="id" order="AFTER"> SELECT LAST_INSERT_ID() </selectKey> -->
+		insert into recognition_picture (file_name, file_path,create_time)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.fileName},#{item.filePath},#{item.createTime})
+		</foreach>
+	</insert>
+ 
+	<update id="updateRequestNum"  parameterType="java.util.List">
+		update recognition_picture
+		<set>
+			request_num = 1,
+			request_time = now()
+		</set>
+	   where id in (
+	   <foreach collection="list" item="item" index="index" open="" close="" separator=",">
+			${item.id}
+	   </foreach>
+	   )
+    </update>
+	<update id="resetRequestNum"  parameterType="java.util.List">
+		update recognition_picture
+		<set>
+			request_num = 0,
+			request_time = null
+		</set>
+	   where id in (
+	   <foreach collection="list" item="item" index="index" open="" close="" separator=",">
+			${item}
+	   </foreach>
+	   )
+    </update>
+	<select id="needResetRequestIds" resultType="java.lang.Long">
+		select
+		id
+		from recognition_picture
+		<where>
+			status = 0 and request_num = 1
+			and request_time &lt; #{oneHourEarlier,jdbcType=TIMESTAMP}
+		</where>
+	</select>
+	<insert id="insertSelective" parameterType="com.xuexibao.ops.model.RecognitionPicture">
+		insert into recognition_picture
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="fileName != null">
+				file_name,
+			</if>
+			<if test="filePath != null">
+				file_path,
+			</if>
+			<if test="operator1 != null and operator1 !='' and operator1 != ''">
+				operator1,
+			</if>
+			<if test="operator2 != null and operator2 !='' and operator2 !=''">
+				operator2,
+			</if>
+			<if test="status != null">
+				recognition_picture.status,
+			</if>
+			<if test="request_num != null">
+				request_num,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="request_time != null">
+				request_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="fileName != null">
+				#{fileName,jdbcType=VARCHAR},
+			</if>
+			<if test="filePath != null">
+				#{filePath,jdbcType=VARCHAR},
+			</if>
+			<if test="operator1 != null and operator1 !='' and operator1 !=''">
+				#{operator1,jdbcType=VARCHAR},
+			</if>
+			<if test="operator2 != null and operator2 !=''  and operator2 !=''">
+				#{operator2,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="request_num != null">
+				#{request_num,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateIfNecessary" parameterType="com.xuexibao.ops.model.RecognitionPicture">
+		update recognition_picture
+		<set>
+			<if test="fileName != null">
+				file_name = #{fileName,jdbcType=VARCHAR},
+			</if>
+			<if test="filePath != null">
+				file_path = #{filePath,jdbcType=VARCHAR},
+			</if>
+			<if test="operator1 != null and operator1 !=''">
+				operator1 = #{operator1,jdbcType=VARCHAR},
+			</if>
+			<if test="operator2 != null and operator2 !=''">
+				operator2 = #{operator2,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				recognition_picture.status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="request_num != null">
+				request_num = #{request_num,jdbcType=INTEGER},
+			</if>
+			<if test="recognitionTime != null">
+				recognition_picture.recognition_time = #{recognitionTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="request_time != null">
+				request_time = #{request_time,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="update" parameterType="com.xuexibao.ops.model.RecognitionPicture">
+		update recognition_picture
+		<set>
+			<if test="operator1 != null and operator1 !=''">
+				operator1 = #{operator1,jdbcType=VARCHAR},
+			</if>
+			<if test="operator2 != null and operator2 !=''">
+				operator2 = #{operator2,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				recognition_picture.status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="request_num != null">
+				request_num = #{request_num,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="request_time != null">
+				request_time = #{request_time,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.xuexibao.ops.model.RecognitionPicture">
+		update recognition_picture
+		set file_name =
+		#{fileName,jdbcType=VARCHAR},
+		file_path = #{filePath,jdbcType=VARCHAR},
+		operator1 =
+		#{operator1,jdbcType=VARCHAR},
+		operator2 = #{operator2,jdbcType=VARCHAR},
+		recognition_picture.status =
+		#{status,jdbcType=INTEGER},
+		request_num =
+		#{request_num,jdbcType=INTEGER},
+		create_time =
+		#{createTime,jdbcType=TIMESTAMP},
+		update_time =
+		#{updateTime,jdbcType=TIMESTAMP},
+		request_time =
+		#{request_time,jdbcType=TIMESTAMP}
+		where id =
+		#{id,jdbcType=BIGINT}
+	</update>
+	<select id="selectUnRecList" resultMap="BaseResultMap">
+		select
+		id, file_path
+		from recognition_picture
+		<where>
+			<if test="operator != null and operator != ''">
+				AND status = 0 or (status = 1 and operator1 &lt;&gt; #{operator,jdbcType=VARCHAR})
+			</if>
+			<if test="operator = null or operator = ''">
+				AND status = 0 or status = 1
+			</if>
+		</where>
+		order by create_time
+		<if test="limit != null">
+			limit #{limit};
+		</if>
+	</select>
+	<select id="searchCount" resultType="long">
+		select
+		count(1)
+		from recognition_picture
+		<where>
+			<if test="pictureId != null">
+				AND id = #{pictureId,jdbcType=INTEGER}
+			</if>
+			<if test="status != null">
+				AND status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="status == null">
+				AND status =3 or status=4
+			</if>
+			<if test="startDate != null">
+				AND recognition_time &gt;#{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND recognition_time &lt;#{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+	</select>
+	<select id="countTodayNum" resultType="long">
+		select count(1) from recognition_picture
+		<where>
+			status=2
+			<if test="today != null">
+				AND recognition_time &gt;#{today,jdbcType=TIMESTAMP}
+			</if>
+			<if test="tomorrow != null">
+				AND recognition_time &lt;#{tomorrow,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+	</select>
+	<select id="countRemainNum" resultType="long">
+		select count(1) from recognition_picture
+		<where>
+			status=0
+		</where>
+	</select>
+	<select id="countTotalRecognizedNum" resultType="long">
+		select count(1) from recognition_picture
+		<where>
+			status=2
+		</where>
+	</select>
+	<select id="searchUnRecList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from recognition_picture
+		<where>
+			<choose>
+				<when test="status != null">
+					status = #{status,jdbcType=INTEGER}
+				</when>
+				<otherwise>
+					(status =3 or status=4)
+				</otherwise>
+			</choose>
+			<if test="pictureId != null">
+				AND id = #{pictureId,jdbcType=INTEGER}
+			</if>
+			<if test="startDate != null">
+				AND recognition_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND recognition_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+		order by create_time desc
+		<if test="offset != null and limit != null">
+			limit #{offset},#{limit};
+		</if>
+	</select>
+	<select id="obtainYesterdayData" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from recognition_picture
+		<where>
+			<if test="startDate != null">
+				AND recognition_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND recognition_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+			AND status!=1
+		</where>
+	</select>
+	<select id="obtainRemainPictureList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from recognition_picture
+		<where>
+			recognition_picture.status = 1
+			AND request_num = 0
+		</where>
+		order by create_time desc
+		<if test="limit != null">
+			limit #{limit};
+		</if>
+	</select>
+	<select id="obtainAlternateRemainPictureList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from recognition_picture
+		<where>
+			recognition_picture.status = 0
+			AND request_num = 0
+		</where>
+		order by create_time desc
+		<if test="limit != null">
+			limit #{limit};
+		</if>
+	</select>
+</mapper>

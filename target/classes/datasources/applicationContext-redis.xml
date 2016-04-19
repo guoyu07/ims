@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<bean id="redisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxIdle" value="${redis.maxIdle}" />
+		<property name="minIdle" value="${redis.minIdle}" />
+		<property name="maxTotal" value="${redis.minIdle}" />
+		<property name="maxWaitMillis" value="${redis.maxWaitMillis}" />
+		<property name="testOnBorrow" value="true" />
+		<property name="testOnReturn" value="true" />
+		<property name="testWhileIdle" value="true" />
+		<property name="timeBetweenEvictionRunsMillis" value="${redis.timeBetweenEvictionRunsMillis}" />
+		<property name="numTestsPerEvictionRun" value="${redis.numTestsPerEvictionRun}" />
+		<property name="minEvictableIdleTimeMillis" value="${redis.minEvictableIdleTimeMillis}" />
+	</bean>
+	
+	<bean id="redisPool" class="redis.clients.jedis.JedisPool">
+		<constructor-arg index="0" ref="redisPoolConfig" />
+		<constructor-arg index="1" value="${redis.host}" />
+		<constructor-arg index="2" value="${redis.port}" />
+		<constructor-arg index="3" value="${redis.timeout}" />
+		<constructor-arg index="4" value="${redis.password}" />
+	</bean>
+</beans>

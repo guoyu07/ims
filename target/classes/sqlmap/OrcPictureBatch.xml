@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.ops.model.OrcPictureBatch" >
+  <resultMap id="BaseResultMap" type="com.xuexibao.ops.model.OrcPictureBatch" >
+    <id column="id" property="id" jdbcType="BIGINT" /> 
+    <result column="user_key" property="userKey" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" /> 
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="seach_type" property="seachType" jdbcType="INTEGER" />
+    <result column="operator_name" property="operatorName" jdbcType="VARCHAR" />
+    <result column="approve_time" property="approveTime" jdbcType="TIMESTAMP" />
+    <result column="operator_team_id" property="operatorTeamId" jdbcType="INTEGER" /> 
+    <result column="recolist_count" property="recolistCount" jdbcType="INTEGER" />  
+    <result column="question_id" property="questionId" jdbcType="BIGINT" />
+    <result column="knowledge" property="knowledge" jdbcType="VARCHAR" />
+    <result column="real_subject" property="realSubject" jdbcType="INTEGER" />
+    <result column="orc_picture_url" property="orcPictureUrl" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="latex" property="latex" jdbcType="LONGVARCHAR" />
+    <result column="answer" property="answer" jdbcType="LONGVARCHAR" />
+    <result column="answer_latex" property="answerLatex" jdbcType="LONGVARCHAR" />
+    <result column="solution" property="solution" jdbcType="LONGVARCHAR" />
+    <result column="batchId" property="batchId" jdbcType="VARCHAR" />
+    <result column="target" property="target" jdbcType="VARCHAR" />
+    <result column="raw_text" property="rawText" jdbcType="LONGVARCHAR" />
+    <result column="picture_id" property="pictureId" jdbcType="VARCHAR" />
+    <result column="original_file_name" property="originalFileName" jdbcType="VARCHAR" />
+    <result column="reco_additional_info" property="recoAdditionalInfo" jdbcType="VARCHAR" />    
+  </resultMap>
+  <resultMap id="countResultMap" type="com.xuexibao.ops.model.OrcPictureBatch">  
+    <constructor>  
+    <arg column="status"  javaType="java.lang.Integer" /> 
+    <arg column="number"  javaType="java.lang.Long" /> 
+    </constructor>  
+  </resultMap>
+  <resultMap id="countResultMapPerMonth" type="com.xuexibao.ops.model.OrcPictureResultCount">  
+    <constructor> 
+    <arg column="create_ymd" javaType="java.lang.String" /> 
+    <arg column="status"  javaType="java.lang.Integer" /> 
+    <arg column="number"  javaType="java.lang.Long" /> 
+    </constructor>  
+  </resultMap>  
+  <sql id="Base_Column_List" >
+    id, user_key, status, create_time, update_time, seach_type, operator_name, approve_time, operator_team_id,
+    question_id, knowledge, real_subject, orc_picture_url, content, latex, answer, answer_latex, solution, batchId, target, raw_text,picture_id,original_file_name,
+    reco_additional_info, recolist_count
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from orc_picture_batch
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from orc_picture_batch
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xuexibao.ops.model.OrcPictureBatch" >
+    insert into orc_picture_batch (id, batchId, user_key, 
+      status, create_time, update_time, 
+      seach_type, approve_time, question_id, 
+      knowledge, real_subject, orc_picture_url, 
+      content, latex, answer, 
+      answer_latex, solution, target, raw_text, picture_id,original_file_name, reco_additional_info, recolist_count)
+      values (#{id,jdbcType=BIGINT}, #{batchId,jdbcType=VARCHAR}, #{userKey,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{seachType,jdbcType=INTEGER}, #{approveTime,jdbcType=TIMESTAMP},
+      #{questionId,jdbcType=BIGINT}, 
+      #{knowledge,jdbcType=VARCHAR}, #{realSubject,jdbcType=INTEGER}, #{orcPictureUrl,jdbcType=VARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR}, #{latex,jdbcType=LONGVARCHAR}, #{answer,jdbcType=LONGVARCHAR}, 
+      #{answerLatex,jdbcType=LONGVARCHAR}, #{solution,jdbcType=LONGVARCHAR}, #{target,jdbcType=VARCHAR}, #{rawText,jdbcType=LONGVARCHAR},
+      #{pictureId,jdbcType=LONGVARCHAR}, #{originalFileName,jdbcType=LONGVARCHAR}, #{recoAdditionalInfo,jdbcType=LONGVARCHAR},#{recolistCount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xuexibao.ops.model.OrcPictureBatch" >
+    insert into orc_picture_batch
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="batchId != null" >
+        batchId,
+      </if>
+      <if test="target != null" >
+        target,
+      </if> 
+      <if test="rawText != null" >
+        raw_text,
+      </if>       
+      <if test="userKey != null" >
+        user_key,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="seachType != null" >
+        seach_type,
+      </if>
+      <if test="approveTime != null" >
+        approve_time,
+      </if>
+      <if test="questionId != null" >
+        question_id,
+      </if>
+      <if test="knowledge != null" >
+        knowledge,
+      </if>
+      <if test="realSubject != null" >
+        real_subject,
+      </if>
+      <if test="orcPictureUrl != null" >
+        orc_picture_url,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="latex != null" >
+        latex,
+      </if>
+      <if test="answer != null" >
+        answer,
+      </if>
+      <if test="answerLatex != null" >
+        answer_latex,
+      </if>
+      <if test="solution != null" >
+        solution,
+      </if>
+      <if test="pictureId != null" >
+        picture_id,
+      </if> 
+	  <if test="originalFileName != null" >
+        original_file_name,
+      </if> 
+      <if test="recoAdditionalInfo != null" >
+        reco_additional_info,
+      </if>
+      <if test="recolistCount != null" >
+        recolist_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="batchId != null" >
+        #{batchId,jdbcType=VARCHAR},
+      </if>
+      <if test="target != null" >
+        #{target,jdbcType=VARCHAR},
+      </if>  
+      <if test="rawText != null" >
+        #{rawText,jdbcType=LONGVARCHAR},
+      </if>                    
+      <if test="userKey != null" >
+        #{userKey,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seachType != null" >
+        #{seachType,jdbcType=INTEGER},
+      </if>
+      <if test="approveTime != null" >
+        #{approveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="questionId != null" >
+        #{questionId,jdbcType=BIGINT},
+      </if>
+      <if test="knowledge != null" >
+        #{knowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="realSubject != null" >
+        #{realSubject,jdbcType=INTEGER},
+      </if>
+      <if test="orcPictureUrl != null" >
+        #{orcPictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="latex != null" >
+        #{latex,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answer != null" >
+        #{answer,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answerLatex != null" >
+        #{answerLatex,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="solution != null" >
+        #{solution,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pictureId != null" >
+        #{pictureId,jdbcType=LONGVARCHAR},
+      </if> 
+	  <if test="originalFileName != null" >
+        #{originalFileName,jdbcType=LONGVARCHAR},
+      </if>
+	  <if test="recoAdditionalInfo != null" >
+        #{recoAdditionalInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="recolistCount != null" >
+        #{recolistCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateIfNecessary" parameterType="com.xuexibao.ops.model.OrcPictureBatch" >
+    update orc_picture_batch
+    <set >
+      <if test="userKey != null" >
+        user_key = #{userKey,jdbcType=VARCHAR},
+      </if>
+      <if test="target != null" >
+        target = #{target,jdbcType=VARCHAR},
+      </if>  
+      <if test="rawText != null" >
+        raw_text = #{rawText,jdbcType=LONGVARCHAR},
+      </if>        
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seachType != null" >
+        seach_type = #{seachType,jdbcType=INTEGER},
+      </if>
+      <if test="approveTime != null" >
+        approve_time = #{approveTime,jdbcType=TIMESTAMP},
+      </if>
+       <if test="operatorName != null" >
+        operator_name = #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorTeamId != null" >
+        operator_team_id = #{operatorTeamId,jdbcType=INTEGER},
+      </if>
+      <if test="questionId != null" >
+        question_id = #{questionId,jdbcType=BIGINT},
+      </if>
+      <if test="knowledge != null" >
+        knowledge = #{knowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="realSubject != null" >
+        real_subject = #{realSubject,jdbcType=INTEGER},
+      </if>
+      <if test="orcPictureUrl != null" >
+        orc_picture_url = #{orcPictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="latex != null" >
+        latex = #{latex,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answer != null" >
+        answer = #{answer,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answerLatex != null" >
+        answer_latex = #{answerLatex,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="solution != null" >
+        solution = #{solution,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pictureId != null" >
+        picture_id = #{pictureId,jdbcType=LONGVARCHAR},
+      </if> 
+	  <if test="originalFileName != null" >
+        original_file_name = #{originalFileName,jdbcType=LONGVARCHAR},
+      </if>
+	  <if test="recoAdditionalInfo != null" >
+	   reco_additional_info = #{recoAdditionalInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="recolistCount != null" >
+        recolist_count = #{recolistCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from orc_picture_batch
+		where orc_picture_batch.id = #{id,jdbcType=BIGINT}
+	</select>
+     <select id="getNextById" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		FROM orc_picture_batch
+	    <where>
+			<if test="pictureId != null">
+				id &lt; #{pictureId,jdbcType=BIGINT}
+			</if>
+			<if test="batchId != null and batchId != ''">
+				AND batchId = #{batchId,jdbcType=VARCHAR}
+			</if>
+			<if test="target != null and target != ''">
+				AND target = #{target,jdbcType=VARCHAR}
+			</if>						
+			<if test="status != null">
+				AND status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="userKey != null and userKey != ''">
+				AND user_key = #{userKey,jdbcType=VARCHAR} 
+			</if>
+			<if test="teamid != null">
+				AND operator_team_id = #{teamid,jdbcType=INTEGER} 
+			</if>
+			<if test="startDate != null">
+				AND create_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND create_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+	    order by id desc
+		limit 1;	
+	</select>
+	   <select id="getLastById" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		FROM orc_picture_batch
+	    <where>
+			<if test="pictureId != null">
+				id &gt; #{pictureId,jdbcType=BIGINT}
+			</if>
+			<if test="batchId != null and batchId != ''">
+				AND batchId = #{batchId,jdbcType=VARCHAR}
+			</if>
+			<if test="target != null and target != ''">
+				AND target = #{target,jdbcType=VARCHAR}
+			</if>						
+			<if test="status != null">
+				AND status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="userKey != null and userKey != ''">
+				AND user_key = #{userKey,jdbcType=VARCHAR} 
+			</if>
+			<if test="teamid != null">
+				AND operator_team_id = #{teamid,jdbcType=INTEGER} 
+			</if>
+			<if test="startDate != null">
+				AND create_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND create_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+	    order by id 
+		limit 1;	
+	</select>
+   <select id="searchList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		FROM orc_picture_batch
+	    <where>
+			<if test="status != null">
+				AND status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="target != null and target != ''">
+				AND target = #{target,jdbcType=VARCHAR}
+			</if>			
+			<if test="userKey != null and userKey != ''">
+				AND user_key = #{userKey,jdbcType=VARCHAR} 
+			</if>
+			<if test="originalFileName != null and originalFileName != ''">
+				AND original_file_name like CONCAT('%',#{originalFileName,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="startDate != null">
+				AND create_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND create_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		  	<if test="pictureId != null and pictureId != ''" >
+	        	AND id  = #{pictureId,jdbcType=BIGINT}
+	      	</if>				
+		</where>
+		order by id desc
+		<if test="offset != null and limit != null">
+		limit #{offset},#{limit};
+		</if>
+	</select>
+  <select id="searchCount" resultType="long">
+		select
+		count(1)
+		from orc_picture_batch 
+		<where>
+			<if test="status != null">
+				AND status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="target != null and target != ''">
+				AND target = #{target,jdbcType=VARCHAR}
+			</if>			
+			<if test="userKey != null and userKey != ''">
+				AND user_key = #{userKey,jdbcType=VARCHAR} 
+			</if>
+			<if test="originalFileName != null and originalFileName != ''">
+				AND original_file_name like CONCAT('%',#{originalFileName,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="startDate != null">
+				AND create_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND create_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		  	<if test="pictureId != null and pictureId != ''" >
+	        	AND id  = #{pictureId,jdbcType=BIGINT}
+	      	</if>				
+		</where>
+	</select>
+	
+	<select id="getHasAnswerCount" resultType="long">
+		select
+		count(1)
+		from orc_picture_batch 
+		<where>
+		       1 = 1
+			<if test="questionId != null">
+			   AND	question_id = #{questionId,jdbcType=BIGINT}
+			</if>
+			AND status != 0
+		</where>
+	</select>
+	
+	<select id="searchHasAnswerList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from orc_picture_batch 
+		<where>
+		       1 = 1
+			<if test="questionId != null">
+			   AND	question_id = #{questionId,jdbcType=BIGINT}
+			</if>
+			AND status != 0
+		</where>
+	</select>
+  
+  <select id="searchIds" resultMap="BaseResultMap">
+		select id, approve_time
+		FROM
+		orc_picture_batch
+		<where>
+			<if test="teamid != null">
+				AND operator_team_id = #{teamid,jdbcType=INTEGER}
+			</if>
+			<if test="startDate != null">
+				AND approve_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND approve_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+			AND status = 1
+		</where>
+	</select>
+	
+  	<select id="computeRecPercent" resultMap="countResultMap">
+		select
+		status,count(1) number
+		from orc_picture_batch 
+		<where>
+			<if test="batchId != null and batchId != ''">
+			   AND	batchId = #{batchId,jdbcType=VARCHAR}
+			</if>
+			<if test="target != null and target != ''">
+				AND target = #{target,jdbcType=VARCHAR}
+			</if>			
+			<if test="userKey != null and userKey != ''">
+				AND user_key = #{userKey,jdbcType=VARCHAR} 
+			</if>
+			<if test="startDate != null">
+				AND create_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND create_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+		group by status
+	</select>
+	
+	<select id="getByBatchId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		FROM orc_picture_batch
+		<where>
+			 	batchId = #{batchId,jdbcType=VARCHAR}
+			<if test="status != null">
+				AND status = #{status,jdbcType=INTEGER}
+			</if>			 	
+		</where>
+	</select>
+	
+	<select id="computeRecPercentPerMonth" resultMap="countResultMapPerMonth">
+		select
+		DATE_FORMAT(create_time,'%Y-%m-%d') as create_ymd,status,count(1) number
+		from orc_picture_batch 
+		<where>
+			<if test="target != null and target != ''">
+				AND target = #{target,jdbcType=VARCHAR}
+			</if>			
+			<if test="userKey != null and userKey != ''">
+				AND user_key = #{userKey,jdbcType=VARCHAR} 
+			</if>
+			<if test="searchMonth != null and searchMonth != ''">
+				AND DATE_FORMAT(create_time,'%Y-%m') = #{searchMonth,jdbcType=VARCHAR}
+			</if>
+		</where>
+		group by status,create_ymd
+		order by create_ymd,status
+	</select>
+</mapper>

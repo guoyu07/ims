@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.ops.model.OrcPictureRecolist" >
+  <resultMap id="BaseResultMap" type="com.xuexibao.ops.model.OrcPictureRecolist" >
+    <id 	column="id" property="id" jdbcType="BIGINT" />
+    <result column="orc_picture_batch_id" property="orcPictureBatchId" jdbcType="BIGINT" />  
+    <result column="reco_index" property="recoIndex" jdbcType="INTEGER" />
+    <result column="question_id" property="questionId" jdbcType="BIGINT" />
+	<result column="raw_text" property="rawText" jdbcType="LONGVARCHAR" />	
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="latex" property="latex" jdbcType="LONGVARCHAR" />
+    <result column="answer" property="answer" jdbcType="LONGVARCHAR" />
+    <result column="answer_latex" property="answerLatex" jdbcType="LONGVARCHAR" />
+    <result column="solution" property="solution" jdbcType="LONGVARCHAR" />
+    <result column="knowledge" property="knowledge" jdbcType="VARCHAR" />
+    <result column="real_subject" property="realSubject" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />        
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, orc_picture_batch_id, reco_index, question_id, raw_text, content, latex, answer, answer_latex, solution,
+    knowledge, real_subject, update_time, create_time
+  </sql>
+ 
+ <insert id="insertSelective" parameterType="com.xuexibao.ops.model.OrcPictureRecolist" >
+   insert into orc_picture_recolist
+   <trim prefix="(" suffix=")" suffixOverrides="," >
+     <if test="id != null" >
+       id,
+     </if>
+     <if test="orcPictureBatchId != null" >
+       orc_picture_batch_id,
+     </if>
+     <if test="recoIndex != null" >
+       reco_index,
+     </if>     
+     <if test="questionId != null" >
+       question_id,
+     </if>
+     <if test="rawText != null" >
+       raw_text,
+     </if>       
+     <if test="content != null" >
+       content,
+     </if>
+     <if test="latex != null" >
+       latex,
+     </if>
+     <if test="answer != null" >
+       answer,
+     </if>
+     <if test="answerLatex != null" >
+       answer_latex,
+     </if>
+     <if test="solution != null" >
+       solution,
+     </if>
+     <if test="knowledge != null" >
+       knowledge,
+     </if>    
+     <if test="realSubject != null" >
+       real_subject,
+     </if>
+     <if test="updateTime != null" >
+       update_time,
+     </if>      
+     <if test="createTime != null" >
+       create_time,
+     </if>
+   </trim>
+   <trim prefix="values (" suffix=")" suffixOverrides="," >
+     <if test="id != null" >
+       #{id,jdbcType=BIGINT},
+     </if>
+     <if test="orcPictureBatchId != null" >
+       #{orcPictureBatchId,jdbcType=BIGINT},
+     </if>
+     <if test="recoIndex != null" >
+       #{recoIndex,jdbcType=INTEGER},
+     </if> 
+     <if test="questionId != null" >
+       #{questionId,jdbcType=BIGINT},
+     </if>     
+     <if test="rawText != null" >
+       #{rawText,jdbcType=LONGVARCHAR},
+     </if>                    
+     <if test="content != null" >
+       #{content,jdbcType=LONGVARCHAR},
+     </if>
+     <if test="latex != null" >
+       #{latex,jdbcType=LONGVARCHAR},
+     </if>
+     <if test="answer != null" >
+       #{answer,jdbcType=LONGVARCHAR},
+     </if>
+     <if test="answerLatex != null" >
+       #{answerLatex,jdbcType=LONGVARCHAR},
+     </if>
+     <if test="solution != null" >
+       #{solution,jdbcType=LONGVARCHAR},
+     </if>  
+     <if test="knowledge != null" >
+       #{knowledge,jdbcType=VARCHAR},
+     </if>
+     <if test="realSubject != null" >
+       #{realSubject,jdbcType=INTEGER},
+     </if>   
+     <if test="updateTime != null" >
+       #{updateTime,jdbcType=TIMESTAMP},
+     </if>
+     <if test="createTime != null" >
+       #{createTime,jdbcType=TIMESTAMP},
+     </if>
+   </trim>
+ </insert>
+		
+ <select id="getByOrcPictureBatchId" resultMap="BaseResultMap">
+	select
+	<include refid="Base_Column_List" />
+	FROM orc_picture_recolist
+	<where>
+		 	orc_picture_batch_id = #{orcPictureBatchId,jdbcType=BIGINT}
+	</where>
+ </select>
+ 	
+</mapper>

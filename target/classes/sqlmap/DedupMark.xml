@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.ops.model.DedupMark" >
+  <resultMap id="BaseResultMap" type="com.xuexibao.ops.model.DedupMark" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="base_id" property="baseId" jdbcType="VARCHAR" />
+    <result column="block" property="block" jdbcType="INTEGER" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="finished" property="finished" jdbcType="TINYINT" />
+    <result column="checked" property="checked" jdbcType="TINYINT" />
+    <result column="result" property="result" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, base_id, block, operator, status, finished, checked, result, update_time, create_time
+  </sql>
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from dedup_mark
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from dedup_mark
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xuexibao.ops.model.DedupMark" >
+    insert into dedup_mark (id, base_id, block, 
+      operator, status, finished, 
+      checked, result, update_time, 
+      create_time)
+    values (#{id,jdbcType=BIGINT}, #{baseId,jdbcType=VARCHAR}, #{block,jdbcType=INTEGER}, 
+      #{operator,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{finished,jdbcType=TINYINT}, 
+      #{checked,jdbcType=TINYINT}, #{result,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xuexibao.ops.model.DedupMark" >
+    insert into dedup_mark
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="baseId != null" >
+        base_id,
+      </if>
+      <if test="block != null" >
+        block,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="finished != null" >
+        finished,
+      </if>
+      <if test="checked != null" >
+        checked,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="baseId != null" >
+        #{baseId,jdbcType=VARCHAR},
+      </if>
+      <if test="block != null" >
+        #{block,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="finished != null" >
+        #{finished,jdbcType=TINYINT},
+      </if>
+      <if test="checked != null" >
+        #{checked,jdbcType=TINYINT},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xuexibao.ops.model.DedupMark" >
+    update dedup_mark
+    <set >
+      <if test="baseId != null" >
+        base_id = #{baseId,jdbcType=VARCHAR},
+      </if>
+      <if test="block != null" >
+        block = #{block,jdbcType=INTEGER},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="finished != null" >
+        finished = #{finished,jdbcType=TINYINT},
+      </if>
+      <if test="checked != null" >
+        checked = #{checked,jdbcType=TINYINT},
+      </if>
+      <if test="result != null" >
+        result = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexibao.ops.model.DedupMark" >
+    update dedup_mark
+    set base_id = #{baseId,jdbcType=VARCHAR},
+      block = #{block,jdbcType=INTEGER},
+      operator = #{operator,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      finished = #{finished,jdbcType=TINYINT},
+      checked = #{checked,jdbcType=TINYINT},
+      result = #{result,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  	<select id="searchBlocksList" resultMap="BaseResultMap">
+		select distinct block
+		from dedup_mark 
+		<where>
+			 checked = 0 AND finished = 1
+		</where>
+	</select>
+    <select id="searchIds" resultMap="BaseResultMap">
+		select id, base_id, update_time
+		FROM
+		dedup_mark
+		<where>
+			<if test="teamid != null">
+				AND block = #{teamid,jdbcType=INTEGER}
+			</if>
+			AND checked = 0 AND finished = 1
+		</where>
+	</select>
+  
+
+  <select id="searchOne" resultMap="BaseResultMap">
+		select
+		 <include refid="Base_Column_List" />
+		from dedup_mark
+		<where>
+	      <if test="operator != null" >
+	       and operator = #{operator,jdbcType=VARCHAR}
+	      </if>
+	      <if test="status != null" >
+	       and status = #{status,jdbcType=TINYINT}
+	      </if>
+	      <if test="baseId != null" >
+           and base_id = #{baseId,jdbcType=VARCHAR}
+          </if>
+	      <if test="block != null" >
+           and block = #{block,jdbcType=INTEGER}
+          </if>	          	
+		</where> 
+		order by id
+		limit 1;
+  </select>
+
+  <select id="searchblocklist" resultMap="BaseResultMap">
+		select
+		 <include refid="Base_Column_List" />
+		from dedup_mark
+	    where
+           block = #{block,jdbcType=INTEGER}
+		order by id;
+  </select>
+
+  <select id="searchBiggestBlockId" resultType="java.lang.Integer">
+		select
+		 max(block)
+		from dedup_mark;
+  </select>
+  
+  <update id="updateStatus" parameterType="com.xuexibao.ops.model.DedupMark" >
+    update dedup_mark
+    <set >
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>    
+      <if test="result != null" >
+        result = #{result,jdbcType=VARCHAR},
+      </if>
+    </set>
+	<where>
+      <if test="baseId != null" >
+       and base_id = #{baseId,jdbcType=VARCHAR}
+      </if>	
+      <if test="block != null" >
+       and block = #{block,jdbcType=INTEGER}
+      </if>
+      <if test="operator != null" >
+       and operator = #{operator,jdbcType=VARCHAR}
+      </if>
+	</where> 
+  </update>
+
+  <update id="updateFinishedByBlock" parameterType="com.xuexibao.ops.model.DedupMark" >
+    update dedup_mark
+    <set >
+        finished = 1
+    </set>
+	<where>
+       block = #{block,jdbcType=INTEGER}
+	</where> 
+  </update>
+    
+   <update id="updateCheckedByBlock" parameterType="com.xuexibao.ops.model.DedupMark" >
+    update dedup_mark
+    <set >
+        checked = 1
+    </set>
+	<where>
+       block = #{block,jdbcType=INTEGER}
+	</where> 
+  </update>
+  
+  <select id="minBlockNotAssigned" resultType="java.lang.Integer">
+		select min(block) from dedup_mark where operator is null
+	</select>
+	<update id="assignNewBlock" >
+		update dedup_mark set operator = #{operator,jdbcType=VARCHAR} where block = #{block,jdbcType=INTEGER}
+	</update>
+	<select id="getUnfinishedCount" resultType="java.lang.Integer">
+		select count(1) from dedup_mark where operator = #{operator,jdbcType=VARCHAR} and status = 0
+	</select>
+	<insert id="insertBatch" useGeneratedKeys="true" parameterType="java.util.List">
+		insert into dedup_mark (base_id, block, status, create_time)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.baseId},#{item.block},#{item.status},#{item.createTime})
+		</foreach>
+	</insert>
+</mapper>

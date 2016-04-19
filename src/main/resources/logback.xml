@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+	<statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" />
+	<property resource="datasource.properties" />
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="artificial_recognition_log"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n
+			</pattern>
+		</encoder>
+		<File>${log.base}artificial_recognition/artificial_recognition.log
+		</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.base}artificial_recognition/%d{yyyy-MM-dd}.artificial_recognition.log.zip
+			</FileNamePattern>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%thread${log.separator}%date${log.separator}%-5level${log.separator}%logger${log.separator}%M${log.separator}%msg%n
+			</pattern>
+		</layout>
+	</appender>
+
+	<logger name="artificial_recognition_log" level="INFO">
+		<appender-ref ref="artificial_recognition_log" />
+	</logger>
+	
+	<appender name="session_expired_log"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+		</encoder>
+		<File>${log.base}session_expired/session_expired.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.base}session_expired/%d{yyyy-MM-dd}.session_expired.log.zip
+			</FileNamePattern>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%thread${log.separator}%date${log.separator}%-5level${log.separator}%logger${log.separator}%M${log.separator}%msg%n
+			</pattern>
+		</layout>
+	</appender>
+	<logger name="session_expired_log" level="INFO">
+		<appender-ref ref="session_expired_log" />
+	</logger>
+	
+	<appender name="file_upload_log"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n
+			</pattern>
+		</encoder>
+		<File>${log.base}file_upload_log/file_upload_log.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.base}file_upload_log/%d{yyyy-MM-dd}.file_upload_log.log.zip
+			</FileNamePattern>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%thread${log.separator}%date${log.separator}%-5level${log.separator}%logger${log.separator}%M${log.separator}%msg%n
+			</pattern>
+		</layout>
+	</appender>
+
+	<logger name="file_upload_log" level="INFO">
+		<appender-ref ref="file_upload_log" />
+	</logger>
+	
+	<appender name="org_question_ops_log"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n
+			</pattern>
+		</encoder>
+		<File>${log.base}org_question_ops/org_question_ops.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.base}org_question_ops/%d{yyyy-MM-dd}.org_question_ops.log.zip
+			</FileNamePattern>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%thread${log.separator}%date${log.separator}%-5level${log.separator}%logger${log.separator}%M${log.separator}%msg%n
+			</pattern>
+		</layout>
+	</appender>
+
+	<logger name="org_question_ops_log" level="INFO">
+		<appender-ref ref="org_question_ops_log" />
+	</logger>
+
+	<appender name="machine_recognition_log"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n
+			</pattern>
+		</encoder>
+		<File>${log.base}machine_recognition/machine_recognition.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.base}machine_recognition/%d{yyyy-MM-dd}.machine_recognition.log.zip
+			</FileNamePattern>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%thread${log.separator}%date${log.separator}%-5level${log.separator}%logger${log.separator}%M${log.separator}%msg%n
+			</pattern>
+		</layout>
+	</appender>
+
+	<logger name="machine_recognition_log" level="INFO">
+		<appender-ref ref="machine_recognition_log" />
+	</logger>
+	<appender name="books_log"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n
+			</pattern>
+		</encoder>
+		<File>${log.base}book/books.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.base}book/%d{yyyy-MM-dd}.books.log.zip
+			</FileNamePattern>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%thread${log.separator}%date${log.separator}%-5level${log.separator}%logger${log.separator}%M${log.separator}%msg%n
+			</pattern>
+		</layout>
+	</appender>
+	<logger name="books_log" level="INFO">
+		<appender-ref ref="books_log" />
+	</logger>
+
+	<appender name="question_bank_log"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n
+			</pattern>
+		</encoder>
+		<File>${log.base}question_bank/question_bank.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.base}question_bank/%d{yyyy-MM-dd}.question_bank.log.zip
+			</FileNamePattern>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%thread${log.separator}%date${log.separator}%-5level${log.separator}%logger${log.separator}%M${log.separator}%msg%n
+			</pattern>
+		</layout>
+	</appender>
+
+	<logger name="question_bank_log" level="INFO">
+		<appender-ref ref="question_bank_log" />
+	</logger>
+
+	<appender name="question_check_log"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n
+			</pattern>
+		</encoder>
+		<File>${log.base}question_check/question_check.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.base}question_check/%d{yyyy-MM-dd}.question_check.log.zip
+			</FileNamePattern>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%thread${log.separator}%date${log.separator}%-5level${log.separator}%logger${log.separator}%M${log.separator}%msg%n
+			</pattern>
+		</layout>
+	</appender>
+
+	<logger name="question_check_log" level="INFO">
+		<appender-ref ref="question_check_log" />
+	</logger>
+
+	<appender name="misc_log"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n
+			</pattern>
+		</encoder>
+		<File>${log.base}misc/misc.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.base}misc/%d{yyyy-MM-dd}.misc.log.zip
+			</FileNamePattern>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%thread${log.separator}%date${log.separator}%-5level${log.separator}%logger${log.separator}%M${log.separator}%msg%n
+			</pattern>
+		</layout>
+	</appender>
+
+	<logger name="misc_log" level="INFO">
+		<appender-ref ref="misc_log" />
+	</logger>
+
+	<appender name="dupQuestion_check_log"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n
+			</pattern>
+		</encoder>
+		<File>${log.base}dupQuestion_check/dupQuestion_check.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.base}dupQuestion_check/%d{yyyy-MM-dd}.dupQuestion_check.log.zip
+			</FileNamePattern>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%thread${log.separator}%date${log.separator}%-5level${log.separator}%logger${log.separator}%M${log.separator}%msg%n
+			</pattern>
+		</layout>
+	</appender>
+
+	<logger name="dupQuestion_check_log" level="INFO">
+		<appender-ref ref="dupQuestion_check_log" />
+	</logger>
+	
+<!-- 	<logger name="com.xuexibao.ops.model" level="DEBUG" /> -->
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+	</root>
+
+</configuration>  

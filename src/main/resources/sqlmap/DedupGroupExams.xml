@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.ops.model.DedupGroupExams" >
+  <resultMap id="BaseResultMap" type="com.xuexibao.ops.model.DedupGroupExams" >
+    <result column="group_id" 		property="groupId" 		jdbcType="INTEGER" />
+    <result column="question_id" 	property="questionId" 	jdbcType="BIGINT" />
+    <result column="best" 			property="best" 		jdbcType="TINYINT" />
+    <result column="create_time" 	property="createTime" 	jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    group_id, question_id, best, create_time
+  </sql>
+
+  <insert id="insert" parameterType="com.xuexibao.ops.model.DedupGroupExams" >
+    insert into dedup_group_exams (group_id, question_id, best, create_time)
+      values (
+      #{groupId,jdbcType=INTEGER}, 
+      #{questionId,jdbcType=BIGINT}, 
+      #{best,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <select id="selectByQuestionId" resultType="java.lang.Long" parameterType="java.lang.Long" >
+    select 
+    group_id
+    from dedup_group_exams
+    where question_id = #{questionId,jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectByGroupId" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select 
+    count(1)
+    from dedup_group_exams
+    where group_id = #{groupId,jdbcType=INTEGER}
+  </select>
+  
+
+  <update id="updateByQuestionId" parameterType="com.xuexibao.ops.model.DedupGroupExams" >
+    update dedup_group_exams
+    <set >
+    	update_time = now(),
+        best = 1    
+    </set>
+    where group_id = #{groupId,jdbcType=BIGINT}
+    and   question_id = #{questionId,jdbcType=TINYINT}
+  </update>  
+    
+</mapper>

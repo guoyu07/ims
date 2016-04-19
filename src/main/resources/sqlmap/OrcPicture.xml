@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.ops.model.OrcPicture" >
+  <resultMap id="BaseResultMap" type="com.xuexibao.ops.model.OrcPicture" >
+    <id column="id" property="id" jdbcType="BIGINT" /> 
+    <result column="user_key" property="userKey" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" /> 
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="seach_type" property="seachType" jdbcType="INTEGER" />
+    <result column="operator_name" property="operatorName" jdbcType="VARCHAR" />
+    <result column="approve_time" property="approveTime" jdbcType="TIMESTAMP" />
+    <result column="operator_team_id" property="operatorTeamId" jdbcType="INTEGER" />  
+    <result column="question_id" property="questionId" jdbcType="BIGINT" />
+    <result column="knowledge" property="knowledge" jdbcType="VARCHAR" />
+    <result column="real_subject" property="realSubject" jdbcType="INTEGER" />
+    <result column="orc_picture_url" property="orcPictureUrl" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="latex" property="latex" jdbcType="LONGVARCHAR" />
+    <result column="answer" property="answer" jdbcType="LONGVARCHAR" />
+    <result column="answer_latex" property="answerLatex" jdbcType="LONGVARCHAR" />
+    <result column="solution" property="solution" jdbcType="LONGVARCHAR" />
+    <result column="bookid" property="bookId" jdbcType="BIGINT" /> 
+    <result column="pushstatus" property="pushstatus" jdbcType="INTEGER" /> 
+    <association property="books" column="{bookid=id}" javaType="com.xuexibao.ops.model.Books">
+		<id column="id" property="id" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="source_id" property="sourceId" jdbcType="VARCHAR" />
+	</association>
+  </resultMap>
+  <resultMap type="com.xuexibao.ops.model.OrcPicture" id="countResultMap" >  
+    <constructor>  
+    <idArg javaType="Long" column="orc_picture_id"/>  
+    <arg column="tran_ops_id"  javaType="Long" /> 
+    <arg column="book_id"  javaType="Long" /> 
+    <arg column="books_source_id"  javaType="String" /> 
+    </constructor>  
+  </resultMap>  
+ <resultMap type="com.xuexibao.ops.model.OrcAnalysisBydate" id="orccountResultMap" >  
+    <constructor>  
+    <idArg javaType="String" column="operator"/>  
+    <arg column="cnt_not"  javaType="INTEGER" /> 
+    <arg column="cnt_right"  javaType="INTEGER" /> 
+    <arg column="cnt_finish"  javaType="INTEGER" /> 
+    </constructor>  
+</resultMap>  
+  <sql id="Base_Column_List" >
+    orc_picture.id, user_key, orc_picture.status, orc_picture.create_time, orc_picture.update_time, seach_type, operator_name, approve_time, operator_team_id,
+    question_id, knowledge, real_subject, orc_picture_url, content, latex, answer, answer_latex, solution,bookid,pushstatus
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from orc_picture
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from orc_picture
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xuexibao.ops.model.OrcPicture" >
+    insert into orc_picture (id, user_key, 
+      orc_picture.status, create_time, update_time, 
+      seach_type, approve_time, question_id, 
+      knowledge, real_subject, orc_picture_url, 
+      content, latex, answer, 
+      answer_latex, solution, bookid)
+      values (#{id,jdbcType=BIGINT}, #{userKey,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{seachType,jdbcType=INTEGER}, #{approveTime,jdbcType=TIMESTAMP},
+      #{questionId,jdbcType=BIGINT}, 
+      #{knowledge,jdbcType=VARCHAR}, #{realSubject,jdbcType=INTEGER}, #{orcPictureUrl,jdbcType=VARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR}, #{latex,jdbcType=LONGVARCHAR}, #{answer,jdbcType=LONGVARCHAR}, 
+      #{answerLatex,jdbcType=LONGVARCHAR}, #{solution,jdbcType=LONGVARCHAR}, #{bookId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xuexibao.ops.model.OrcPicture" >
+    insert into orc_picture
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userKey != null" >
+        user_key,
+      </if>
+      <if test="status != null" >
+        orc_picture.status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="seachType != null" >
+        seach_type,
+      </if>
+      <if test="approveTime != null" >
+        approve_time,
+      </if>
+      <if test="questionId != null" >
+        question_id,
+      </if>
+      <if test="knowledge != null" >
+        knowledge,
+      </if>
+      <if test="realSubject != null" >
+        real_subject,
+      </if>
+      <if test="orcPictureUrl != null" >
+        orc_picture_url,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="latex != null" >
+        latex,
+      </if>
+      <if test="answer != null" >
+        answer,
+      </if>
+      <if test="answerLatex != null" >
+        answer_latex,
+      </if>
+      <if test="solution != null" >
+        solution,
+      </if>
+      <if test="bookId != null" >
+        bookid,
+      </if> 
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userKey != null" >
+        #{userKey,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seachType != null" >
+        #{seachType,jdbcType=INTEGER},
+      </if>
+      <if test="approveTime != null" >
+        #{approveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="questionId != null" >
+        #{questionId,jdbcType=BIGINT},
+      </if>
+      <if test="knowledge != null" >
+        #{knowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="realSubject != null" >
+        #{realSubject,jdbcType=INTEGER},
+      </if>
+      <if test="orcPictureUrl != null" >
+        #{orcPictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="latex != null" >
+        #{latex,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answer != null" >
+        #{answer,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answerLatex != null" >
+        #{answerLatex,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="solution != null" >
+        #{solution,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="bookId != null" >
+        #{bookId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateIfNecessary" parameterType="com.xuexibao.ops.model.OrcPicture" >
+    update orc_picture
+    <set >
+      <if test="userKey != null" >
+        user_key = #{userKey,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        orc_picture.status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seachType != null" >
+        seach_type = #{seachType,jdbcType=INTEGER},
+      </if>
+      <if test="approveTime != null" >
+        approve_time = #{approveTime,jdbcType=TIMESTAMP},
+      </if>
+       <if test="operatorName != null" >
+        operator_name = #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorTeamId != null" >
+        operator_team_id = #{operatorTeamId,jdbcType=INTEGER},
+      </if>
+      <if test="questionId != null" >
+        question_id = #{questionId,jdbcType=BIGINT},
+      </if>
+      <if test="knowledge != null" >
+        knowledge = #{knowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="realSubject != null" >
+        real_subject = #{realSubject,jdbcType=INTEGER},
+      </if>
+      <if test="orcPictureUrl != null" >
+        orc_picture_url = #{orcPictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="latex != null" >
+        latex = #{latex,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answer != null" >
+        answer = #{answer,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answerLatex != null" >
+        answer_latex = #{answerLatex,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="solution != null" >
+        solution = #{solution,jdbcType=LONGVARCHAR},
+      </if>
+       <if test="pushstatus != null" >
+        orc_picture.pushstatus = #{pushstatus,jdbcType=INTEGER},
+      </if>    
+    </set>
+    where orc_picture.id = #{id,jdbcType=BIGINT}
+  </update>
+  	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from orc_picture
+		where orc_picture.id = #{id,jdbcType=BIGINT}
+	</select>
+     <select id="getNextById" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		FROM orc_picture
+	    <where>
+			<if test="pictureId != null">
+				orc_picture.id &lt; #{pictureId,jdbcType=BIGINT}
+			</if>
+			<if test="status != null">
+				AND status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="userKey != null and userKey != ''">
+				AND user_key = #{userKey,jdbcType=VARCHAR} 
+			</if>
+			<if test="teamid != null">
+				AND operator_team_id = #{teamid,jdbcType=INTEGER} 
+			</if>
+			<if test="startDate != null">
+				AND orc_picture.create_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND orc_picture.create_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+	    order by id desc
+		limit 1;	
+	</select>
+	   <select id="getLastById" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		FROM orc_picture
+	    <where>
+			<if test="pictureId != null">
+				orc_picture.id &gt; #{pictureId,jdbcType=BIGINT}
+			</if>
+			<if test="status != null">
+				AND status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="userKey != null and userKey != ''">
+				AND user_key = #{userKey,jdbcType=VARCHAR} 
+			</if>
+			<if test="teamid != null">
+				AND operator_team_id = #{teamid,jdbcType=INTEGER} 
+			</if>
+			<if test="startDate != null">
+				AND orc_picture.create_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND orc_picture.create_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+	    order by id 
+		limit 1;	
+	</select>
+	<update id="updatePushstatusByBookId" parameterType="com.xuexibao.ops.model.OrcPicture" >
+    update orc_picture
+    <set >
+       orc_picture.pushstatus = 0
+    </set>
+        where 
+        <if test="bookId != null">
+        bookid = #{bookId,jdbcType=BIGINT}  and orc_picture.pushstatus = 1
+        </if>
+    </update>
+	<select id="orcPictureRightByDate" resultMap="countResultMap">
+		select orc_picture.id as orc_picture_id,orc_picture.question_id as tran_ops_id,
+		orc_picture.bookid as book_id,books.source_id as books_source_id
+		from orc_picture
+		left join books on orc_picture.bookid=books.id
+		left join tran_ops on orc_picture.id=tran_ops.orc_picture_id
+	    <where>
+		orc_picture.pushstatus=0 AND  books.source_id !='' AND orc_picture.status = 1 AND orc_picture.question_id !='' AND orc_picture.content !=''		
+			<if test="startDate != null">
+				AND orc_picture.update_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND orc_picture.update_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		order by orc_picture.update_time desc
+		limit 100
+		</where>
+   </select>
+    <select id="orcPictureByDate" resultMap="countResultMap">
+		select orc_picture.id as orc_picture_id,tran_ops.id as tran_ops_id,
+		orc_picture.bookid as book_id,books.source_id as books_source_id
+		from orc_picture
+		left join books on orc_picture.bookid=books.id
+		left join tran_ops on orc_picture.id=tran_ops.orc_picture_id
+	    <where>
+			    books.source_id !=''  AND orc_picture.status = 3	AND tran_ops.audit_status = 2 AND tran_ops.orcpushstatus = 1 AND tran_ops.complete = 1		
+			<if test="startDate != null">
+				AND tran_ops.update_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND tran_ops.update_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		order by orc_picture.update_time desc
+		limit 100
+		</where>
+   </select>
+   <select id="searchList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		,books.name from orc_picture
+		left join books on orc_picture.bookid=books.id
+	    <where>
+			<if test="pictureId != null">
+				orc_picture.id = #{pictureId,jdbcType=BIGINT}
+			</if>
+			<if test="bookId != null">
+			   AND	bookid = #{bookId,jdbcType=BIGINT}
+			</if>
+			<if test="status != null">
+				AND orc_picture.status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="userKey != null and userKey != ''">
+				AND user_key = #{userKey,jdbcType=VARCHAR} 
+			</if>
+			<if test="teamid != null">
+				AND operator_team_id = #{teamid,jdbcType=INTEGER} 
+			</if>
+			<if test="startDate != null">
+				AND orc_picture.create_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND orc_picture.create_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+		order by id desc
+		<if test="offset != null and limit != null">
+		limit #{offset},#{limit};
+		</if>
+	</select>
+	   <select id="searchLists" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		,books.name from orc_picture
+		left join books on orc_picture.bookid=books.id
+	    <where>
+			<if test="pictureId != null">
+				orc_picture.id = #{pictureId,jdbcType=BIGINT}
+			</if>
+			<if test="bookIds != null">
+			   AND	bookid in 
+                  <foreach item="item" index="index" collection="bookIds"   
+                        open="(" separator="," close=")">  
+                       #{item}  
+               </foreach>  
+			</if>
+			<if test="status != null">
+				AND orc_picture.status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="userKey != null and userKey != ''">
+				AND user_key = #{userKey,jdbcType=VARCHAR} 
+			</if>
+			<if test="teamid != null">
+				AND operator_team_id = #{teamid,jdbcType=INTEGER} 
+			</if>
+			<if test="startDate != null">
+				AND orc_picture.create_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND orc_picture.create_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+		order by id desc
+		<if test="offset != null and limit != null">
+		limit #{offset},#{limit};
+		</if>
+	</select>
+	  <select id="searchCounts" resultType="long">
+		select
+		count(1)
+		from orc_picture 
+		<where>
+			<if test="pictureId != null">
+			   AND	orc_picture.id = #{pictureId,jdbcType=BIGINT}
+			</if>
+			<if test="bookIds != null">
+			   AND	bookid in 
+			    <foreach item="item" index="index" collection="bookIds"   
+                        open="(" separator="," close=")">  
+                       #{item}  
+               </foreach> 
+			</if>
+			<if test="status != null">
+				AND orc_picture.status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="userKey != null and userKey != ''">
+				AND user_key = #{userKey,jdbcType=VARCHAR} 
+			</if>
+			<if test="teamid != null">
+				AND operator_team_id = #{teamid,jdbcType=INTEGER} 
+			</if>
+			<if test="startDate != null">
+				AND orc_picture.create_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND orc_picture.create_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+	</select>
+  <select id="searchCount" resultType="long">
+		select
+		count(1)
+		from orc_picture 
+		<where>
+			<if test="pictureId != null">
+			   AND	orc_picture.id = #{pictureId,jdbcType=BIGINT}
+			</if>
+			<if test="bookId != null">
+			   AND	bookid = #{bookId,jdbcType=BIGINT}
+			</if>
+			<if test="status != null">
+				AND orc_picture.status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="userKey != null and userKey != ''">
+				AND user_key = #{userKey,jdbcType=VARCHAR} 
+			</if>
+			<if test="teamid != null">
+				AND operator_team_id = #{teamid,jdbcType=INTEGER} 
+			</if>
+			<if test="startDate != null">
+				AND orc_picture.create_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND orc_picture.create_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+	</select>
+	  <select id="searchListCount" resultMap="orccountResultMap">
+		SELECT o.operator_name as operator,cnt_a AS  cnt_not,cnt_a1 AS cnt_right,cnt_a3 AS cnt_finish  FROM(
+SELECT operator_name FROM orc_picture 
+<where>
+           <if test="startDate != null">
+				AND orc_picture.approve_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND orc_picture.approve_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+</where>
+GROUP BY operator_name
+)o
+LEFT JOIN
+(
+SELECT operator_name,STATUS,COUNT(1) AS cnt_a1 FROM orc_picture 
+<where>
+STATUS =1
+			<if test="startDate != null">
+				AND orc_picture.approve_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND orc_picture.approve_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+	
+</where>
+
+GROUP BY operator_name,STATUS
+)a1 ON  a1.operator_name=o.operator_name
+
+LEFT JOIN
+(
+SELECT operator_name,STATUS,COUNT(1) AS cnt_a3 FROM orc_picture
+<where>
+STATUS = 3
+			<if test="startDate != null">
+				AND orc_picture.approve_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND orc_picture.approve_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+			 
+</where>
+ 
+GROUP BY operator_name,STATUS
+)a3 ON  a3.operator_name=o.operator_name
+LEFT JOIN
+(
+SELECT operator_name,STATUS,COUNT(1) AS cnt_a FROM orc_picture
+<where>
+STATUS IN(0,2)
+			<if test="startDate != null">
+				AND orc_picture.approve_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND orc_picture.approve_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+			  
+</where>
+ <!--  WHERE approve_time>='2015-04-26' AND approve_time<'2015-05-26' -->
+
+GROUP BY operator_name,STATUS ) a ON  a.operator_name=o.operator_name
+		<if test="offset != null and limit != null">
+		limit #{offset},#{limit};
+		</if>
+	</select>
+	 <select id="searchOrcCount" resultType="long">
+		select
+		count(1)
+		from (
+		SELECT o.operator_name as operator,cnt_a AS  cnt_not,cnt_a1 AS cnt_right,cnt_a3 AS cnt_finish  FROM(
+SELECT operator_name FROM orc_picture 
+<where>
+           <if test="startDate != null">
+				AND orc_picture.approve_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND orc_picture.approve_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+</where>
+GROUP BY operator_name
+)o
+LEFT JOIN
+(
+SELECT operator_name,STATUS,COUNT(1) AS cnt_a1 FROM orc_picture 
+<where>
+STATUS =1
+			<if test="startDate != null">
+				AND orc_picture.approve_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND orc_picture.approve_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+			 
+</where>
+
+GROUP BY operator_name,STATUS
+)a1 ON  a1.operator_name=o.operator_name
+
+LEFT JOIN
+(
+SELECT operator_name,STATUS,COUNT(1) AS cnt_a3 FROM orc_picture
+<where>
+        STATUS = 3
+			<if test="startDate != null">
+				AND orc_picture.approve_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND orc_picture.approve_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		
+</where>
+
+GROUP BY operator_name,STATUS
+)a3 ON  a3.operator_name=o.operator_name
+LEFT JOIN
+(
+SELECT operator_name,STATUS,COUNT(1) AS cnt_a FROM orc_picture
+<where>
+   STATUS IN(0,2)
+			<if test="startDate != null">
+				AND orc_picture.approve_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND orc_picture.approve_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+			
+</where>
+ <!--  WHERE approve_time>='2015-04-26' AND approve_time<'2015-05-26' -->
+
+GROUP BY operator_name,STATUS ) a ON  a.operator_name=o.operator_name) cnt
+	</select>
+	
+	<select id="getHasAnswerCount" resultType="long">
+		select
+		count(1)
+		from orc_picture 
+		<where>
+			<if test="questionId != null">
+			   AND	question_id = #{questionId,jdbcType=BIGINT}
+			</if>
+			AND status != 0
+		</where>
+	</select>
+	
+	<select id="searchHasAnswerList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from orc_picture 
+		<where>
+			<if test="questionId != null">
+			   AND	question_id = #{questionId,jdbcType=BIGINT}
+			</if>
+			AND status != 0
+		</where>
+	</select>
+  
+  <select id="searchIds" resultMap="BaseResultMap">
+		select id, approve_time
+		FROM
+		orc_picture
+		<where>
+			<if test="teamid != null">
+				AND operator_team_id = #{teamid,jdbcType=INTEGER}
+			</if>
+			<if test="startDate != null">
+				AND approve_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND approve_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+			AND status = 1
+		</where>
+	</select>
+</mapper>

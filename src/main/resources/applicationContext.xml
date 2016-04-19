@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+				http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+				http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+	<!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> <property name="locations" value="classpath:conf.properties" 
+		/> </bean> -->
+	<!-- 读取配置文件位置 -->
+	<import resource="classpath:datasources/applicationContext-mysql.xml" />
+	<import resource="classpath:datasources/applicationContext-mongodb.xml" />
+	<import resource="classpath:security/applicationContext-shiro.xml" />
+	<!-- <import resource="classpath:datasources/applicationContext-redis.xml" /> -->
+
+	<context:component-scan base-package="com">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<bean id="fileUtil" class="com.xuexibao.ops.util.FileUtil">
+		<property name="file_upload_url" value="${file_upload_url}" />
+		<property name="file_download_url" value="${file_download_url}" />
+		<property name="xuebaHost" value="${xuebaHost}" />
+		<property name="xiaoyuanHost" value="${xiaoyuanHost}" />
+	</bean>
+	<bean id="Version" class="com.xuexibao.ops.constant.Version">
+		<property name="version" value="${version}" />
+	</bean>
+	<bean id="UserController" class="com.xuexibao.ops.web.UserController">
+	<!-- 	<property name="basePath" value="${basePath}" /> -->
+	</bean>
+	<bean id="CommonConstant" class="com.xuexibao.ops.constant.CommonConstant">
+		<property name="pre_url" value="${teacher_url}" />
+		<property name="upload_pic_url" value="${upload_pic_url}" />
+		<property name="pic_recod_url" value="${pic_recod_url}" />
+		<property name="question_id_url" value="${question_id_url}" />
+	</bean>
+	<context:property-placeholder location="classpath:datasource.properties"/>
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
+        <property name="defaultEncoding" value="UTF-8"></property>  
+         <property name="maxUploadSize" value="268435456"/>
+    </bean>  
+    <!-- <beans profile="test">
+        <context:property-placeholder location="classpath:datasource_test.properties"/>  
+    </beans>
+    <beans profile="production">
+        <context:property-placeholder location="classpath:datasource.properties"/>  
+    </beans> -->
+</beans>

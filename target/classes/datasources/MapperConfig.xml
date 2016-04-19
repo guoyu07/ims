@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<settings>
+		<!-- 这个配置使全局的映射器启用或禁用缓存。 默认true -->
+		<setting name="cacheEnabled" value="false" />
+		<!-- 全局启用或禁用延迟加载。当禁用时，所有关联对象都会即时加 默认true -->
+		<setting name="lazyLoadingEnabled" value="false" />
+		<!-- 当启用时，有延迟加载属性的对象在被调用时将会完全加载任意属性。否则，每种属性将会按需要加载 -->
+		<setting name="aggressiveLazyLoading" value="true" />
+		<!-- 允许或不允许多种结果集从一个单独的语句中返回（需要适合的驱动） -->
+		<setting name="multipleResultSetsEnabled" value="true" />
+		<!-- 使用列标签代替列名。不同的驱动在这方便表现不同。参考驱动文档或充分测试两种方法来决定所使用的驱动 -->
+		<setting name="useColumnLabel" value="true" />
+		<!-- 允许JDBC支持生成的键。需要适合的驱动。如果设置为true则这个设置强制生成的键被使用，尽管一些驱动拒绝兼容但仍然有效（比如Derby） -->
+		<setting name="useGeneratedKeys" value="false" />
+		<!-- 此属性存在bug，不能使用。指定MyBatis如何自动映射列到字段/属性。PARTIAL只会自动映射简单，没有嵌套的结果。FULL会自动映射任意复杂的结果（嵌套的或其他情况 -->
+		<!-- <setting name="autoMappingBehavior" value="PARTIAL"/> -->
+		<!-- 配置默认的执行器。SIMPLE执行器没有什么特别之处。REUSE执行器重用预处理语句。BATCH执行器重用语句和批量更新 -->
+		<setting name="defaultExecutorType" value="SIMPLE" />
+		<!-- 设置超时时间，决定等待数据库响应的时间 -->
+		<setting name="defaultStatementTimeout" value="25000" />
+	</settings>
+	<mappers>
+	    <mapper resource="/sqlmap/TranOpsApprove.xml" />
+	 	<mapper resource="/sqlmap/TranOps.xml" />	
+	 	<mapper resource="/sqlmap/UserInfo.xml" />	
+	 	<mapper resource="/sqlmap/TikuTeam.xml" />
+	 	<mapper resource="/sqlmap/CheckDetail.xml" />
+	 	<mapper resource="/sqlmap/CheckDetailRecord.xml" />
+	 	<mapper resource="/sqlmap/CheckRecord.xml" />
+	 	<mapper resource="/sqlmap/RecognitionAnalysis.xml" />
+	 	<mapper resource="/sqlmap/RecognitionHistory.xml" />
+	 	<mapper resource="/sqlmap/RecognitionPicture.xml" />
+	 	<mapper resource="/sqlmap/UserSignUp.xml" />
+	 	<mapper resource="/sqlmap/PictureCheckDetail.xml" />
+	 	<mapper resource="/sqlmap/PictureCheckDetailRecord.xml" />
+	 	<mapper resource="/sqlmap/PictureCheckRecord.xml" />
+	 	<mapper resource="/sqlmap/OrcPicture.xml" />
+	 	<mapper resource="/sqlmap/Announcement.xml" />
+	 	<mapper resource="/sqlmap/RecognitionPictureMedium.xml" />
+	 	<mapper resource="/sqlmap/RecognitionAnalysisBydate.xml" />
+	 	<mapper resource="/sqlmap/Books.xml" />
+	 	<mapper resource="/sqlmap/OrcBooks.xml" />
+	 	<mapper resource="/sqlmap/OrcBookRates.xml" />
+	 	<mapper resource="/sqlmap/OrcOperatorStatistics.xml" />
+	 	<mapper resource="/sqlmap/OrcOpsSources.xml" />
+	 	<mapper resource="/sqlmap/OpsQuestion.xml" />
+	    <mapper resource="/sqlmap/OrganizationSources.xml" />
+	    <mapper resource="/sqlmap/OrgQuest.xml" />
+	    <mapper resource="/sqlmap/Question.xml" />
+	    <mapper resource="/sqlmap/DedupBaseExam.xml" />
+	    <mapper resource="/sqlmap/DedupGroupCandidates.xml" />
+	    <mapper resource="/sqlmap/DedupGroupExams.xml" />
+	    <mapper resource="/sqlmap/DedupGroupSelected.xml" />
+	    <mapper resource="/sqlmap/DedupStatisticsInfoMapper.xml" />
+	    <mapper resource="/sqlmap/DedupMark.xml" />
+	    <mapper resource="/sqlmap/DedupCheckDetail.xml" />
+	 	<mapper resource="/sqlmap/DedupCheckDetailRecord.xml" />
+	 	<mapper resource="/sqlmap/DedupCheckRecord.xml" />
+	 	<mapper resource="/sqlmap/OrcPictureBatch.xml" />
+	 	<mapper resource="/sqlmap/OrcPictureRecolist.xml" />
+	 	<mapper resource="/sqlmap/TranOpsList.xml" />
+	 	<mapper resource="/sqlmap/Knowledge.xml" />
+	 	<mapper resource="/sqlmap/QuestionKnowledge.xml" />
+	 	<mapper resource="/sqlmap/TencentQuestionMapper.xml" />
+	</mappers>
+</configuration>
+
+

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.ops.model.TranOpsApprove" >
+  <resultMap id="BaseResultMap" type="com.xuexibao.ops.model.TranOpsApprove" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="tran_id" property="tranId" jdbcType="BIGINT" />
+    <result column="approvor" property="approvor" jdbcType="VARCHAR" />
+    <result column="approve_time" property="approveTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="reason" property="reason" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, tran_id, approvor, approve_time, status, reason
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tran_ops_approve
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tran_ops_approve
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xuexibao.ops.model.TranOpsApprove" >
+    insert into tran_ops_approve (id, tran_id, approvor, 
+      approve_time, status, reason
+      )
+    values (#{id,jdbcType=BIGINT}, #{tranId,jdbcType=BIGINT}, #{approvor,jdbcType=VARCHAR}, 
+      #{approveTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, #{reason,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xuexibao.ops.model.TranOpsApprove" >
+    insert into tran_ops_approve
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="tranId != null" >
+        tran_id,
+      </if>
+      <if test="approvor != null" >
+        approvor,
+      </if>
+      <if test="approveTime != null" >
+        approve_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="reason != null" >
+        reason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="tranId != null" >
+        #{tranId,jdbcType=BIGINT},
+      </if>
+      <if test="approvor != null" >
+        #{approvor,jdbcType=VARCHAR},
+      </if>
+      <if test="approveTime != null" >
+        #{approveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xuexibao.ops.model.TranOpsApprove" >
+    update tran_ops_approve
+    <set >
+      <if test="tranId != null" >
+        tran_id = #{tranId,jdbcType=BIGINT},
+      </if>
+      <if test="approvor != null" >
+        approvor = #{approvor,jdbcType=VARCHAR},
+      </if>
+      <if test="approveTime != null" >
+        approve_time = #{approveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null" >
+        reason = #{reason,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xuexibao.ops.model.TranOpsApprove" >
+    update tran_ops_approve
+    set tran_id = #{tranId,jdbcType=BIGINT},
+      approvor = #{approvor,jdbcType=VARCHAR},
+      approve_time = #{approveTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR},
+      reason = #{reason,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  	<select id="getAllPage" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tran_ops_approve
+		limit #{offset},#{limit};
+	</select>
+	<select id="getAllPageCount" resultType="long">
+		select
+		count(id) from
+		tran_ops_approve
+	</select>
+</mapper>
